@@ -26,4 +26,11 @@
 .hex-row.even {
   margin-left: 53px; }
 
+textarea{
+  background-color: transparent; 
+  border-style: none;
+  resize:none;
+  font-size: 200%;
+}
+
 /*# sourceMappingURL=page_1_CSS.css.map */
