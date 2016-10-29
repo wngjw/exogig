@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	http.Handle("/", http.FileServer(http.Dir("./static/index.html")))
-	http.ListenAndServe(":8000", nil)
+	http.Handle("/", http.FileServer(http.Dir("../../client/")))
+	http.ListenAndServe(":8080", nil)
 }
