@@ -26,11 +26,28 @@
 .hex-row.even {
   margin-left: 53px; }
 
-textarea{
+input{
   background-color: transparent; 
   border-style: none;
   resize:none;
+  color:black;
   font-size: 200%;
+  text-align: center;
 }
-
+input:focus{
+  background-color: transparent; 
+  border-style: none;
+  resize:none;
+  color:black;
+  font-size: 200%;
+  text-align: center;
+}
+button{
+  background-color: transparent; 
+  border:none; 
+  font-size: 25; 
+  color:black;
+  font:bold;
+  font-family: Quicksand;
+}
 /*# sourceMappingURL=page_1_CSS.css.map */
