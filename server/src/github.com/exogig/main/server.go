@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	//"net/http"
+	"github.com/exogig/db"
 	"github.com/garyburd/redigo/redis"
 )
 
@@ -11,20 +12,18 @@ func main() {
 	//http.ListenAndServe(":8000", nil)
 
 	//INIT OMIT
-	c, err := redis.Dial("tcp", ":6379")
-	if err != nil {
-	panic(err)
-	}
-	defer c.Close()
+	connection := db.Connect()
 
 	//set
-	c.Do("SET", "message1", "Hello World")
+	connection.Do("SET", "message1", "Hello World")
 
 	//get
-	world, err := redis.String(c.Do("GET", "message1"))
+	world, err := redis.String(connection.Do("GET", "message1"))
 	if err != nil {
-	fmt.Println("key not found")
+		fmt.Println("key not found")
 	}
+
+	db.Disconnect(connection)
 
 	fmt.Println(world)
 	//ENDINIT OMIT
