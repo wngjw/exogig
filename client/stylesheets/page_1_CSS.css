@@ -33,6 +33,7 @@ input{
   color:black;
   font-size: 200%;
   text-align: center;
+  font-family: "Josefin Sans";
 }
 input:focus{
   background-color: transparent; 
@@ -41,6 +42,7 @@ input:focus{
   color:black;
   font-size: 200%;
   text-align: center;
+  font-family: "Josefin Sans";
 }
 button{
   background-color: transparent; 
@@ -48,6 +50,6 @@ button{
   font-size: 25; 
   color:black;
   font:bold;
-  font-family: Quicksand;
+  font-family: "Josefin Sans";
 }
 /*# sourceMappingURL=page_1_CSS.css.map */
