@@ -1,0 +1,3 @@
+[submodule "server/src/github.com/mgo"]
+	path = server/src/github.com/mgo
+	url = https://github.com/go-mgo/mgo
