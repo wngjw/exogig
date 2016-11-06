@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"time"
 
 	"gopkg.in/mgo.v2"
@@ -19,10 +21,7 @@ var (
 	IsDrop = true
 )
 
-func main() {
-	//http.Handle("/", http.FileServer(http.Dir("../../../client/")))
-	//http.ListenAndServe(":8000", nil)
-
+func handler(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	if err != nil {
 		panic(err)
@@ -39,8 +38,8 @@ func main() {
 		}
 	}
 
-	// Collection People
-	c := session.DB("test").C("people")
+	// Collection  of People
+	collection := session.DB("test").C("people")
 
 	// Index
 	index := mgo.Index{
@@ -51,49 +50,67 @@ func main() {
 		Sparse:     true,
 	}
 
-	err = c.EnsureIndex(index)
+	err = collection.EnsureIndex(index)
 	if err != nil {
 		panic(err)
 	}
 
-	// Insert Datas
-	err = c.Insert(&Person{Name: "Ale", Phone: "+55 53 1234 4321", Timestamp: time.Now()},
-		&Person{Name: "Cla", Phone: "+66 33 1234 5678", Timestamp: time.Now()})
+	// Insert Data
+	err = collection.Insert(&Person{Name: "Luke", Phone: "1 360 259 3087", Timestamp: time.Now()},
+		&Person{Name: "Dusti", Phone: "1 360 561 3276", Timestamp: time.Now()})
 
 	if err != nil {
 		panic(err)
 	}
 
-	// Query One
 	result := Person{}
-	err = c.Find(bson.M{"name": "Ale"}).Select(bson.M{"phone": 0}).One(&result)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Phone", result)
-
-	// Query All
-	var results []Person
-	err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&results)
+	err = collection.Find(bson.M{"name": r.URL.Path[1:]}).Select(bson.M{"phone": ""}).One(&result)
 
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Results All: ", results)
 
-	// Update
-	colQuerier := bson.M{"name": "Ale"}
-	change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7777", "timestamp": time.Now()}}
-	err = c.Update(colQuerier, change)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Fprintf(w, string(result.Phone))
+}
 
-	// Query All
-	err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&results)
+func main() {
+	http.HandleFunc("/", handler)
 
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Results All: ", results)
+	//http.Handle("/", http.FileServer(http.Dir("../../../client/")))
+	log.Fatal(http.ListenAndServe(":8000", nil))
+
+	/*
+		// Query One
+		result := Person{}
+		err = c.Find(bson.M{"name": "Ale"}).Select(bson.M{"phone": 0}).One(&result)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Phone", result)
+
+		// Query All
+		var results []Person
+		err = c.Find(bson.M{"name": "Cla"}).Sort("-timestamp").All(&results)
+
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Results All: ", results)
+
+		// Update
+		colQuerier := bson.M{"name": "Ale"}
+		change := bson.M{"$set": bson.M{"phone": "+86 99 8888 7777", "timestamp": time.Now()}}
+		err = c.Update(colQuerier, change)
+		if err != nil {
+			panic(err)
+		}
+
+		// Query All
+		err = c.Find(bson.M{"name": "Ale"}).Sort("-timestamp").All(&results)
+
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Results All: ", results)
+	*/
 }
