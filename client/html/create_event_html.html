@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
+
 <script src="/node_modules/core-js/client/shim.min.js"></script>
 <script src="/node_modules/zone.js/dist/zone.js"></script>
 <script src="/node_modules/reflect-metadata/Reflect.js"></script>
@@ -15,7 +17,7 @@
 <!-- Downloads Bootstrap's JS, handles the built-in CSS it provides -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- Links up OUR javascript file -->
-<script src="C:/Users/SparkMouse/Desktop/senior_design_project/javascript/page_1_angular.js" type="text/javascript" charset="utf-8" async defer></script>
+<script src="/javascript/page_1_angular.js" type="text/javascript" charset="utf-8" async defer></script>
 <!-- -->
 <!-- -->
 <!-- -->
@@ -25,20 +27,47 @@
 <!-- Links up OUR css file -->
 <link rel="stylesheet" type="text/css" href="\Users\Bogensberger\Desktop\exogig\client\stylesheets\page_1_CSS.css">
 
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 <!-- Actual Page -->
-
-
-<!-- Actual Page -->
-
+<html>
 <head>
-	<title>login page</title>
+	<title>Create an event</title>
 </head>
-<div style="background-color: orange; height: 100%; width:100%;display: block">
+<body style="background-color: black">
+	<!-- first column of input boxes-->
+	<div style="display: inline-block; ">
+		<input type = "text" placeholder = "Event Name" maxlength="50" style="float: left;padding-bottom: 5vh"></input>
 
+		<div style="padding-bottom: 5vh">
+			<input type = "text" placeholder = "Month Day Year" maxlength="16" style="float: left;padding-bottom: 5vh"></input>
+		</div>
+
+		<div >
+			<input type = "text" placeholder = "Time of event" maxlength="10" style="float: left;padding-bottom: 5vh"></input>
+		</div>
+
+		<div>
+			<textarea rows="4" cols="37" style="color: white;background-color: transparent;">Enter your notes about this event
+			</textarea>
+		</div>
 	</div>
-</div>
+	<!-- second column of buttons and set lists-->
+	<div style="display: inline-block;float:right; margin-right: 15vw ;padding-bottom: 5vh">
+			<button>start</button>
+			<button >stop</button>
+			
+			<div style="padding-bottom: 5vh">
+				<h2>Add set lists here</h2>
+			</div>
+			<div style="display: inline-block; padding-bottom: 5vh">
+				<p style="display: inline;">set list</p>
+				<button style=" font-size: 20">add sets</button>
+			</div>
+	</div>
+
+
+</body>
+</html>

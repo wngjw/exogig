@@ -1,25 +1,37 @@
 .hex {
-  float: left;
-  margin-left: 3px;
-  margin-bottom: -26px; }
+  position: relative;
+  width: 30vw; 
+  height: 17.321vw;
+  background-color: transparent;
+  border-left: solid 5px #000000;
+  border-right: solid 5px #000000;
+}
 
-.hex .top {
-  width: 0;
-  border-bottom: 30px solid #6C6;
-  border-left: 52px solid transparent;
-  border-right: 52px solid transparent; }
+.hex:before,
+.hex:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 21.213vw;
+  height: 21.213vw;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background-color: inherit;
+  left: 3.89340vw;
+}
 
-.hex .middle {
-  width: 104px;
-  height: 60px;
-  background: #6C6; }
+.hex:before {
+  top: -10.60660vw;
+  border-top: solid .70711vw #000000;
+  border-right: solid .70711vw #000000;
+}
 
-.hex .bottom {
-  width: 0;
-  border-top: 30px solid #6C6;
-  border-left: 52px solid transparent;
-  border-right: 52px solid transparent; }
-
+.hex:after {
+  bottom: -10.60660vw;
+  border-bottom: solid .70711vw #000000;
+  border-left: solid .70711vw #000000;
+}
 .hex-row {
   clear: left; }
 
@@ -39,7 +51,7 @@ input:focus{
   background-color: transparent; 
   border-style: none;
   resize:none;
-  color:black;
+  color:red;
   font-size: 200%;
   text-align: center;
   font-family: "Josefin Sans";
@@ -48,8 +60,16 @@ button{
   background-color: transparent; 
   border:none; 
   font-size: 25; 
-  color:black;
+  color:orange;
   font:bold;
   font-family: "Josefin Sans";
+}
+p{
+  font-family: 'Josefin Sans'; 
+  color:white;
+  font-size: 28;"
+}
+h2{
+  color: white;
 }
 /*# sourceMappingURL=page_1_CSS.css.map */
