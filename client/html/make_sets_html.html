@@ -30,55 +30,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-<!-- Actual Page -->
 <html>
-<head>
-	<title>Create an event</title>
-</head>
-<body style="background-color: black">
-	<!-- first column of input boxes-->
-	<div style="display: inline-block; ">
-		<input type = "text" placeholder = "Event Name" maxlength="50" style="float: left;padding-bottom: 5vh"></input>
-
-		<div style="padding-bottom: 5vh">
-			<input type = "text" placeholder = "Month Day Year" maxlength="16" style="float: left;padding-bottom: 5vh"></input>
-		</div>
-
-		<div >
-			<input type = "text" placeholder = "Time of event" maxlength="10" style="float: left;padding-bottom: 5vh"></input>
-		</div>
-
+	<title>make set lists</title>
+	<body style="background-color: black">
+		<p>make sets page</p>
 		<div>
-			<textarea rows="4" cols="37" style="color: white;background-color: transparent;">Enter your notes about this event
-			</textarea>
+		<a href="\Users\Bogensberger\Desktop\exogig\client\html\song_html.html" class="btn btn-default">add song</a>
+		<a href="\Users\Bogensberger\Desktop\exogig\client\html\set_html.html" class="btn btn-default">add set</a>
+		
 		</div>
-	</div>
-	<!-- second column of buttons and set lists-->
-	<div style="display: inline-block;float:right; margin-right: 15vw ;padding-bottom: 5vh">
-			<button>start</button>
-			<button >stop</button>
-			
-			<div style="padding-bottom: 5vh">
-				<h2>Add set lists here</h2>
-			</div>
-			
-			<div style="display: inline-block; padding-bottom: 5vh">
-				<p style="display: inline;">set list</p>
-				
-				<a href="\Users\Bogensberger\Desktop\exogig\client\html\set_html.html" class="btn btn-default">add sets</a>
-			</div>
-	</div>
-	
-	<button onclick="goBack()">Go Back</button>
+		<button onclick="goBack()">Go Back</button>
 
 <script>
 function goBack() {
     window.history.back();
 }
 </script>
-		
-
-
-</body>
+	</body>
 </html>

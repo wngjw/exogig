@@ -38,20 +38,23 @@
 .hex-row.even {
   margin-left: 53px; }
 
-input{
-  background-color: transparent; 
+body{
+  background-color: black;
+}
+input:focus{
+  background-color: black; 
   border-style: none;
   resize:none;
-  color:black;
+  color:red;
   font-size: 200%;
   text-align: center;
   font-family: "Josefin Sans";
 }
-input:focus{
+input{
   background-color: transparent; 
   border-style: none;
   resize:none;
-  color:red;
+  color:grey;
   font-size: 200%;
   text-align: center;
   font-family: "Josefin Sans";
@@ -71,5 +74,9 @@ p{
 }
 h2{
   color: white;
+  font-family: 'Josefin Sans';
+}
+a{
+  font-family: 'Josefin Sans';
 }
 /*# sourceMappingURL=page_1_CSS.css.map */
