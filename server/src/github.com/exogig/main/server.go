@@ -22,7 +22,7 @@ var (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	session, err := mgo.Dial("127.0.0.1")
+	session, err := mgo.Dial("127Monotonic.0.0.1")
 	if err != nil {
 		panic(err)
 	}
@@ -74,10 +74,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", handler)
+	//http.HandleFunc("/", handler)
 
-	//http.Handle("/", http.FileServer(http.Dir("../../../client/")))
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	http.Handle("/", http.FileServer(http.Dir("/home/group5/exogig/client/html/")))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 
 	/*
 		// Query One
