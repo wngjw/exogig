@@ -4,7 +4,7 @@ import { Headers, Http } from '@angular/http';
 
 @Component({
  	selector: 'login-page',
-	templateUrl: 'html/login_html.html'
+	templateUrl: 'client/html/login_html.html'
 })
 
 export class AppLoginComponent {

@@ -22,7 +22,7 @@ var AppLoginComponent = (function () {
     AppLoginComponent = __decorate([
         core_1.Component({
             selector: 'login-page',
-            templateUrl: 'html/login_html.html'
+            templateUrl: 'client/html/login_html.html'
         })
     ], AppLoginComponent);
     return AppLoginComponent;
