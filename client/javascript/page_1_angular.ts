@@ -8,6 +8,26 @@ var test: string = "hello world";
 console.log(function_name());  
 
 
+http_example()
+
 function function_name() {
 	return "janet"
 }
+
+function http_example() {
+
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open( "GET", '/checkme' ); // false for synchronous request
+	xmlHttp.send( null );
+	alert('hi mom' + xmlHttp.responseText);
+
+	console.log(xmlHttp.responseText);
+	console.log(xmlHttp.response);
+
+	//return xmlHttp.responseText;
+
+
+}
+
+
+
