@@ -12,6 +12,8 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_component_login_1 = require('./app.component.login');
+var app_component_controller_1 = require('./app.component.controller');
+var app_component_main_1 = require('./app.component.main');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -23,9 +25,11 @@ var AppModule = (function () {
                 http_1.HttpModule,
             ],
             declarations: [
+                app_component_main_1.AppMainComponent,
                 app_component_login_1.AppLoginComponent,
+                app_component_controller_1.AppControllerComponent,
             ],
-            bootstrap: [app_component_login_1.AppLoginComponent]
+            bootstrap: [app_component_controller_1.AppControllerComponent]
         })
     ], AppModule);
     return AppModule;

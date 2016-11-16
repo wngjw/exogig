@@ -1,58 +1,38 @@
-<script src="/node_modules/core-js/client/shim.min.js"></script>
-<script src="/node_modules/zone.js/dist/zone.js"></script>
-<script src="/node_modules/reflect-metadata/Reflect.js"></script>
-<script src="/node_modules/systemjs/dist/system.src.js"></script>
-<script src="/systemjs.config.js"></script>
-<script>
-	System.import('app').catch(function(err){ console.error(err); });
-</script>
 
+<div style="height:100%;width:100%;background-position:center -50%;background-size:100% 640px;background-image: url(media/illegal_image_4.jpg);font-size:1.7em">
+    <nav class="nav navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-1">
+                <span class="sr-only">Toggle navigation </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a style="font-size:1.2em" class="navbar-brand" href="#">Main Page</a>
+            </div>
 
-
-
-<!-- Downloads Jquery, necessary for Bootstrap -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script>
-<!-- Downloads Bootstrap's JS, handles the built-in CSS it provides -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!-- Links up OUR javascript file -->
-<script src="C:/Users/SparkMouse/Desktop/senior_design_project/javascript/page_1_angular.js" type="text/javascript" charset="utf-8" async defer></script>
-<!-- -->
-<!-- -->
-<!-- -->
-<!-- -->
-<!-- Downloads Bootstrap's CSS, gives us a lot of built-in CSS classes to use  -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Links up OUR css file -->
-<link rel="stylesheet" type="text/css" href="\Users\Bogensberger\Desktop\exogig\client\stylesheets\page_1_CSS.css">
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<body style="background-color: black">
-<!-- Actual Page -->
-<div>
-<p>main page</p>
-<a href="\Users\Bogensberger\Desktop\exogig\client\html\splash_html.html" class="btn btn-default">join concert</a>
-<a href="\Users\Bogensberger\Desktop\exogig\client\html\band_page_html.html" class="btn btn-default">go to my band page</a>
-<!-- this is the search bar -->
-<div class="container">
-	<div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <div style="margin-top:20%;"> 
-                <div class="input-group stylish-input-group">
-                    <input type="text" style="-webkit-box-shadow: 0px 0px 5px 4px rgba(255,255,255,1);-moz-box-shadow: 0px 0px 5px 4px rgba(255,255,255,1);box-shadow: 0px 0px 5px 4px rgba(255,255,255,1);height: 5vh;width: 30vw;"  placeholder="Search Bands" >
-                    <span style="background: transparent !important; ">
-                        <button type="submit" style="-webkit-box-shadow: 0px 0px 5px 4px rgba(255,255,255,1);-moz-box-shadow: 0px 0px 5px 4px rgba(255,255,255,1);box-shadow: 0px 0px 5px 4px rgba(255,255,255,1);height: 5vh;width: 5vh;">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>  
-                    </span>
-                </div>
+            <div class="collapse navbar-collapse" id="bs-navbar-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Join Concert</a></li>
+                    <li role="seperator" class="divider"></li>
+                    <li><a href="#">My bands</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input style="font-size:1em" type="text" class="form-control" placeholder="Search Bands">
+                    </div>
+                    <button style="color:orange;font-size:.9em" type="submit" class="btn btn-default">Search</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li (click)="emit_event_to_bands()"><a href="#">Band</a></li>
+                    <li role="seperator" class="divider"></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li role="seperator" class="divider"></li>
+                    <li><a href="#">News</a></li>
+                </ul>
             </div>
         </div>
-	</div>
-</div>
-<a href="\Users\Bogensberger\Desktop\exogig\client\html\band_page_html_viewer.html" class="btn btn-default">band</a>
-
+    </nav>
 
 </div>
-</body>

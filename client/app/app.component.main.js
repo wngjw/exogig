@@ -6,20 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('@angular/core');
-var AppLoginComponent = (function () {
-    function AppLoginComponent() {
+var AppMainComponent = (function () {
+    function AppMainComponent() {
         this.notify = new core_1.EventEmitter();
     }
-    AppLoginComponent.prototype.emit_event_to_mainpage = function () {
-        this.notify.emit('Click from nested component1');
+    AppMainComponent.prototype.emit_event_to_bands = function () {
+        this.notify.emit('Click from nested component2');
     };
-    AppLoginComponent = __decorate([
+    AppMainComponent = __decorate([
         core_1.Component({
-            selector: 'login-page',
-            templateUrl: 'html/login_html.html',
+            selector: 'main-page',
+            templateUrl: 'html/main_page_html.html',
             outputs: ['notify']
         })
-    ], AppLoginComponent);
-    return AppLoginComponent;
+    ], AppMainComponent);
+    return AppMainComponent;
 }());
-exports.AppLoginComponent = AppLoginComponent;
+exports.AppMainComponent = AppMainComponent;

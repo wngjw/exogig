@@ -6,8 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
-
 import { AppLoginComponent } from './app.component.login';
+import { AppControllerComponent } from './app.component.controller';
+import { AppMainComponent } from './app.component.main'
 
 
 @NgModule({
@@ -17,9 +18,11 @@ import { AppLoginComponent } from './app.component.login';
   	HttpModule,
   ],
   declarations: [ 
+	AppMainComponent,
   	AppLoginComponent,
+  	AppControllerComponent,
    ],
-   bootstrap:	[ AppLoginComponent ]
+   bootstrap:	[ AppControllerComponent ],	//From what I understand, bootstrap is basically which component it tries to setup first.
 })
 
 export class AppModule { }
