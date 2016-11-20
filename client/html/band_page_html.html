@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
 
 <script src="/node_modules/core-js/client/shim.min.js"></script>
@@ -9,6 +8,9 @@
 <script>
 	System.import('app').catch(function(err){ console.error(err); });
 </script>
+
+
+
 
 <!-- Downloads Jquery, necessary for Bootstrap -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script>
@@ -23,28 +25,37 @@
 <!-- Downloads Bootstrap's CSS, gives us a lot of built-in CSS classes to use  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Links up OUR css file -->
-<link rel="stylesheet" type="text/css" href="\stylesheets\page_1_CSS.css">
+<link rel="stylesheet" type="text/css" href="\Users\Bogensberger\Desktop\exogig\client\stylesheets\page_1_CSS.css">
 
 <meta charset="UTF-8">
-<meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
-<!-- Actual Page -->
 <html>
-
-<head>
-	<title>Exogig</title>
-</head>	
+	<title>band page</title>
+	<body>
 
 
+	<!-- They'll need to be able to look at events they have saved, and be able to edit that event. -->
 
+		<div>
+			<a href="\Users\Bogensberger\Desktop\exogig\client\html\edit_bio_html.html" class="btn btn-default">edit bio</a>
+		
+			<a href="\Users\Bogensberger\Desktop\exogig\client\html\create_event_html.html" class="btn btn-default">create new event</a>
+		
+			<a href="\Users\Bogensberger\Desktop\exogig\client\html\make_sets_html.html" class="btn btn-default">make sets</a>
+		
+			<a href="\Users\Bogensberger\Desktop\exogig\client\html\edit_song_list_html.html" class="btn btn-default">edit song list</a>
+		</div>
+		<div>
+			<a href="\Users\Bogensberger\Desktop\exogig\client\html\main_page_html.html" class="btn btn-default">browse bands</a>
+		</div>
+		
+		<button onclick="goBack()">Go Back</button>
 
-	<controller-page>Loading this...</controller-page>
-
-
-
-
-
-
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+	</body>
 </html>

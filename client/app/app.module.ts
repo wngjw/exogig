@@ -1,14 +1,15 @@
 //import './rxjs-extensions'; This seems to stop the component from loading in.
 //By not including this, you may be breaking the http retrieval?
-
 import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, ts } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
 import { AppLoginComponent } from './app.component.login';
 import { AppControllerComponent } from './app.component.controller';
 import { AppMainComponent } from './app.component.main'
+
+
 
 
 @NgModule({
@@ -25,4 +26,4 @@ import { AppMainComponent } from './app.component.main'
    bootstrap:	[ AppControllerComponent ],	//From what I understand, bootstrap is basically which component it tries to setup first.
 })
 
-export class AppModule { }
+export class AppModule {}
