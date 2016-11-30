@@ -1,6 +1,6 @@
 .hex {
   position: relative;
-  width: 30vw; 
+  width: 30vw;
   height: 17.321vw;
   background-color: transparent;
   border-left: solid 5px #000000;
@@ -42,41 +42,41 @@ body{
   background-color: black;
 }
 input:focus{
-  background-color: black; 
+  background-color: black;
   border-style: none;
   resize:none;
   color:red;
   font-size: 200%;
   text-align: center;
-  font-family: "Josefin Sans";
+  font-family: "Open Sans";
 }
 input{
-  background-color: transparent; 
+  background-color: transparent;
   border-style: none;
   resize:none;
   color:grey;
   font-size: 200%;
   text-align: center;
-  font-family: "Josefin Sans";
+  font-family: "Open Sans";
 }
 button{
-  background-color: transparent; 
-  border:none; 
-  font-size: 25; 
+  background-color: transparent;
+  border:none;
+  font-size: 25;
   color:orange;
   font:bold;
-  font-family: "Josefin Sans";
+  font-family: "Open Sans";
 }
 p{
-  font-family: 'Josefin Sans'; 
+  font-family: 'Open Sans';
   color:white;
   font-size: 28;"
 }
 h2{
   color: white;
-  font-family: 'Josefin Sans';
+  font-family: 'Open Sans';
 }
 a{
-  font-family: 'Josefin Sans';
+  font-family: 'Open Sans';
 }
 /*# sourceMappingURL=page_1_CSS.css.map */
