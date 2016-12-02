@@ -1,14 +1,14 @@
 /** filepath server/src/github.com/exogig/main/songs.go
-  * Author Luke  
+  * Author Luke
   * Date modified 2016/11/16
-  * 
+  *
   * This file contains classes for the basics of songs and set list for our
   * mongodb Database and go webserver
 **/
 
 package gig
 
-type Song struct {
+/*type Song struct {
     name        string
 }
 
@@ -16,7 +16,7 @@ type Songlist struct {
     songs       []Song
     id          string
 }
-
+*/
 type Set struct {
     songs       []Song
     setNumber   int
@@ -36,7 +36,7 @@ type Rating struct {
 
 type Request struct {
     requestedSong       Song
-    requestingUserName  String
+    requestingUserName  string
 }
 
 type Gig struct {
