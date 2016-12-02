@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
+
 @Component({
-  selector: 'my-app',
-  template: '<h1>My First Angular App</h1>'
+
+  selector: 'login-page',
+  //The guide uses templateUrl: 'heroes.component.html', should my thing be .component.html?
+
+  templateUrl: 'login-page.html'
+
 })
 export class AppComponent { }

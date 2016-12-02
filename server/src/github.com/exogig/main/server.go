@@ -83,8 +83,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", handler)
-
-	//http.Handle("/", http.FileServer(http.Dir("../../../client/")))
+	http.HandleFunc("/1", handler)
+	fs := http.FileServer(http.Dir("../client/html/"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }

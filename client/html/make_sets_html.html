@@ -1,0 +1,50 @@
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+
+<script src="/node_modules/core-js/client/shim.min.js"></script>
+<script src="/node_modules/zone.js/dist/zone.js"></script>
+<script src="/node_modules/reflect-metadata/Reflect.js"></script>
+<script src="/node_modules/systemjs/dist/system.src.js"></script>
+<script src="/systemjs.config.js"></script>
+<script>
+	System.import('app').catch(function(err){ console.error(err); });
+</script>
+
+
+
+
+<!-- Downloads Jquery, necessary for Bootstrap -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script>
+<!-- Downloads Bootstrap's JS, handles the built-in CSS it provides -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Links up OUR javascript file -->
+<script src="/javascript/page_1_angular.js" type="text/javascript" charset="utf-8" async defer></script>
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- Downloads Bootstrap's CSS, gives us a lot of built-in CSS classes to use  -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Links up OUR css file -->
+<link rel="stylesheet" type="text/css" href="..\stylesheets\page_1_CSS.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<html>
+	<title>make set lists</title>
+	<body style="background-color: black">
+		<p>make sets page</p>
+		<div>
+		<a href="..\html\song_html.html" class="btn btn-default">add song</a>
+		<a href="..\html\set_html.html" class="btn btn-default">add set</a>
+
+		</div>
+		<button onclick="goBack()">Go Back</button>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+	</body>
+</html>

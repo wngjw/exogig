@@ -1,0 +1,38 @@
+
+<div style="height:100%;width:100%;background-position:center -50%;background-size:100% 640px;background-image: url(media/illegal_image_4.jpg);font-size:1.7em">
+    <nav class="nav navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-1">
+                <span class="sr-only">Toggle navigation </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a style="font-size:1.2em" class="navbar-brand" href="#">Main Page</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-navbar-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Join Concert</a></li>
+                    <li role="seperator" class="divider"></li>
+                    <li><a href="#">My bands</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input style="font-size:1em" type="text" class="form-control" placeholder="Search Bands">
+                    </div>
+                    <button style="color:orange;font-size:.9em" type="submit" class="btn btn-default">Search</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li (click)="emit_event_to_bands()"><a href="#">Band</a></li>
+                    <li role="seperator" class="divider"></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li role="seperator" class="divider"></li>
+                    <li><a href="#">News</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</div>
