@@ -1,7 +1,7 @@
 /** filepath server/src/github.com/exogig/gig/users.go
-  * Author Luke  
+  * Author Luke
   * Date modified 2016/11/16
-  * 
+  *
   * This file contains classes for the users for our
   * mongodb Database and go webserver
 **/
@@ -17,10 +17,8 @@ type Artist struct {
     members     []User
     gigs        []Gig
     songlist    SongList
-    setlists    []Setlist
+    setlists    []SetList
     bio         string
     picture     string
     name        string
 }
-
-

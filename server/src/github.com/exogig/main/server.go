@@ -57,14 +57,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	// Insert Data
-	//err = collection.Insert(&Person{Name: "Luke", Phone: "1 360 259 3087", Timestamp: time.Now()},
-	//	&Person{Name: "Dusti", Phone: "1 360 561 3276", Timestamp: time.Now()})
+	// Inserts data
 	slist := gig.SongList {
-		ListName: "1",
-		Songs: []gig.Song{
-			{"SilverScrapes"},
-			{"EyeOfTheTiger"},
+		ListName:"1",
+		Songs:[]gig.Song {
+			{Name:"SilverScrapes", Rating:0}, {Name:"EyeOfTheTiger", Rating:0},
 		},
 	}
 	err = collection.Insert(&slist)
