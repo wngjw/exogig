@@ -1,0 +1,38 @@
+<div style="width:60vw;margin-left:auto;margin-right:auto;padding-top:3vh;height:100%;padding-bottom:5vh">
+
+  <div style="margin-left:auto;margin-right:auto">
+  	<h1 style="text-align:center;color:#eceff1;">EXOGIG</h1>
+  </div>
+
+  <!--start login link-->
+    <div style="height:auto;width:48%;margin-top:10vh;margin-left:auto;margin-right:auto;display: block;">
+      <input class="underline_accenting" style="text-align:center;font-size:3em;width:100%;" type="text" placeholder="Key" maxlength="4" />
+    </div>
+
+    <!-- Probably going to want to create a login insertion template, for handing registration stuffs / logging in -->
+
+    <div style="bottom:30vh;position:fixed;width:inherit;margin-left:auto;margin-right:auto;text-align:center;display:block;">
+      <button class="circle-md waves-effect waves-light" (click)="emit_event('main')"><md-icon class="material-icons" style="color:#263238;font-size:3em" >vpn_key</md-icon></button>  	
+    </div>
+
+    <!-- This button will take you to the login -->
+    <div style="bottom:10vh;position:fixed;width:inherit;margin-left:auto;margin-right:auto;text-align:center;display:block;">
+      <button class="circle-sm waves-effect waves-light modal-trigger" (click)="openModal()"><md-icon class="material-icons" style="color:#263238;font-size:2em" >settings</md-icon></button>  	
+    </div>
+
+  <!-- Modal Structure For the Login-->
+  <div id="modal1" style="max-height:75%" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+   
+    <div class="modal-content">
+      <h4>Sign-In</h4>
+      <input placeholder="Username" />
+      <input type="password" placeholder="Password" />
+    </div>
+
+    <div class="modal-footer">
+      <a class="waves-effect waves-light waves-effect btn-flat" (click)="closeModal()">Close</a>
+      <a class="modal-action modal-close waves-effect waves-light btn-flat" (click)="closeModal();emit_event('main')">Login</a>
+    </div>
+  </div>
+
+</div>
