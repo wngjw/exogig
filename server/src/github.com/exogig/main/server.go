@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"encoding/json"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -53,6 +54,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = collection.EnsureIndex(index)
+
 	if err != nil {
 		panic(err)
 	}
@@ -81,6 +83,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/1", handler)
+	http.HandleFunc("/2", func(w http.ResponseWriter, r *http.Request) {
+	slist := gig.SongList {
+		ListName:"1",
+		Songs:[]gig.Song {
+			{Name:"SilverScrapes", Rating:0}, {Name:"EyeOfTheTiger", Rating:0},
+		},
+	}
+	jsonSongList, _ := json.Marshal(slist)
+	fmt.Fprintf(w, string(jsonSongList))
+	})
 	fs := http.FileServer(http.Dir("../client-build/dist/"))
 	http.Handle("/", fs)
 	log.Fatal(http.ListenAndServe(":8000", nil))
