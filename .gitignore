@@ -1,3 +1,13 @@
 # Folder view configuration files
 .DS_Store
 Desktop.ini
+bin/
+pkg/
+lukehoban/
+9fans.net/
+newhook/
+nsf/
+rogpeppe/
+tpng/
+sourcegraph.com/
+golang.org/
