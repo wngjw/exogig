@@ -8,6 +8,16 @@
 import { Component, Directive, Injectable, EventEmitter, Output } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
+interface Song {
+  name: string;
+  rating: number;
+}
+
+interface SongList {
+  listName: string;
+  songs: Song[];
+}
+
 @Component({
  	selector: 'request',
 	templateUrl: 'html/request_html.html',
@@ -21,8 +31,8 @@ export class AppRequestComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
 	question: string;
 	request: string;
-  song: Object;   // Test song to receive from the page
   http: Http;
+  receivedSongList: SongList;
 	constructor(http: Http) {
     this.http = http;
 	}
@@ -31,8 +41,8 @@ export class AppRequestComponent {
 * Submits a request to the page on click.
 */
 	public submitRequest() {
-    this.http.get('/2').map(res => res.json()).subscribe(data => this.song = data);
-    console.log(this.song);   // Receiving the test song from the page
+    this.http.get('/2').map(res => res.json()).subscribe(data => this.receivedSongList = data);
+    console.log(this.receivedSongList);   // Receiving the test song from the page
 		console.log(this.question);
 		console.log(this.request);
   }
