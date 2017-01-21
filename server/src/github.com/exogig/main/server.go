@@ -90,8 +90,17 @@ func main() {
 			{Name:"SilverScrapes", Rating:0}, {Name:"EyeOfTheTiger", Rating:0},
 		},
 	}
-	jsonSongList, _ := json.Marshal(slist)
-	fmt.Fprintf(w, string(jsonSongList))
+	slist2 := gig.SongList {
+		ListName:"2",
+		Songs:[]gig.Song {
+			{Name:"MyHeartWillGoOn", Rating:0}, {Name:"OceanMan", Rating:0},
+		},
+	}
+	var songLists = []gig.SongList{slist, slist2}
+//	jsonSongList, _ := json.Marshal(slist)
+//	fmt.Fprintf(w, string(jsonSongList))
+	jsonSongList2, _ := json.Marshal(songLists)
+	fmt.Fprintf(w, string(jsonSongList2))
 	})
 	fs := http.FileServer(http.Dir("../client-build/dist/"))
 	http.Handle("/", fs)
