@@ -7,16 +7,7 @@
 
 import { Component, Directive, Injectable, EventEmitter, Output } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-
-interface Song {
-  name: string;
-  rating: number;
-}
-
-interface SongList {
-  listName: string;
-  songs: Song[];
-}
+import { Song, SongList } from './gig/app.gig.gig';
 
 @Component({
  	selector: 'request',
