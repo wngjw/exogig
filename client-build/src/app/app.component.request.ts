@@ -40,6 +40,24 @@ export class AppRequestComponent {
 /**
 * Submits a request to the page on click.
 */
+
+/*	This code is required to upload a JavaScript Object.
+
+	for(let key in data) {
+			params.set(key, data[key]);
+		}
+	let options = new RequestOptions({
+			search: params
+		});
+		return this._http.get(service, options)
+		.map(...)
+		.catch(...)
+		.finally(() => {
+			//do something
+		});
+
+*/
+
 	public submitRequest() {
     this.http.get('/2').map(res => res.json()).subscribe(data => this.receivedSongList = data);
     console.log(this.receivedSongList);   // Receiving the test song from the page
