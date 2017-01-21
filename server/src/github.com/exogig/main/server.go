@@ -72,9 +72,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	result := slist
-	fmt.Fprintf(w, string(gig.GetSongNames(result.Songs)))
+	result := gig.SongList{}
 	err = collection.Find(bson.M{"listname": r.URL.Path[1:]}).Select(bson.M{"songs": ""}).One(&result)
+	fmt.Fprintf(w, string(gig.GetSongNames(result.Songs)))
 
 	if err != nil {
 		panic(err)
