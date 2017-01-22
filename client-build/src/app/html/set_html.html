@@ -14,13 +14,37 @@
 		</ul>
 	</div>
 
+	<h2 (click)="checkValue()" style="text-align:center;margin-top:0px;padding-top:3vh" class="text"> Gigged Sets </h2>
 
-	<h2 style="text-align:center;margin-top:0px;padding-top:3vh" class="text"> Gigged Sets </h2>
+	<md-card>
+	<md-card-title>
+		Songs One
+	</md-card-title>
+	<md-card-content>
+		<p>This line of words</p>
+		<p>Is another line of words</p>
+	</md-card-content>
+	</md-card>
+	
+	<md-card materialize="collapsible" class="collapsible" data-collapsible="accordion">
+	<md-card-title class="collapsible-header">
+		Songs Two
+	</md-card-title>
+	<md-card-content class="collapsible-body">
+		<p>This line of words</p>
+		<p>Is another line of words</p>
+	</md-card-content>
+	</md-card>
 
+
+
+
+	<!-- Old build, making edits
 	<ul style="margin-top:0px !important;" materialize="collapsible" class="collapsible" data-collapsible="accordion">
-    	<li>
-        	<div class="collapsible-header"><i class="material-icons">filter_drama</i>First Set</div>
-            <div class="collapsible-body">
+		<li *ngFor="let set of receivedSet">
+			<div class="collapsible-header"><i class="material-icons">filter_drama</i>{{set.ListName}}</div> <!-- For some reason it automatically set listname to ListName -->
+    	<!-- Old build, making edits
+	        <div class="collapsible-body">
 				<ol style="padding:0">
 					<li style="display:block !important;height:5vh !important"><p class="text setItem">Dream On</p></li>
 					<li style="display:block !important;height:5vh !important"><p class="text setItem">I Don't Want To Miss a Thing</p></li>
@@ -28,34 +52,10 @@
 					<li style="display:block !important;height:5vh !important"><p class="text setItem">Cryin'</p></li>
 					<li style="display:block !important;height:5vh !important"><p class="text setItem">Walk This Way</p></li>
 				</ol>
-				</div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">favorite_border</i>Second Set</div>
-            <div class="collapsible-body">
-				<ol style="padding:0">
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Amazing</p></li>
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Sweet Emotion</p></li>
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Janie's Got a Gun</p></li>
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Livin' on the Edge</p></li>
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Dude</p></li>
-				</ol>
 			</div>
         </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">whatshot</i>Third Set</div>
-            <div class="collapsible-body">
-				<ol style="padding:0">
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Love in an Elevator</p></li>
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Angel</p></li>
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">What It Takes</p></li>
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Jaded</p></li>
-					<li style="display:block !important;height:5vh !important"><p class="text setItem">Rag Doll</p></li>
-				</ol>
-				</div>
-        </li>
     </ul>
-
+	-->
 	<!--
 	<body style="background-color: black">
 		<p>set list page</p>

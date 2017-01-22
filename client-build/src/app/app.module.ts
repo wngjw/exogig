@@ -26,6 +26,9 @@ import { MdButton,MdButtonModule,MdAnchor } from '@angular2-material/button'
 import { MdIcon,MdIconModule,MdIconRegistry } from '@angular2-material/icon'
 import { MdInput,MdInputModule } from '@angular2-material/input'
 import { MdTab,MdTabsModule,MdTabGroup,MdTabChangeEvent } from '@angular2-material/tabs'
+//Consider filtering unecessary code.
+import { MdCard,MdCardActions,MdCardContent,MdCardHeader,MdCardModule,MdCardTitle,MdCardSubtitle,MdCardTitleGroup } from '@angular2-material/card'
+
 
 @NgModule({
   imports:      [
@@ -36,6 +39,7 @@ import { MdTab,MdTabsModule,MdTabGroup,MdTabChangeEvent } from '@angular2-materi
 	MdIconModule,
 	MdInputModule,
 	MdTabsModule,
+	MdCardModule,
   ],
   declarations: [ 
 	AppMainComponent,
