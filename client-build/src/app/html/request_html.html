@@ -24,14 +24,23 @@
             	<input [(ngModel)]="request" class="underline_accenting" type="text">
             	<label class="text">Song Request</label>
             </div>
-						<div>
-							<md-card>"Basic Card"</md-card>
-						</div>
         </div>
+			<div style="margin-left:auto;margin-right:auto;text-align:center;width:75%">
+				<md-card>
+					<div *ngFor="let list of receivedSongList">
+						<md-card-title>
+							{{list.ListName}}
+						</md-card-title>
+							<p *ngFor="let song of list.Songs">
+								{{song.Name}}
+							</p>
+					</div>
+				</md-card>
+			</div>
 	</div>
 
 	<div style="text-align:center;padding-top:30vh">
-    	<a class="waves-effect waves-white btn white" style="color:#263238"><i class="material-icons right" style="!important;color:#263238">send</i>Submit</a>
+    	<a (click)="submitRequest()" class="waves-effect waves-white btn white" style="color:#263238"><i class="material-icons right" style="!important;color:#263238">send</i>Submit</a>
 	</div>
 
 <!--

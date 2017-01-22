@@ -85,13 +85,13 @@ func main() {
 	http.HandleFunc("/1", handler)
 	http.HandleFunc("/2", func(w http.ResponseWriter, r *http.Request) {
 	slist := gig.SongList {
-		ListName:"1",
+		ListName:"Song List 1",
 		Songs:[]gig.Song {
 			{Name:"SilverScrapes", Rating:0}, {Name:"EyeOfTheTiger", Rating:0},
 		},
 	}
 	slist2 := gig.SongList {
-		ListName:"2",
+		ListName:"Song List 2",
 		Songs:[]gig.Song {
 			{Name:"MyHeartWillGoOn", Rating:0}, {Name:"OceanMan", Rating:0},
 		},
