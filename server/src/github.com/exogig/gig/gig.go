@@ -98,12 +98,12 @@ func (a *Set) CompareSet(b *Set) (_ bool) {
  *    Represents a set list as a list of sets
  * Members:
  *    Sets: the array of sets in the set list
- *    Name: a name for the set list
+ *    SetListName: a name for the set list
  *    Id: a unique identifier for the set list
  */
  type SetList struct {
      SetsInSetList  []Set
-     Name           string
+     SetListName           string
  }
 
  /*
@@ -120,7 +120,7 @@ func (a *Set) CompareSet(b *Set) (_ bool) {
    if (a == b) {
      return true
    }
-   if a.Name != b.Name {
+   if a.SetListName != b.SetListName {
      return
    }
    for i := range a.SetsInSetList {
