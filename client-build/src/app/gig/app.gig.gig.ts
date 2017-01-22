@@ -33,7 +33,7 @@ export class SongList {
 }
 
 export class Set {
-  songsInSet: Song;
+  songsInSet: Song[];
   setName: string;
   getSongsInSet() {
     return this.songsInSet;
@@ -44,7 +44,7 @@ export class Set {
 }
 
 export class SetList {
-  setsInSetList: Set;
+  setsInSetList: Set[];
   setListName: string;
   getSetsInSetList() {
     return this.setsInSetList;
