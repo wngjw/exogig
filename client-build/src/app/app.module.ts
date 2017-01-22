@@ -26,8 +26,10 @@ import { MdButton,MdButtonModule,MdAnchor } from '@angular2-material/button'
 import { MdIcon,MdIconModule,MdIconRegistry } from '@angular2-material/icon'
 import { MdInput,MdInputModule } from '@angular2-material/input'
 import { MdTab,MdTabsModule,MdTabGroup,MdTabChangeEvent } from '@angular2-material/tabs'
-//Consider filtering unecessary code.
+//Consider filtering unnecessary imported modules.
 import { MdCard,MdCardActions,MdCardContent,MdCardHeader,MdCardModule,MdCardTitle,MdCardSubtitle,MdCardTitleGroup } from '@angular2-material/card'
+import { MdGridList,MdGridListModule } from '@angular2-material/grid-list'
+
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import { MdCard,MdCardActions,MdCardContent,MdCardHeader,MdCardModule,MdCardTitl
 	MdInputModule,
 	MdTabsModule,
 	MdCardModule,
+	MdGridListModule,
   ],
   declarations: [ 
 	AppMainComponent,
