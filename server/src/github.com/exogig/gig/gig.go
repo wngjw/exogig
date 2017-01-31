@@ -64,8 +64,8 @@ func (a *Song) CompareSong(b *Song) (_ bool) {
  *    Id: a unique identifier for the set
  */
  type Set struct {
-     SongsInSet     []Song
      SetName        string
+     SongsInSet     []Song
  }
 
 /*
@@ -102,8 +102,9 @@ func (a *Set) CompareSet(b *Set) (_ bool) {
  *    Id: a unique identifier for the set list
  */
  type SetList struct {
+     SetListName    string
      SetsInSetList  []Set
-     SetListName           string
+
  }
 
  /*
