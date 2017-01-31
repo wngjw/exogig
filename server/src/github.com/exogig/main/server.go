@@ -33,7 +33,7 @@ func fill_database() {
 	collection := session.DB("test").C("songs")
 
 	index := mgo.Index{
-		Key:        []string{"SetListName"},
+		Key:        []string{"gigid"},
 		Unique:     true,
 		DropDups:   true,
 		Background: true,
@@ -88,7 +88,19 @@ func fill_database() {
 		SetsInSetList: []gig.Set {kendrick_set_1, kendrick_set_2, kendrick_set_3},
 	}
 
-	err = collection.Insert(&kendrick_set_list)
+	temp_requested_song := gig.Song {Name:"Collard Greens", Rating:0}
+
+	kendricks_gig := gig.Gig {
+	GigID:"s3xy",
+	GigName:"Blackerberry: Spokane",
+	GigTime:"21:00",
+	GigDate:"2017-05-14",
+	GigLocation:"Knitting Factory",
+	GigSetList: kendrick_set_list,
+	GigRequestList: []gig.Request {{temp_requested_song}},
+	}
+
+	err = collection.Insert(&kendricks_gig)
 
 	check_error(err)
 }
@@ -104,8 +116,8 @@ func new_handler(w http.ResponseWriter, r *http.Request) {
 
 	collection := session.DB("test").C("songs")
 
-	result := gig.SetList{}
-	err = collection.Find(nil).One(&result)
+	result := gig.Gig{}
+	err = collection.Find(bson.M{"gigid":"s3xy"}).One(&result)
 	check_error(err)
 
 	new_result, _ := json.Marshal(result)
