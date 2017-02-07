@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	//"time"
 	"encoding/json"
-
+	"time"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"github.com/exogig/gig"
+	"math/rand"
 )
 
 var IsDrop = true
@@ -180,10 +180,21 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func generate_gig_id(w http.ResponseWriter, r *http.Request) {
+	rand.Seed(time.Now().UTC().UnixNano())
+	const chars = "abcdefghijklmnopqrstuvwxyz0123456789"
+	result := make([]byte, 4)
+	for i := 0; i < 4; i++ {
+		result[i] = chars[rand.Intn(len(chars))]
+	}
+	fmt.Fprintf(w, string(result))
+}
+
 func main() {
 	fill_database()
 	http.HandleFunc("/1", handler)
 	http.HandleFunc("/kendrick", new_handler)
+	http.HandleFunc("/generate", generate_gig_id)
 	http.HandleFunc("/2", func(w http.ResponseWriter, r *http.Request) {
 	slist := gig.SongList {
 		ListName:"Song List 1",
