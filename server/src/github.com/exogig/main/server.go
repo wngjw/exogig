@@ -6,10 +6,12 @@ import (
 	"net/http"
 	"encoding/json"
 	"time"
+	"math/rand"
+
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"github.com/exogig/gig"
-	"math/rand"
+	"github.com/exogig/app"
 )
 
 var IsDrop = true
@@ -195,25 +197,7 @@ func main() {
 	http.HandleFunc("/1", handler)
 	http.HandleFunc("/kendrick", new_handler)
 	http.HandleFunc("/generate", generate_gig_id)
-	http.HandleFunc("/2", func(w http.ResponseWriter, r *http.Request) {
-	slist := gig.SongList {
-		ListName:"Song List 1",
-		Songs:[]gig.Song {
-			{Name:"SilverScrapes", Rating:0}, {Name:"EyeOfTheTiger", Rating:0},
-		},
-	}
-	slist2 := gig.SongList {
-		ListName:"Song List 2",
-		Songs:[]gig.Song {
-			{Name:"MyHeartWillGoOn", Rating:0}, {Name:"OceanMan", Rating:0},
-		},
-	}
-	var songLists = []gig.SongList{slist, slist2}
-//	jsonSongList, _ := json.Marshal(slist)
-//	fmt.Fprintf(w, string(jsonSongList))
-	jsonSongList2, _ := json.Marshal(songLists)
-	fmt.Fprintf(w, string(jsonSongList2))
-	})
+	http.HandleFunc("/2", app.RequestPageHandler)
 
 	fs := http.FileServer(http.Dir("../client-build/dist/"))
 	http.Handle("/", fs)
