@@ -22,18 +22,17 @@
     </div>
 
   <!-- Modal Structure For the Login-->
-  <div id="modal1" style="max-height:75%" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <div id="modal1" style="max-height:75%" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions">
 
-    <div class="modal-content" style="text-align:center">
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
+    <div class="modal-content" style="align-items:center; display:flex; justify-content:center;">
+      <div class="g-signin2" data-onsuccess="onSignIn" (click)="closeModal()">a</div>
+    </div>
+    <div class="modal-content" style="align-items:center; display:flex; justify-content:center;">
       <a href="#" (click)="signOut();closeModal()">Sign out</a>
-      
     </div>
 
-    <div class="modal-footer">
+    <div class="modal-footer" style="align-items:center; display:flex; justify-content:center;">
       <a class="waves-effect waves-light waves-effect btn-flat" (click)="closeModal()">Close</a>
-      <a class="modal-action modal-close waves-effect waves-light btn-flat" (click)="closeModal();emit_event('main')">Login</a>
     </div>
   </div>
 

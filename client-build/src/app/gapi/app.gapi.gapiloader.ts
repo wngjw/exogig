@@ -1,4 +1,4 @@
-const url = 'https://apis.google.com/js/client.js?onload=__onGoogleLoaded';
+const url = 'https://apis.google.com/js/client.js';
 
 export class GoogleAPILoader {
     private static promise;
@@ -10,13 +10,13 @@ export class GoogleAPILoader {
         // Make promise to load
         GoogleAPILoader.promise = new Promise((resolve) => {
 
-            // Set callback for when google maps is loaded.
-            window['__onGoogleLoaded'] = (ev) => {
+            // Set callback for when google api is loaded.
+            window['__onGoogleLoaded','renderButton'] = (ev) => {
                 console.log('google api loaded');
                 resolve(window['gapi']);
             };
 
-            // Add script tag to load google maps, which then triggers the callback, which resolves the promise with windows.google.maps.
+            // Add script tag to load google api, which then triggers the callback, which resolves the promise with windows.google.maps.
             console.log('loading..');
             let node = document.createElement('script');
             node.src = url;

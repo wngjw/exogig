@@ -18,12 +18,13 @@ export class AppLoginComponent {
 	http: Http;
 
 	modalActions = new EventEmitter<string|MaterializeAction>();
-  	openModal() {
+
+  public openModal() {
     	this.modalActions.emit({action:"modal",params:['open']});
-  	}
-  	closeModal() {
+  }
+  public closeModal() {
     	this.modalActions.emit({action:"modal",params:['close']});
-  	}
+  }
 
 	constructor(http: Http) {
 		this.http = http;
@@ -31,7 +32,7 @@ export class AppLoginComponent {
 
 
 	public joinEvent(location:string) {
-		console.log(this.inputKey) 
+		console.log(this.inputKey)
 		var uploadObj = {
 			key: this.inputKey
 		};
@@ -47,19 +48,38 @@ export class AppLoginComponent {
 		});
 
 		this.http.get('/kendrick', options).map(res => res.json()).subscribe(data => this.entireGigObject = data);
-    
+
 		if(!typeof(this.entireGigObject) === undefined)
 		{
 			console.log("Recieved Gig!");
 			console.log(this.entireGigObject);
 		}
 			console.log(this.entireGigObject);
-		
+
 		this.notify.emit(location);
 	}
 
+  private onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
 
 
+  private onFailure(error) {
+      console.log(error);
+    }
+
+  public renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': this.onSuccess(gapi.auth2.getAuthInstance()),
+      'onfailure': this.onFailure("No data received")
+      });
+      this.closeModal();
+  }
 
   public signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
