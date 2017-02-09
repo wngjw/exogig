@@ -32,12 +32,17 @@ export class AppLoginComponent {
 
 	public joinEvent(location:string) {
 		console.log(this.inputKey) 
-		
 		var uploadObj = {
 			key: this.inputKey
 		};
 
+		console.log(JSON.stringify(uploadObj))
+
+		var headers = new Headers();
+		headers.append('Content-Type','application/json');
+
 		let options = new RequestOptions({
+			headers: headers,
 			body: JSON.stringify(uploadObj)
 		});
 
