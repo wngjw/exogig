@@ -37,13 +37,8 @@ export class AppLoginComponent {
 			key: this.inputKey
 		};
 
-		let params = new URLSearchParams;
-
-		for(let key in uploadObj) {						//This key is like the key in a dictionary. It represents the object's names for each value (each value being the actual reference of the dictionary's key)
-			params.set(key, uploadObj[key]);
-		}
 		let options = new RequestOptions({
-			search: params
+			body: JSON.stringify(uploadObj)
 		});
 
 		this.http.get('/kendrick', options).map(res => res.json()).subscribe(data => this.entireGigObject = data);
