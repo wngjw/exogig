@@ -111,19 +111,35 @@ func fill_database() {
 func new_handler(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
-
 	defer session.Close()
-
 	session.SetMode(mgo.Monotonic, true)
-
 	collection := session.DB("test").C("songs")
-
 	result := gig.Gig{}
 	err = collection.Find(bson.M{"gigid":"s3xy"}).One(&result)
+	//var receivedGig gig.Gig
+	type someJsonBs struct {
+		key string
+	}
+	var receivedGigID someJsonBs
 	check_error(err)
-
-	new_result, _ := json.Marshal(result)
-	fmt.Fprintf(w, string(new_result))
+	w.Header().Set("Content-Type", "application/json")
+	check_error(err)
+	if r.Body == nil {
+		http.Error(w, "Please send a request body", 400)
+    return
+	}
+	err = json.NewDecoder(r.Body).Decode(&receivedGigID)
+	fmt.Println(r.Body)
+	fmt.Println(receivedGigID.key)
+	if err != nil {
+		http.Error(w, err.Error(), 400)
+		return
+	}
+	resultJson, _ := json.Marshal(result)
+	if receivedGigID.key == result.GigID {
+		w.Write(resultJson)
+	}
+	fmt.Fprintf(w, "Wrong ID")
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
