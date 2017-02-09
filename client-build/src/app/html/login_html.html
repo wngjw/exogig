@@ -7,13 +7,13 @@
 
   <!--start login link-->
     <div style="height:auto;width:48%;margin-top:10vh;margin-left:auto;margin-right:auto;display: block;">
-      <input class="underline_accenting" style="text-align:center;font-size:3em;width:100%;" type="text" placeholder="Key" maxlength="4" />
+      <input class="underline_accenting" [(ngModel)]="inputKey" style="text-align:center;font-size:3em;width:100%;" type="text" placeholder="Key" maxlength="4" />
     </div>
 
     <!-- Probably going to want to create a login insertion template, for handing registration stuffs / logging in -->
 
     <div style="bottom:30vh;position:fixed;width:inherit;margin-left:auto;margin-right:auto;text-align:center;display:block;">
-      <button class="circle-md waves-effect waves-light" (click)="emit_event('main')"><md-icon class="material-icons" style="color:#263238;font-size:3em" >vpn_key</md-icon></button>
+      <button class="circle-md waves-effect waves-light" (click)="joinEvent('main')"><md-icon class="material-icons" style="color:#263238;font-size:3em" >vpn_key</md-icon></button>
     </div>
 
     <!-- This button will take you to the login -->

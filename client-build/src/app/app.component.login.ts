@@ -12,6 +12,7 @@ import { GoogleAPILoader } from './gapi/app.gapi.gapiloader'
 export class AppLoginComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
   loginhtml: string;
+	inputKey: string;		//On page value
   promise = GoogleAPILoader.load();
 
 	modalActions = new EventEmitter<string|MaterializeAction>();
@@ -24,6 +25,14 @@ export class AppLoginComponent {
 
 	constructor() {
 	}
+
+
+	public joinEvent(location:string) {
+		console.log(this.inputKey) 
+	
+	
+	}
+
 
 
 
