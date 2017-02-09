@@ -59,28 +59,6 @@ export class AppLoginComponent {
 		this.notify.emit(location);
 	}
 
-  private onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-
-
-  private onFailure(error) {
-      console.log(error);
-    }
-
-  public renderButton() {
-    gapi.signin2.render('my-signin2', {
-      'scope': 'profile email',
-      'width': 240,
-      'height': 50,
-      'longtitle': true,
-      'theme': 'dark',
-      'onsuccess': this.onSuccess(gapi.auth2.getAuthInstance()),
-      'onfailure': this.onFailure("No data received")
-      });
-      this.closeModal();
-  }
-
   public signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
