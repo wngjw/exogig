@@ -1,4 +1,4 @@
-const url = 'https://apis.google.com/js/client.js';
+const url = 'https://apis.google.com/js/client.js?onload=__onGoogleLoaded';
 
 export class GoogleAPILoader {
     private static promise;
@@ -11,7 +11,7 @@ export class GoogleAPILoader {
         GoogleAPILoader.promise = new Promise((resolve) => {
 
             // Set callback for when google api is loaded.
-            window['__onGoogleLoaded','renderButton'] = (ev) => {
+            window['__onGoogleLoaded'] = (ev) => {
                 console.log('google api loaded');
                 resolve(window['gapi']);
             };
