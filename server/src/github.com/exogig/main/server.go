@@ -1,17 +1,17 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
-	"encoding/json"
-	"time"
 	"math/rand"
+	"net/http"
+	"time"
 
+	"github.com/exogig/app"
+	"github.com/exogig/gig"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"github.com/exogig/gig"
-	"github.com/exogig/app"
 )
 
 var IsDrop = true
@@ -21,6 +21,7 @@ func check_error(err error) {
 		panic(err)
 	}
 }
+
 // This is the setup function that will allow the database to hold our test
 // data. This is so that @Spencer will still love us.
 func fill_database() {
@@ -46,60 +47,60 @@ func fill_database() {
 	check_error(err)
 
 	/* ADDING ALL THE MUTHAFUCKIN' DATA */
-	kendrick_set_1 := gig.Set {
-		SetName:"kendrick_section_80",
-		SongsInSet:[]gig.Song {
-			{Name:"Fuck Your Ethnicity", Rating:5}, {Name:"Hol' Up", Rating:5},
-			{Name:"A.D.H.D", Rating:5}, {Name:"No Make-Up (Her Vice)", Rating:12},
-			{Name:"Tammy's Song (Her Evils)", Rating:5}, {Name:"Chapter Six", Rating:0},
-			{Name:"Ronald Reagan Era", Rating:5}, {Name:"Poe Mans Dreams (His Vice)", Rating:0},
-			{Name:"The Spiteful Chant", Rating:5}, {Name:"Chapter Ten", Rating:0},
-			{Name:"Keisha's Song (Her Pain)", Rating:5}, {Name:"Rigamortus", Rating:0},
-			{Name:"Kush and Corinthians (His Pain)", Rating:5}, {Name:"Blow My High (Members Only)", Rating:0},
-			{Name:"Ab-Soul's Outro", Rating:5}, {Name:"HiiiPoWeR", Rating:20},
+	kendrick_set_1 := gig.Set{
+		SetName: "kendrick_section_80",
+		SongsInSet: []gig.Song{
+			{Name: "Fuck Your Ethnicity", Rating: 5}, {Name: "Hol' Up", Rating: 5},
+			{Name: "A.D.H.D", Rating: 5}, {Name: "No Make-Up (Her Vice)", Rating: 12},
+			{Name: "Tammy's Song (Her Evils)", Rating: 5}, {Name: "Chapter Six", Rating: 0},
+			{Name: "Ronald Reagan Era", Rating: 5}, {Name: "Poe Mans Dreams (His Vice)", Rating: 0},
+			{Name: "The Spiteful Chant", Rating: 5}, {Name: "Chapter Ten", Rating: 0},
+			{Name: "Keisha's Song (Her Pain)", Rating: 5}, {Name: "Rigamortus", Rating: 0},
+			{Name: "Kush and Corinthians (His Pain)", Rating: 5}, {Name: "Blow My High (Members Only)", Rating: 0},
+			{Name: "Ab-Soul's Outro", Rating: 5}, {Name: "HiiiPoWeR", Rating: 20},
 		},
 	}
-	kendrick_set_2 := gig.Set {
-		SetName:"kendrick_good_kid_maad_city",
-		SongsInSet:[]gig.Song {
-			{Name:"Sherane a.k.a Master Splinter's Daughter", Rating:5}, {Name:"Bitch, Don't Kill My Vibe", Rating:5},
-			{Name:"Backseat Freestyle", Rating:5}, {Name:"The Art of Peer Pressure", Rating:12},
-			{Name:"Money Trees", Rating:5}, {Name:"Poetic Justice", Rating:0},
-			{Name:"good kid", Rating:5}, {Name:"m.A.A.d city", Rating:0},
-			{Name:"Swimming Pools (Drank)" , Rating:5}, {Name:"Sing About Me, I'm Dying of Thirst", Rating:0},
-			{Name:"Real", Rating:5}, {Name:"Compton", Rating:0},
-		},
-	}
-
-	kendrick_set_3 := gig.Set {
-		SetName:"kendrick_to_pimp_a_butterfly",
-		SongsInSet:[]gig.Song {
-			{Name:"Wesley's Theory", Rating:5}, {Name:"For Free? (Interlude)", Rating:5},
-			{Name:"King Kunta", Rating:5}, {Name:"Institutionalized", Rating:12},
-			{Name:"These Walls", Rating:5}, {Name:"u", Rating:0},
-			{Name:"Alright", Rating:5}, {Name:"For Sale? (Interlude)", Rating:0},
-			{Name:"Momma" , Rating:5}, {Name:"Hood Politics", Rating:0},
-			{Name:"How Much a Dollar Cost", Rating:5}, {Name:"Complexion (A Zulu Love)", Rating:0},
-			{Name:"The Blacker the Berry", Rating:5}, {Name:"You Ain't Gotta Lie (Momma Said)", Rating:0},
-			{Name:"i", Rating:5}, {Name:"Mortal Man", Rating:0},
+	kendrick_set_2 := gig.Set{
+		SetName: "kendrick_good_kid_maad_city",
+		SongsInSet: []gig.Song{
+			{Name: "Sherane a.k.a Master Splinter's Daughter", Rating: 5}, {Name: "Bitch, Don't Kill My Vibe", Rating: 5},
+			{Name: "Backseat Freestyle", Rating: 5}, {Name: "The Art of Peer Pressure", Rating: 12},
+			{Name: "Money Trees", Rating: 5}, {Name: "Poetic Justice", Rating: 0},
+			{Name: "good kid", Rating: 5}, {Name: "m.A.A.d city", Rating: 0},
+			{Name: "Swimming Pools (Drank)", Rating: 5}, {Name: "Sing About Me, I'm Dying of Thirst", Rating: 0},
+			{Name: "Real", Rating: 5}, {Name: "Compton", Rating: 0},
 		},
 	}
 
-	kendrick_set_list := gig.SetList {
-		SetListName:"kendrick",
-		SetsInSetList: []gig.Set {kendrick_set_1, kendrick_set_2, kendrick_set_3},
+	kendrick_set_3 := gig.Set{
+		SetName: "kendrick_to_pimp_a_butterfly",
+		SongsInSet: []gig.Song{
+			{Name: "Wesley's Theory", Rating: 5}, {Name: "For Free? (Interlude)", Rating: 5},
+			{Name: "King Kunta", Rating: 5}, {Name: "Institutionalized", Rating: 12},
+			{Name: "These Walls", Rating: 5}, {Name: "u", Rating: 0},
+			{Name: "Alright", Rating: 5}, {Name: "For Sale? (Interlude)", Rating: 0},
+			{Name: "Momma", Rating: 5}, {Name: "Hood Politics", Rating: 0},
+			{Name: "How Much a Dollar Cost", Rating: 5}, {Name: "Complexion (A Zulu Love)", Rating: 0},
+			{Name: "The Blacker the Berry", Rating: 5}, {Name: "You Ain't Gotta Lie (Momma Said)", Rating: 0},
+			{Name: "i", Rating: 5}, {Name: "Mortal Man", Rating: 0},
+		},
 	}
 
-	temp_requested_song := gig.Song {Name:"Collard Greens", Rating:0}
+	kendrick_set_list := gig.SetList{
+		SetListName:   "kendrick",
+		SetsInSetList: []gig.Set{kendrick_set_1, kendrick_set_2, kendrick_set_3},
+	}
 
-	kendricks_gig := gig.Gig {
-	GigID:"s3xy",
-	GigName:"Blackerberry: Spokane",
-	GigTime:"21:00",
-	GigDate:"2017-05-14",
-	GigLocation:"Knitting Factory",
-	GigSetList: kendrick_set_list,
-	GigRequestList: []gig.Request {{temp_requested_song}},
+	temp_requested_song := gig.Song{Name: "Collard Greens", Rating: 0}
+
+	kendricks_gig := gig.Gig{
+		GigID:          "s3xy",
+		GigName:        "Blackerberry: Spokane",
+		GigTime:        "21:00",
+		GigDate:        "2017-05-14",
+		GigLocation:    "Knitting Factory",
+		GigSetList:     kendrick_set_list,
+		GigRequestList: []gig.Request{{temp_requested_song}},
 	}
 
 	err = collection.Insert(&kendricks_gig)
@@ -115,31 +116,28 @@ func new_handler(w http.ResponseWriter, r *http.Request) {
 	session.SetMode(mgo.Monotonic, true)
 	collection := session.DB("test").C("songs")
 	result := gig.Gig{}
-	err = collection.Find(bson.M{"gigid":"s3xy"}).One(&result)
-	//var receivedGig gig.Gig
-	type someJsonBs struct {
-		key string
-	}
-	var receivedGigID someJsonBs
-	check_error(err)
+
+	//comparison := gig.Gig{}
+	err = collection.Find(bson.M{"gigid": "s3xy"}).One(&result)
+
 	w.Header().Set("Content-Type", "application/json")
-	check_error(err)
-	if r.Body == nil {
-		http.Error(w, "Please send a request body", 400)
-    return
+
+	//This will look at the URL query, and find the dictionary value of "key"
+	requestedID := r.URL.Query().Get("key") //This is the key that they should recieve the Gig information for it it exists
+	if len(requestedID) == 0 {
+		emptyJson, _ := json.Marshal(nil)
+		w.Write(emptyJson)
+		//Return a nil value if the id doesn't have an associated Gig.
 	}
-	err = json.NewDecoder(r.Body).Decode(&receivedGigID)
-	fmt.Println(r.Body)
-	fmt.Println(receivedGigID.key)
-	if err != nil {
-		http.Error(w, err.Error(), 400)
-		return
-	}
+	fmt.Println("Key received: ", requestedID)
 	resultJson, _ := json.Marshal(result)
-	if receivedGigID.key == result.GigID {
+
+	//Check to see if the requested ID matches the Gig we provided
+	if requestedID == result.GigID {
 		w.Write(resultJson)
+		fmt.Println("Gig Sent")
 	}
-	fmt.Fprintf(w, "Wrong ID")
+
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -177,10 +175,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Inserts data
-	slist := gig.SongList {
-		ListName:"1",
-		Songs:[]gig.Song {
-			{Name:"SilverScrapes", Rating:0}, {Name:"EyeOfTheTiger", Rating:0},
+	slist := gig.SongList{
+		ListName: "1",
+		Songs: []gig.Song{
+			{Name: "SilverScrapes", Rating: 0}, {Name: "EyeOfTheTiger", Rating: 0},
 		},
 	}
 	err = collection.Insert(&slist)
