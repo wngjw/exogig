@@ -1,7 +1,9 @@
 import { Input, Output, Component, Directive, Injectable, EventEmitter } from '@angular/core';
 import { Headers, Http, URLSearchParams, RequestOptions } from '@angular/http';
 import { MaterializeAction } from 'angular2-materialize';
-import { GoogleAPILoader } from './gapi/app.gapi.gapiloader'
+import { GoogleAPILoader } from './gapi/app.gapi.gapiloader';
+import { gigService } from './services/app.service.gig';
+
 
 @Component({
  	selector: 'login-page',
@@ -53,15 +55,15 @@ export class AppLoginComponent {
 
 		this.http.get('/kendrick', options).map(res => res.json()).subscribe(data => this.entireGigObject = data);
 
-		//This will be undefined since it runs asynchronously. BUT if you press the button again, it'll be populated.
-		console.log(this.entireGigObject);
+		//Takes gigService and saves the returned object to it.
 
-		//Currently I'm commenting this out since the Gig object is kept in scope of this one page only.
-		//We'll need to provide access to this object through either an Angular2 service, or passing it through the emit function below.
-		//If you need to test other pages just uncomment this.notify.emit below, BUT as of 2/10 the Gig object will not
-		//be in scope on the other pages until the above is created and implemented.
-		
-		//this.notify.emit(location);
+		//Since JS executes asynchronously, we timeout to let the server response come in and set the gigService value.
+		//By placing gigService in the parameters, I'm telling Angular to inject the service here for use.
+		setTimeout((gigService: gigService) => {
+			console.log(this.entireGigObject);
+			//gigService.setGig(this.entireGigObject);
+			this.notify.emit(location);
+		},1000);
 	}
 
   public signOut() {

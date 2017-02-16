@@ -30,6 +30,7 @@ import { MdTab,MdTabsModule,MdTabGroup,MdTabChangeEvent } from '@angular2-materi
 import { MdCard,MdCardActions,MdCardContent,MdCardHeader,MdCardModule,MdCardTitle,MdCardSubtitle,MdCardTitleGroup } from '@angular2-material/card'
 import { MdGridList,MdGridListModule } from '@angular2-material/grid-list'
 
+import { gigService } from './services/app.service.gig';
 
 
 @NgModule({
@@ -67,7 +68,7 @@ import { MdGridList,MdGridListModule } from '@angular2-material/grid-list'
 	
    ],
    bootstrap:	[ AppControllerComponent ],	//From what I understand, bootstrap is basically which component it tries to setup first.
-   providers: [MdIconRegistry]
+   providers: [MdIconRegistry, gigService]
 })
 
 export class AppModule {}
