@@ -6,21 +6,21 @@
   </div>
 
   <!--start login link-->
-  <div style="height:auto;margin-top:30vh;margin-left:auto;margin-right:auto;display:block;justify-content:center">
-    <div style="width:48%;margin-left:auto;margin-right:auto;display: flex;">
+  <div style="height:auto;margin-top:30vh;margin-left:auto;margin-right:auto;display:block;justify-content:center;display: block;">
+    <div style="width:48%;margin-left:auto;margin-right:auto;">
       <input class="underline_accenting" [(ngModel)]="inputKey" style="text-align:center;font-size:3em;width:100%;" type="text" placeholder="Gig ID" maxlength="4" />
     </div>
 
     <!-- Probably going to want to create a login insertion template, for handing registration stuffs / logging in -->
 
-    <div style="margin-left:48%;display:block">
+    <div style="left:50%;position:absolute;transform: translate(-50%,-50%)">
       <a class="waves-effect waves-light waves-effect btn light-blue lighten-1" (click)="joinEvent('main')" style="color:#263238;font-weight:bolder;">Enter</a>
 
     </div>
   </div>
     <!-- This button will take you to the login -->
   <div class="row"style="bottom:5vh;position:fixed;width:inherit;margin-left:auto;margin-right:auto;justify-content:center;align-items:center">
-    <div class="col s7">
+    <div class="col s7" style="height:100%;display:table-cell;vertical-align: middle">
       <div class="g-signin2" data-onsuccess="onSignIn" (click)="closeModal()">Login</div>
     </div>
     <div class="col s5">
