@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"math/rand"
@@ -108,38 +107,6 @@ func fill_database() {
 	check_error(err)
 }
 
-// This SHOULD pull from the database that was filled in fill_database()
-func new_handler(w http.ResponseWriter, r *http.Request) {
-	session, err := mgo.Dial("127.0.0.1")
-	check_error(err)
-	defer session.Close()
-	session.SetMode(mgo.Monotonic, true)
-	collection := session.DB("test").C("songs")
-	result := gig.Gig{}
-
-	//comparison := gig.Gig{}
-	err = collection.Find(bson.M{"gigid": "s3xy"}).One(&result)
-
-	w.Header().Set("Content-Type", "application/json")
-
-	//This will look at the URL query, and find the dictionary value of "key"
-	requestedID := r.URL.Query().Get("key") //This is the key that they should recieve the Gig information for it it exists
-	if len(requestedID) == 0 {
-		emptyJson, _ := json.Marshal(nil)
-		w.Write(emptyJson)
-		//Return a nil value if the id doesn't have an associated Gig.
-	}
-	fmt.Println("Key received: ", requestedID)
-	resultJson, _ := json.Marshal(result)
-
-	//Check to see if the requested ID matches the Gig we provided
-	if requestedID == result.GigID {
-		w.Write(resultJson)
-		fmt.Println("Gig Sent")
-	}
-
-}
-
 func handler(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	if err != nil {
@@ -209,7 +176,7 @@ func generate_gig_id(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fill_database()
 	http.HandleFunc("/1", handler)
-	http.HandleFunc("/kendrick", new_handler)
+	http.HandleFunc("/kendrick", app.GigCodeHandler)
 	http.HandleFunc("/generate", generate_gig_id)
 	http.HandleFunc("/2", app.RequestPageHandler)
 
