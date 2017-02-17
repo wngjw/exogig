@@ -1,3 +1,10 @@
+/**
+* request.ts
+* Description: Handles landing in to the app.
+* Author: Spencer Ballo
+* Date Modified: 16 February 2017
+*/
+
 import { Component, Directive, Injectable, EventEmitter, Output } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { gigService } from './services/app.service.gig';
@@ -13,20 +20,13 @@ export class AppMainComponent {
 	quickie: string;
 	gigName: string;
 
-	gigObject: Object;
+	//gigObject: Gig;		//I create this object so we can look at the gig object from gigService. SHOULD BE USELESS.
 
-	constructor(public http_obj: Http, gigService: gigService) {
-		this.gigName = 'Aerosmith';
-		console.log("Does it save?");
-		this.gigObject = gigService.getGig();
-		console.log(gigService.getGig());
-		console.log(this.gigObject);
+	constructor(public http_obj: Http, public gigService: gigService) {
+		this.gigName = gigService.getGig().GigName;
 	}
 		
-
-
 	public emit_event(location:string) {
-		console.log(this.gigObject);
 		this.notify.emit(location);
 	}
 

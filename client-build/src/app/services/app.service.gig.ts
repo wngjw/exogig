@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Gig } from '../gig/app.gig.gig';
+
 
 @Injectable()
 
@@ -9,7 +11,7 @@ export class gigService {
         return this.gigObject;
     }
 
-    public setGig(Gig: Object) {
+    public setGig(Gig: Gig) {
         this.gigObject = Gig;
     }
 

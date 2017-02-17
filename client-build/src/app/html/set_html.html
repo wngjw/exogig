@@ -18,26 +18,16 @@
 
 	<div style="overflow:hidden;width:100%;height:74%;overflow-x:scroll;overflow-y:scroll">
 
-		<md-card style="padding-top:10px;margin-right:auto;margin-left:auto;width:80%;margin-bottom:20px" *ngFor="let set of receivedSet;let i = index">
+		<md-card style="padding-top:10px;margin-right:auto;margin-left:auto;width:80%;margin-bottom:20px" *ngFor="let set of gigObject.GigSetList.SetsInSetList;let i = index">
 			<md-card-title>
-				{{set.ListName}} <i style="float:right;display:none" class="material-icons" [ngClass]="{show_rating_icon: (currentSelectedIndex > 0 && currentSelectedList == i+1)}">sentiment_very_satisfied</i><i style="float:right;display:none" class="material-icons" [ngClass]="{show_rating_icon: (currentSelectedIndex > 0 && currentSelectedList == i+1)}">sentiment_dissatisfied</i>
+				{{set.SetName}} <i style="float:right;display:none" class="material-icons" [ngClass]="{show_rating_icon: (currentSelectedIndex > 0 && currentSelectedList == i+1)}">sentiment_very_satisfied</i><i style="float:right;display:none" class="material-icons" [ngClass]="{show_rating_icon: (currentSelectedIndex > 0 && currentSelectedList == i+1)}">sentiment_dissatisfied</i>
 			</md-card-title>
 			<md-card-content>
 				<md-grid-list gutterSize="2px" rowHeight="70px" cols="2">
-				<md-grid-tile [style.background]="'#485f6a'" *ngFor="let song of set.Songs;let n = index" (click)="setSelected(n+1,i+1)" [ngClass]="{song_selected: checkSelected(n+1,i+1)}"><p class="text">{{n+1}}. {{song.Name}}</p></md-grid-tile>
-				<!-- Remove below when we get some decent data sets. -->
-				<md-grid-tile (click)="setSelected(3,i+1)" [ngClass]="{song_selected: checkSelected(3,i+1)}" [style.background]="'#485f6a'"><p class="text">3. Rag Doll</p></md-grid-tile>
-				<md-grid-tile (click)="setSelected(4,i+1)" [ngClass]="{song_selected: checkSelected(4,i+1)}" [style.background]="'#485f6a'"><p class="text">4. Rag Doll</p></md-grid-tile>
-				<md-grid-tile (click)="setSelected(5,i+1)" [ngClass]="{song_selected: checkSelected(5,i+1)}" [style.background]="'#485f6a'"><p class="text">5. Rag Doll</p></md-grid-tile>
-				<md-grid-tile (click)="setSelected(6,i+1)" [ngClass]="{song_selected: checkSelected(6,i+1)}" [style.background]="'#485f6a'"><p class="text">6. Rag Doll</p></md-grid-tile>
-				<md-grid-tile (click)="setSelected(7,i+1)" [ngClass]="{song_selected: checkSelected(7,i+1)}" [style.background]="'#485f6a'"><p class="text">7. Rag Doll</p></md-grid-tile>
+					<md-grid-tile [style.background]="'#485f6a'" *ngFor="let song of set.SongsInSet;let n = index" (click)="setSelected(n+1,i+1)" [ngClass]="{song_selected: checkSelected(n+1,i+1)}">
+						<p style="padding-left:2px;padding-right:2px;text-align: center;flex-wrap: wrap" class="text">{{n+1}}. {{song.Name}}</p>
+					</md-grid-tile>
 				</md-grid-list>
-				<!--
-				<p *ngFor="let song of set.Songs">
-					{{song.Name}}
-				</p>
-				-->
-
 
 			</md-card-content>
 		</md-card>
