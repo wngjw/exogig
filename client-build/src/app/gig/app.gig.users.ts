@@ -14,7 +14,7 @@ export class User {
   private loggedIn: boolean;
   private vip: boolean;
 
-  setName(incName: string) {
+  setValidation(incName: string) {
       this.name = incName;
   }
   setLoggedIn(loginStatus: boolean) {
@@ -23,10 +23,10 @@ export class User {
   setVip(vip: boolean) {
       this.vip = vip;
   }
-  getName() {
+  getValidation() {
     return this.name;
   }
-  getRating() {
+  getLoggedIn() {
     return this.loggedIn;
   }
   getVip() {

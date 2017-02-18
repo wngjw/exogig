@@ -6,11 +6,11 @@ import { User } from '../gig/app.gig.users';
 export class userService {
     private userObject;
 
-    public getGig() {
+    public getUser() {
         return this.userObject;
     }
 
-    public setGig(User: User) {
+    public setUser(User: User) {
         this.userObject = User;
     }
 
