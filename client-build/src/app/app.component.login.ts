@@ -51,6 +51,7 @@ export class AppLoginComponent {
 
 
 	public joinEvent(location:string) {
+    // The input from the html page
 		console.log("[DEBUG] input key:",this.inputKey)
 
     // Stores value from input element
@@ -66,6 +67,7 @@ export class AppLoginComponent {
 			params.set(key, uploadObj[key]);
 		}
 
+    // Create the headers for the page
 		var pageHeaders = new Headers();
 		pageHeaders.append('Content-Type','application/json');
 
@@ -74,22 +76,19 @@ export class AppLoginComponent {
 			search: params,
       headers: pageHeaders
 		});
-		
+
+    // This conversion to a JSON string allows Go to parse the request body
     let body = JSON.stringify(this.inputKey);
     console.log("[DEBUG] body:", body);
 
+    // The post request which takes parameters of address, body, options
     this.http.post('/kendrick', body, options)
       .map((res) => res.json())
       .subscribe(data => this.entireGigObject = data);
 
-    // Old http get
-		/*this.http.get('/kendrick', options)
-    .map(res => res.json())
-    .subscribe(data => this.entireGigObject = data);*/
-
-		//Takes gigService and saves the returned object to it.
-		//Since JS executes asynchronously, we timeout to let the server response come in and set the gigService value.
-		//By placing gigService in the parameters, I'm telling Angular to inject the service here for use.
+		// Takes gigService and saves the returned object to it.
+		// Since JS executes asynchronously, we timeout to let the server response come in and set the gigService value.
+		// By placing gigService in the parameters, I'm telling Angular to inject the service here for use.
 		setTimeout(() => {
 			console.log(this.entireGigObject);
 			this.gigService.setGig(this.entireGigObject);
