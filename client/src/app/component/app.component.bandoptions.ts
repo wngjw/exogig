@@ -9,7 +9,11 @@ import { Headers, Http } from '@angular/http';
 
 export class AppBandOptionsComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
-	rate:string;
+	rate: string;
+	newBandName: string;
+	newBandMembers: string;
+
+
 	constructor() {
 	}
 
