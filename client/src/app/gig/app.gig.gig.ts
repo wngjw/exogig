@@ -62,28 +62,11 @@ export class Request {
 }
 
 export class Gig {
-  gigSetList: SetList;
-  gigName: string;
-  gigTime: string;
-  gigDate: string;
-  gigLocation: string;
-  gigRequestList: Request[];
-  getGigSetList() {
-    return this.gigSetList;
-  }
-  getGigName() {
-    return this.gigName;
-  }
-  getGigTime() {
-    return this.gigTime;
-  }
-  getGigDate() {
-    return this.gigDate;
-  }
-  getGigLocation() {
-    return this.gigLocation;
-  }
-  getGigRequestList() {
-    return this.gigRequestList;
-  }
+  GigSetList: SetList;
+  GigName: string;
+  GigTime: string;
+  GigDate: string;
+  GigId: string;
+  GigLocation: string;
+  GigRequestList: Request[];
 }
