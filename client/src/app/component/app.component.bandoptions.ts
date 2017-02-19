@@ -9,7 +9,11 @@ import { Headers, Http } from '@angular/http';
 
 export class AppBandOptionsComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
-	rate:string;
+	rate: string;
+	newBandName: string;
+	newBandMembers: string;
+
+
 	constructor() {
 	}
 
@@ -25,5 +29,9 @@ export class AppBandOptionsComponent {
 		this.emit_event('bandpage')
 	}
 
-
+	//All of the band information pertaining to a user will need to be downloaded upon loading this page.
+	//This will just pass the select band information onto 
+	public enter_band_view(band: string) {
+		console.log("Going into " + band + "'s band instance");
+	}
 }
