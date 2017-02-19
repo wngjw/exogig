@@ -1,40 +1,62 @@
-<div style="width:60vw;margin-left:auto;margin-right:auto;padding-top:3vh;height:100%;padding-bottom:5vh;">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+<div style="width:80vw;margin-left:auto;margin-right:auto;padding-top:3vh;height:100%;padding-bottom:5vh;">
 
-  <div style="margin-left:auto;margin-right:auto;">
-  	<h1 style="text-align:center;color:#eceff1;">EXOGIG</h1>
+    <div style="margin-left:auto;margin-right:auto;">
+    	<h1 style="text-align:center;color:#eceff1;">EXOGIG</h1>
+    </div>
+
+    <!--start login link-->
+    <div style="height:auto;margin-top:30vh;margin-left:auto;margin-right:auto;display:block;justify-content:center;display: block;">
+      <div style="width:48%;margin-left:auto;margin-right:auto;">
+        <input class="underline_accenting" [(ngModel)]="inputKey" style="text-align:center;font-size:3em;width:100%;" type="text" placeholder="Gig ID" maxlength="4" />
+      </div>
+
+      <!-- Probably going to want to create a login insertion template, for handing registration stuffs / logging in -->
+
+      <div style="left:50%;position:absolute;transform: translate(-50%,-20%)">
+        <a class="waves-effect waves-light waves-effect btn light-blue lighten-1" (click)="joinEvent('main')" style="color:#263238;font-weight:bolder;">Enter</a>
+      </div>
+    </div>
+      <!-- This button will take you to the login -->
+    <div class="row"style="bottom:5vh;position:fixed;width:inherit;margin-left:auto;margin-right:auto;justify-content:center;align-items:center">
+      <div class="col s6" style="text-align:center">
+        <a class="waves-effect waves-light waves-effect btn blue-grey lighten-5" (click)="openModal1()" style="color:#263238;font-weight:bolder;">Login</a>
+      </div>
+      <div class="col s6" style="text-align:center">
+        <a class="waves-effect waves-light waves-effect btn blue-grey lighten-5" (click)="openModal2()" style="color:#263238;font-weight:bolder;">More Options</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Structure For the Login-->
+<div id="modal1" style="max-height:75%" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions1">
+  <div class="modal-content" style="display:block; text-align:center;">
+
+    <div style="display:flex; justify-content:center">
+      <div class="g-signin2" data-theme="dark" data-onsuccess="onSignIn" id="gapiLogin" (click)="closeModal1()">Google Login</div>
+    </div>
+    <div style="margin-top:2%">
+      <div class="fb-login-button" data-max-rows="1" data-size="Large" data-show-faces="false" data-auto-logout-link="true">Login</div>
+    </div>
   </div>
 
-  <!--start login link-->
-  <div style="height:auto;margin-top:30vh;margin-left:auto;margin-right:auto;display:block;justify-content:center;display: block;">
-    <div style="width:48%;margin-left:auto;margin-right:auto;">
-      <input class="underline_accenting" [(ngModel)]="inputKey" style="text-align:center;font-size:3em;width:100%;" type="text" placeholder="Gig ID" maxlength="4" />
-    </div>
-
-    <!-- Probably going to want to create a login insertion template, for handing registration stuffs / logging in -->
-
-    <div style="left:50%;position:absolute;transform: translate(-50%,-50%)">
-      <a class="waves-effect waves-light waves-effect btn light-blue lighten-1" (click)="joinEvent('main')" style="color:#263238;font-weight:bolder;">Enter</a>
-    </div>
+  <div class="modal-footer" style="align-items:center; display:flex; justify-content:center;">
+    <a class="waves-effect waves-light waves-effect btn-flat" (click)="closeModal1()">Close</a>
   </div>
-    <!-- This button will take you to the login -->
-  <div class="row"style="bottom:5vh;position:fixed;width:inherit;margin-left:auto;margin-right:auto;justify-content:center;align-items:center">
-    <div class="col s7" style="height:100%;display:table-cell;vertical-align: middle">
-      <div class="g-signin2" id="gapiLogin" data-onsuccess="onSignIn" (click)="closeModal()">Login</div>
-    </div>
-    <div class="col s5">
-      <button class="circle-sm waves-effect waves-light modal-trigger" (click)="openModal()"><md-icon class="material-icons" style="color:#263238;font-size:2em" >settings</md-icon></button>
-    </div>
-  </div>
-  <!-- Modal Structure For the Login-->
-  <div id="modal1" style="max-height:75%" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions">
-    <div class="modal-content" style="align-items:center; display:flex; justify-content:center;">
-      <a href="#" (click)="signOut();closeModal()">Sign out</a>
-    </div>
+</div>
 
-    <div class="modal-footer" style="align-items:center; display:flex; justify-content:center;">
-      <a class="waves-effect waves-light waves-effect btn-flat" (click)="closeModal()">Close</a>
+<!-- Modal Structure For the Logout-->
+<div id="modal2" style="max-height:75%" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions2">
+  <div class="modal-content" style="display:block; text-align:center;">
+    <div style="margin-bottom:2%">
+      <a class="waves-effect waves-light btn blue-grey darken-4" (click)="signOut();closeModal2()">Google Sign Out</a>
+    </div>
+    <div style="display:flex; justify-content:center">
+      <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true">Logout</div>
     </div>
   </div>
 
+  <div class="modal-footer" style="align-items:center; display:flex; justify-content:center;">
+    <a class="waves-effect waves-light waves-effect btn-flat" (click)="closeModal2()">Close</a>
+  </div>
 </div>
