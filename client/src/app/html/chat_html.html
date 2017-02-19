@@ -1,0 +1,34 @@
+<div style="height:100%;width:100%;">
+<!-- Default HTML for setting up nav button -->
+	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
+		<a class="btn-floating btn-large white">
+			<i class="material-icons large mdi-navigation-menu" style="font-size:3em;width:auto !important;height:auto !important;color:#263238">fingerprint</i>
+		</a>
+		<ul>
+			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
+			<li><a (click)="emit_event('login')" class="btn-floating white"><i class="material-icons" style="color:#263238">person_add</i></a></li>
+			<li><a (click)="emit_event('chat')" class="btn-floating white"><i class="material-icons" style="color:#263238">question_answer</i></a></li>
+			<li><a (click)="emit_event('request')" class="btn-floating white"><i class="material-icons" style="color:#263238">feedback</i></a></li>
+			<li><a (click)="emit_event('set')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_video</i></a></li>
+		</ul>
+	</div>
+
+	<div class="text" style="text-align:center;font-size:2em;width:auto;height:100%;padding-top:20% !important;margin:auto">
+		Chat UI Here...
+	</div>
+
+	<!--
+	<body>
+		<p>chat page</p>
+		<div>
+			<a (click)="emit_event('request')" class="">request</a>
+
+			<a (click)="emit_event('rate')" class="">rate</a>
+
+			<a (click)="emit_event('login')" class="">login</a>
+
+			<button style=" font-size: 20">send chat</button>
+		</div>
+	</body>
+	-->
+</div>

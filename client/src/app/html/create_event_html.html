@@ -1,0 +1,38 @@
+	<div>
+	<body style="background-color: black">
+		<!-- first column of input boxes-->
+		<div style="display: inline-block; ">
+			<input [(ngModel)]="eventname" type = "text" placeholder = "Event Name" maxlength="50" style="float: left;padding-bottom: 5vh" />
+
+			<div style="padding-bottom: 5vh">
+				<input [(ngModel)]="date" type = "text" placeholder = "Month Day Year" maxlength="16" style="float: left;padding-bottom: 5vh" />
+			</div>
+
+			<div >
+				<input [(ngModel)]="time" type = "text" placeholder = "Time of event" maxlength="10" style="float: left;padding-bottom: 5vh" />
+			</div>
+
+			<div>
+				<textarea [(ngModel)]="notes" rows="4" cols="37" style="color: white;background-color: transparent;">Enter your notes about this event
+				</textarea>
+			</div>
+			<button (click)="changeEvent()">save</button>
+		</div>
+		<!-- second column of buttons and set lists-->
+		<div style="display: inline-block;float:right; margin-right: 15vw ;padding-bottom: 5vh">
+				<button>start</button>
+				<button >stop</button>
+
+				<div style="padding-bottom: 5vh">
+					<h2>Add set lists here</h2>
+				</div>
+
+				<div style="display: inline-block; padding-bottom: 5vh">
+					<p style="display: inline;">set list</p>
+
+					<a (click)="emit_event('createsets')" class="btn btn-default">add sets</a>
+				</div>
+		</div>
+
+	</body>
+</div>

@@ -180,7 +180,7 @@ func main() {
 	http.HandleFunc("/generate", generate_gig_id)
 	http.HandleFunc("/2", app.RequestPageHandler)
 
-	fs := http.FileServer(http.Dir("../client-build/dist/"))
+	fs := http.FileServer(http.Dir("../client/dist/"))
 	http.Handle("/", fs)
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }

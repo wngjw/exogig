@@ -1,0 +1,56 @@
+<div style="height:100%;width:100%">
+<!-- Default HTML for setting up nav button -->
+	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
+		<a class="btn-floating btn-large white">
+			<i class="material-icons large mdi-navigation-menu" style="font-size:3em;width:auto !important;height:auto !important;color:#263238">fingerprint</i>
+		</a>
+		<ul>
+			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
+			<li><a (click)="emit_event('login')" class="btn-floating white"><i class="material-icons" style="color:#263238">person_add</i></a></li>
+			<li><a (click)="emit_event('chat')" class="btn-floating white"><i class="material-icons" style="color:#263238">question_answer</i></a></li>
+			<li><a (click)="emit_event('request')" class="btn-floating white"><i class="material-icons" style="color:#263238">feedback</i></a></li>
+			<li><a (click)="emit_event('set')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_video</i></a></li>
+		</ul>
+	</div>
+
+	<h2 style="text-align:center;margin-top:0px;padding-top:3vh" class="text"> Request </h2>
+	<div materialize class="col s12">
+    	<div class="row">
+        	<div class="input-field col s6">
+            	<input [(ngModel)]="question" class="underline_accenting" type="text">
+              	<label class="text">Question</label>
+            </div>
+            <div class="input-field col s6">
+            	<input [(ngModel)]="request" class="underline_accenting" type="text">
+            	<label class="text">Song Request</label>
+            </div>
+        </div>
+			<div style="margin-left:auto;margin-right:auto;text-align:center;width:75%">
+				<md-card>
+					<div *ngFor="let list of receivedSongList">
+						<md-card-title>
+							{{list.ListName}}
+						</md-card-title>
+							<p *ngFor="let song of list.Songs">
+								{{song.Name}}
+							</p>
+					</div>
+				</md-card>
+			</div>
+	</div>
+
+	<div style="text-align:center;padding-top:30vh">
+    	<a (click)="submitRequest()" class="waves-effect waves-white btn white" style="color:#263238"><i class="material-icons right" style="!important;color:#263238">send</i>Submit</a>
+	</div>
+
+<!--
+	<body>
+		<p>request page</p>
+		<div>
+		<a (click)="emit_event('chat')" class="">chat</a>
+		<a (click)="emit_event('rate')" class="">rate</a>
+		<a (click)="emit_event('login')" class="">login</a>
+		</div>
+	</body>
+-->
+</div>
