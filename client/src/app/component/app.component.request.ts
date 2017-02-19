@@ -8,6 +8,8 @@
 import { Component, Directive, Injectable, EventEmitter, Output } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Song, SongList } from '../gig/app.gig.gig';
+import { userService } from '../services/app.service.user';
+import { User } from '../gig/app.gig.users';
 
 @Component({
  	selector: 'request',
@@ -22,32 +24,38 @@ export class AppRequestComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
 	question: string;
 	request: string;
-  http: Http;
-  receivedSongList: SongList;
-	constructor(http: Http) {
-    this.http = http;
+	currentUser: User = new User();
+	http: Http;
+ 	receivedSongList: SongList;
+	loggedInSymbol: string;
+
+
+	constructor(http: Http,userService: userService) {
+    	this.http = http;
+		this.currentUser = userService.getUser();
+		this.check_login(userService);
 	}
 
-/**
-* Submits a request to the page on click.
-*/
-
-/*	This code is required to upload a JavaScript Object.
-
-	for(let key in data) {
-			params.set(key, data[key]);
+	private check_login(userService: userService) {
+		if (userService.getUser().getLoggedIn() == true) {
+			this.loggedInSymbol = "swap_horiz";
 		}
-	let options = new RequestOptions({
-			search: params
-		});
-		return this._http.get(service, options)
-		.map(...)
-		.catch(...)
-		.finally(() => {
-			//do something
-		});
+		else {
+			this.loggedInSymbol = "person_add";
+		}
+	}
 
-*/
+	private swap_view() {
+		//If logged in, swap to not at Gig view.
+		if(this.currentUser.getLoggedIn() == true) {
+			this.emit_event('bandviewer')
+		}
+		//If not logged in, popup the login option.
+		else {
+			//Insert popup trigger here. (The popup should have the leave Gig option as well)
+			this.emit_event('login');
+		}
+	}
 
 	public submitRequest() {
     this.http.get('/2').map(res => res.json()).subscribe(data => this.receivedSongList = data);

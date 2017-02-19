@@ -6,7 +6,7 @@
 		</a>
 		<ul>
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-			<li><a (click)="emit_event('login')" class="btn-floating white"><i class="material-icons" style="color:#263238">person_add</i></a></li>
+			<li><a (click)="swap_view()" class="btn-floating white"><i class="material-icons" style="color:#263238">{{loggedInSymbol}}</i></a></li>
 			<li><a (click)="emit_event('chat')" class="btn-floating white"><i class="material-icons" style="color:#263238">question_answer</i></a></li>
 			<li><a (click)="emit_event('request')" class="btn-floating white"><i class="material-icons" style="color:#263238">feedback</i></a></li>
 			<li><a (click)="emit_event('set')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_video</i></a></li>

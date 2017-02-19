@@ -15,10 +15,10 @@ import { AppChatComponent } from './component/app.component.chat';
 import { AppCreateEventComponent } from './component/app.component.createevent';
 import { AppEditBioComponent } from './component/app.component.editbio'
 import { AppCreateSetlistComponent } from './component/app.component.makesetlist';
-import { AppRateComponent } from './component/app.component.rate';
+import { AppBandOptionsComponent } from './component/app.component.bandoptions';
 import { AppRequestComponent } from './component/app.component.request'
 import { AppSetComponent } from './component/app.component.set';
-import { AppSongComponent } from './component/app.component.song';
+import { AppNotificationsComponent } from './component/app.component.notifications';
 import { AppCreateSetsComponent } from './component/app.component.makesets';
 
 import { MaterializeDirective } from "angular2-materialize";
@@ -59,10 +59,10 @@ import { userService } from './services/app.service.user';
   	AppCreateEventComponent,
   	AppEditBioComponent,
   	AppCreateSetlistComponent,
-  	AppRateComponent,
+  	AppBandOptionsComponent,
   	AppRequestComponent,
   	AppSetComponent,
-  	AppSongComponent,
+  	AppNotificationsComponent,
   	AppCreateSetsComponent,
 	MaterializeDirective,
 

@@ -9,6 +9,8 @@ import { Component, Directive, Injectable, EventEmitter, Output } from '@angular
 import { Headers, Http } from '@angular/http';
 import { gigService } from '../services/app.service.gig';
 import { Gig } from '../gig/app.gig.gig';
+import { userService } from '../services/app.service.user';
+import { User } from '../gig/app.gig.users';
 
 interface Set {
 	songlist: SongList;
@@ -36,18 +38,43 @@ export class AppSetComponent {
     receivedSet: Set;
 	currentSelectedIndex: number;
 	currentSelectedList: number;
-
+	currentUser: User = new User();
 	gigObject: Gig;	 //I define this object so we can later store the gig object and edit it.
+	loggedInSymbol: string;
 
 
 	//I assume this is ran on initializing the page.
 	//While loading, consider using a material design loading circle.
-	constructor(http: Http, public gigService: gigService) {
+	constructor(http: Http, public gigService: gigService,userService: userService) {
 		this.http = http;
 		this.gigObject = gigService.getGig();
 
 		this.currentSelectedList = 0;
 		this.currentSelectedIndex = 0;
+
+		this.currentUser = userService.getUser();
+		this.check_login(userService);
+	}
+
+	private check_login(userService: userService) {
+		if (userService.getUser().getLoggedIn() == true) {
+			this.loggedInSymbol = "swap_horiz";
+		}
+		else {
+			this.loggedInSymbol = "person_add";
+		}
+	}
+
+	private swap_view() {
+		//If logged in, swap to not at Gig view.
+		if(this.currentUser.getLoggedIn() == true) {
+			this.emit_event('bandviewer')
+		}
+		//If not logged in, popup the login option.
+		else {
+			//Insert popup trigger here. (The popup should have the leave Gig option as well)
+			this.emit_event('login');
+		}
 	}
 
 	//This will check if a given index (song), has been selected. If so it'll give the selected look.

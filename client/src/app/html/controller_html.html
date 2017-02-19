@@ -15,5 +15,5 @@
 <create-setlist *ngIf="currentState == 'setlist'" (notify)='onNotify($event)'>Loading Edit Setlist...</create-setlist>
 <create-sets *ngIf="currentState == 'createsets'" (notify)='onNotify($event)'>Loading Edit Sets...</create-sets>
 
-<rate *ngIf="currentState == 'rate'" (notify)='onNotify($event)'>Loading Rate...</rate>
-<song *ngIf="currentState == 'song'" (notify)='onNotify($event)'>Loading Song...</song>
+<bandoptions *ngIf="currentState == 'bandoptions'" (notify)='onNotify($event)'>Loading Band Options...</bandoptions>
+<notifications *ngIf="currentState == 'notifications'" (notify)='onNotify($event)'>Loading Notifications...</notifications>

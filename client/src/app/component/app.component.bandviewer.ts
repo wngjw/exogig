@@ -18,4 +18,7 @@ export class AppBandViewerComponent {
 		this.notify.emit(location);
 	}
 
+	public swap_view() {
+		this.emit_event('bandpage')
+	}
 }

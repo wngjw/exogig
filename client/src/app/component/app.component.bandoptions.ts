@@ -2,23 +2,28 @@ import { Component, Directive, Injectable, EventEmitter, Output } from '@angular
 import { Headers, Http } from '@angular/http';
 
 @Component({
- 	selector: 'song',
-	templateUrl: '../html/song_html.html',
+ 	selector: 'bandoptions',
+	templateUrl: '../html/band_options_html.html',
 	outputs: ['notify']
 })
 
-export class AppSongComponent {
+export class AppBandOptionsComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
-	song: string;
+	rate:string;
 	constructor() {
-		this.song;
 	}
 
-	public createSong(){
-		console.log(this.song);
+	public submitRate(){
+		console.log(this.rate);
 	}
+
 	public emit_event(location:string) {
 		this.notify.emit(location);
 	}
+
+	public swap_view() {
+		this.emit_event('bandpage')
+	}
+
 
 }
