@@ -155,7 +155,7 @@ func (a *Set) CompareSet(b *Set) (_ bool) {
  *    requests: a collection of requests for the gig
  */
  type Gig struct {
-     GigID          string
+     GigId          string
      GigSetList     SetList
      GigName        string
      GigTime        string

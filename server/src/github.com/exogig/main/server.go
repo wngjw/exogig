@@ -93,8 +93,8 @@ func fill_database() {
 	temp_requested_song := gig.Song{Name: "Collard Greens", Rating: 0}
 
 	kendricks_gig := gig.Gig{
-		GigID:          "s3xy",
-		GigName:        "Blackerberry: Spokane",
+		GigId:          "s3xy",
+		GigName:        "The Blacker the Berry: Spokane",
 		GigTime:        "21:00",
 		GigDate:        "2017-05-14",
 		GigLocation:    "Knitting Factory",

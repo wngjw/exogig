@@ -6,16 +6,16 @@
 * Author: Tony Wang
 *
 * Date Modified: 8 Feb 2017
-*/
+ */
 package app
 
 import (
-  "log"
 	"encoding/json"
-  "net/http"
-  "gopkg.in/mgo.v2"
-  "gopkg.in/mgo.v2/bson"
-  "github.com/exogig/gig"
+	"github.com/exogig/gig"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
+	"log"
+	"net/http"
 )
 
 func check_error(err error) {
@@ -26,7 +26,7 @@ func check_error(err error) {
 
 /**
 * Handler for entering a gig code.
-*/
+ */
 // This code currently pulls from the database in fill_database()
 func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
@@ -35,24 +35,24 @@ func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	session.SetMode(mgo.Monotonic, true)
 	collection := session.DB("test").C("songs")
 
-  // Creates the decoder for the http request body
-  decoder := json.NewDecoder(r.Body)
-  // The "key" or "gig code" input from the login page
-  var requestedId string
-  // Decode the JSON, and return error
-  err = decoder.Decode(&requestedId)
-  if err != nil {
-      panic(err)
-  }
-  defer r.Body.Close()
-  log.Println("[DEBUG] request body:", requestedId)
+	// Creates the decoder for the http request body
+	decoder := json.NewDecoder(r.Body)
+	// The "key" or "gig code" input from the login page
+	var requestedId string
+	// Decode the JSON, and return error
+	err = decoder.Decode(&requestedId)
+	if err != nil {
+		panic(err)
+	}
+	defer r.Body.Close()
+	log.Println("[DEBUG] request body:", requestedId)
 
-  // Create the variable to store the gig being searched for
-  var result gig.Gig
+	// Create the variable to store the gig being searched for
+	var result gig.Gig
 	// Searches the database for the key
 	err = collection.Find(bson.M{"gigid": requestedId}).One(&result)
 
-  //Return a nil value if the id doesn't have an associated Gig.
+	//Return a nil value if the id doesn't have an associated Gig.
 	if len(requestedId) == 0 {
 		emptyJson, _ := json.Marshal(nil)
 		w.Write(emptyJson)
@@ -61,7 +61,7 @@ func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	resultJson, _ := json.Marshal(result)
 
 	//Check to see if the requested ID matches the Gig we provided
-	if requestedId == result.GigID {
+	if requestedId == result.GigId {
 		w.Write(resultJson)
 		log.Println("[DEBUG] found gig:", requestedId)
 	} else {
