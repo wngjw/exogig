@@ -1,27 +1,19 @@
 <login-page *ngIf="currentState == 'login'" (notify)='onNotify($event)'>Loading Login Page...</login-page>
-
 <main-page *ngIf="currentState == 'main'" (notify)='onNotify($event)'>Loading Main Page...</main-page>
-
 <band-page *ngIf="currentState == 'bandpage'" (notify)='onNotify($event)'>Loading Band Page... </band-page>
 
-<band-viewer *ngIf="currentState == 'bandviewer'" (notify)='onNotify($event)'>Loading Band Viewer...</band-viewer>
-
 <chat *ngIf="currentState == 'chat'" (notify)='onNotify($event)'>Loading Chat...</chat>
+<request *ngIf="currentState == 'request'" (notify)='onNotify($event)'>Loading Request...</request>
+<set *ngIf="currentState == 'set'" (notify)='onNotify($event)'>Loading Set...</set>
+
+<band-viewer *ngIf="currentState == 'bandviewer'" (notify)='onNotify($event)'>Loading Band Viewer...</band-viewer>
 
 <create-event *ngIf="currentState == 'createevent'" (notify)='onNotify($event)'>Loading Create Event...</create-event>
 
 <edit-bio *ngIf="currentState == 'editbio'" (notify)='onNotify($event)'>Loading Edit Bio...</edit-bio>
-
 <edit-songlist *ngIf="currentState == 'songlist'" (notify)='onNotify($event)'>Loading Edit Songlist...</edit-songlist>
-
-<create-setlist *ngIf="currentState == 'setlist'" (notify)='onNotify($event)'>Loading Create Setlist...</create-setlist>
-
-<create-sets *ngIf="currentState == 'createsets'" (notify)='onNotify($event)'>Loading Create Sets...</create-sets>
+<create-setlist *ngIf="currentState == 'setlist'" (notify)='onNotify($event)'>Loading Edit Setlist...</create-setlist>
+<create-sets *ngIf="currentState == 'createsets'" (notify)='onNotify($event)'>Loading Edit Sets...</create-sets>
 
 <rate *ngIf="currentState == 'rate'" (notify)='onNotify($event)'>Loading Rate...</rate>
-
-<request *ngIf="currentState == 'request'" (notify)='onNotify($event)'>Loading Request...</request>
-
-<set *ngIf="currentState == 'set'" (notify)='onNotify($event)'>Loading Set...</set>
-
 <song *ngIf="currentState == 'song'" (notify)='onNotify($event)'>Loading Song...</song>

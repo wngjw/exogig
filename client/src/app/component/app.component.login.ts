@@ -44,11 +44,11 @@ export class AppLoginComponent {
 	//By defining gigService as public, it makes the service accessible within the class (within AppLoginComponent).
 	constructor(http: Http,public userService: userService, public gigService: gigService, private _zone: NgZone) {
 		this.http = http;
+		userService.setUser(this.user);
 		setTimeout( () => {
 			this.start();		//Needs to wait for the DOM to be fully loaded.
 		},1000);
 	}
-
 
 	public joinEvent(location:string) {
     // The input from the html page
