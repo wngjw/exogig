@@ -33,6 +33,7 @@
     "angular-google-signin": "^0.1.5",
     "angular2-materialize": "^6.6.0",
     "core-js": "^2.4.1",
+    "facebook-node-sdk": "^0.2.0",
     "gapi": "0.0.3",
     "hammerjs": "^2.0.8",
     "jquery": "^2.2.4",
