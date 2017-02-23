@@ -10,6 +10,7 @@
 */
 
 export class User {
+  private id: number;
   private name: string;
   private type: string;
   private email: string;
@@ -17,13 +18,16 @@ export class User {
   private vip: boolean;
 
   setName(name: string) {
-      this.name = name;
+    this.name = name;
+  }
+  setId(id: number){
+    this.id = name;
   }
   setLoggedIn(loginStatus: boolean) {
-      this.loggedIn = loginStatus;
+    this.loggedIn = loginStatus;
   }
   setVip(vip: boolean) {
-      this.vip = vip;
+    this.vip = vip;
   }
   setEmail(email: string) {
     this.email = email;
@@ -33,6 +37,9 @@ export class User {
   }
   getName() {
     return this.name;
+  }
+  getId() {
+    return this.id;
   }
   getLoggedIn() {
     return this.loggedIn;

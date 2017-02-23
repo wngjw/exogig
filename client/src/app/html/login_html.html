@@ -1,11 +1,11 @@
 <div style="width:80vw;margin-left:auto;margin-right:auto;padding-top:3vh;height:100%;padding-bottom:5vh;">
 
     <div style="align-items:center; display:flex; justify-content:center;margin-left:auto;margin-right:auto;">
-      <img src="../assets/logo.svg" />
+      <img style ="height:35vh;width:auto"src="../assets/logo.svg" />
     </div>
 
     <!--start login link-->
-    <div style="height:auto;margin-top:30vh;margin-left:auto;margin-right:auto;display:block;justify-content:center;display: block;">
+    <div style="height:auto;margin-top:10vh;margin-left:auto;margin-right:auto;display:block;justify-content:center;display: block;">
       <div style="width:48%;margin-left:auto;margin-right:auto;">
         <input class="underline_accenting" [(ngModel)]="inputKey" style="text-align:center;font-size:3em;width:100%;" type="text" placeholder="Gig ID" maxlength="4" />
       </div>
@@ -33,10 +33,10 @@
   <div class="modal-content" style="display:block; text-align:center;">
 
     <div style="display:flex; justify-content:center">
-      <div class="g-signin2" data-theme="dark" data-onsuccess="onSignIn" id="gapiLogin" (click)="closeModal1();">Google Login</div>
+      <div id="gapiLogin" (click)="closeModal1();">Google Login</div>
     </div>
     <div style="margin-top:2%">
-      <div class="fb-login-button" data-max-rows="1" data-size="Large" data-show-faces="false" data-auto-logout-link="true">Login</div>
+      <div class="fb-login-button" data-max-rows="1" data-size="xLarge" data-show-faces="false" data-auto-logout-link="false">Log In</div>
     </div>
   </div>
 
@@ -52,7 +52,7 @@
       <a class="waves-effect waves-light btn blue-grey darken-4" (click)="signOut();closeModal2()">Google Sign Out</a>
     </div>
     <div style="display:flex; justify-content:center">
-      <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true">Logout</div>
+      <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true">Log Out</div>
     </div>
   </div>
 

@@ -1,10 +1,31 @@
 <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
 
 <!-- Load the necesary items for the Google Oauth -->
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoaded" async defer></script>
 <meta name="google-signin-client_id" content="185214012256-p7bo73l7cqn59hc2e24b45dnni04rglm.apps.googleusercontent.com">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+<script>
+	window.initAuth2 = function() {
+		console.log('initAuth2');
+		gapi.load('auth2', function() {
+			gapi.auth2.init().then(function() {
+				auth2 = gapi.auth2.getAuthInstance();
+				console.log('isSignedIn (index.html)' + auth2.isSignedIn.get());
+				System.config({
+					packages: {
+						'app': {
+							format: 'register',
+							defaultExtension: 'js'
+						}
+					}
+				});
+				System.import('app/main').then(null, console.error.bind(console));
+			});
+		});
+	}
+</script>
 
 <!-- Loads Google's fonts -->
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
