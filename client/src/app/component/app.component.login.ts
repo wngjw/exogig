@@ -8,12 +8,15 @@
 import { Input, Output, Component, Directive, Injectable, EventEmitter, NgZone } from '@angular/core';
 import { Headers, Http, URLSearchParams, RequestOptions } from '@angular/http';
 import { MaterializeAction } from 'angular2-materialize';
-import { GoogleAPILoader } from '../gapi/app.gapi.gapiloader';
 import { FacebookService, FacebookLoginResponse, FacebookInitParams } from 'ng2-facebook-sdk';
 import { gigService } from '../services/app.service.gig';
 import { Gig } from '../gig/app.gig.gig';
 import { userService } from '../services/app.service.user';
 import { User } from '../gig/app.gig.users';
+
+declare var gapi: any;
+declare var FB: any;
+
 
 @Component({
  	selector: 'login-page',
@@ -27,8 +30,6 @@ export class AppLoginComponent {
   loginhtml: string;
   inputKey: string;		//On page <input> value
   entireGigObject: Gig;
-  promise = GoogleAPILoader.load();
-  //something = FBConnector.constructor('1866232750300614');
   http: Http;
 
   modalActions1 = new EventEmitter<string|MaterializeAction>();
@@ -38,6 +39,7 @@ export class AppLoginComponent {
   userDisplayName = "empty";
   auth2: any;
   user: User = new User();
+  googleLoginButtonId = "gapiLogin";
 
   public openModal1() {
     this.modalActions1.emit({action:"modal",params:['open'],});
@@ -46,10 +48,39 @@ export class AppLoginComponent {
     this.modalActions2.emit({action:"modal",params:['open'],});
   }
   public closeModal1() {
-    	this.modalActions1.emit({action:"modal",params:['close']});
+    this.modalActions1.emit({action:"modal",params:['close']});
   }
   public closeModal2() {
-      this.modalActions2.emit({action:"modal",params:['close']});
+    this.modalActions2.emit({action:"modal",params:['close']});
+  }
+
+  /*public getSigninStatus() {
+    var signedIn : boolean;
+    if(this.auth2.getAuthInstance().isSignedIn.get() & FB.getLoginStatus())
+    return signedIn;
+  }*/
+
+  public createUserObject() {
+    if (gapi.auth2.isSignedIn.get()) {
+      var profile = this.auth2.currentUser.get().getBasicProfile();
+      this.user.setName(profile.getName());
+      this.user.setEmail(profile.getEmail());
+      this.user.setLoggedIn(true);
+      this.user.setVip(false);
+      this.user.setType("google");
+    }
+    else if (this.fb.getLoginStatus()) {
+      FB.api('/me','GET',{"fields":"name"},function(response) {
+        this.user.setName(response.name);
+      });
+      FB.api('/me', 'GET',{"fields":"email"}, function(response) {
+        this.user.setEmail(response);
+      });
+      this.user.setLoggedIn(true);
+      this.user.setVip(false);
+      this.user.setType("facebook");
+    }
+    console.log(this.user);
   }
 
   public facebookLogin() {
@@ -57,6 +88,27 @@ export class AppLoginComponent {
       (response: FacebookLoginResponse) => console.log(response),
       (error: any) => console.error(error)
     );
+    //this.createUserObject();
+  }
+
+  ngAfterViewInit() {
+    // Converts the Google login button stub to an actual button.
+    gapi.signin2.render(
+      this.googleLoginButtonId,
+      {
+        "onSuccess": this.onGoogleLoginSuccess,
+        "scope": "profile",
+        "theme": "dark"
+      });
+  }
+
+  // Triggered after a user successfully logs in using the Google external
+  // login provider.
+  onGoogleLoginSuccess = (loggedInUser) => {
+    this._zone.run(() => {
+        this.userAuthToken = loggedInUser.getAuthResponse().id_token;
+        this.userDisplayName = loggedInUser.getBasicProfile().getName();
+    });
   }
 
   //By defining gigService as public, it makes the service accessible within the class (within AppLoginComponent).
@@ -65,7 +117,7 @@ export class AppLoginComponent {
     userService.setUser(this.user);
     setTimeout(() => {
       this.start();		//Needs to wait for the DOM to be fully loaded.
-    }, 1000);
+    }, 500);
     let fbParams: FacebookInitParams = {
       appId: '1866232750300614',
       xfbml: true,
@@ -134,18 +186,19 @@ export class AppLoginComponent {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
         this._zone.run(() => {
-          this.userAuthToken = googleUser.getAuthResponse().id_token;
+          //this.userAuthToken = googleUser.getAuthResponse().id_token;
           this.userDisplayName = googleUser.getBasicProfile().getName();
           console.log("Login Complete: ");
-          console.log(this.userAuthToken);
+          //console.log(this.userAuthToken);
           console.log(this.userDisplayName);
           this.user.setLoggedIn(true);
-          this.user.setValidation(this.userAuthToken);
+          this.user.setName(this.userDisplayName);
           this.userService.setUser(this.user);
         });
       }, (error) => {
         alert(JSON.stringify(error, undefined, 2));
-      });
+    });
+    //this.createUserObject();
   }
 
   public signOut() {
