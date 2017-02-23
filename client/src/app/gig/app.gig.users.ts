@@ -11,11 +11,13 @@
 
 export class User {
   private name: string;
+  private type: string;
+  private email: string;
   private loggedIn: boolean;
   private vip: boolean;
 
-  setValidation(incName: string) {
-      this.name = incName;
+  setName(name: string) {
+      this.name = name;
   }
   setLoggedIn(loginStatus: boolean) {
       this.loggedIn = loginStatus;
@@ -23,7 +25,13 @@ export class User {
   setVip(vip: boolean) {
       this.vip = vip;
   }
-  getValidation() {
+  setEmail(email: string) {
+    this.email = email;
+  }
+  setType(type: string) {
+    this.type = type;
+  }
+  getName() {
     return this.name;
   }
   getLoggedIn() {
@@ -31,5 +39,40 @@ export class User {
   }
   getVip() {
     return this.vip;
+  }
+  getType() {
+    return this.type;
+  }
+  getEmail() {
+    return this.email;
+  }
+}
+
+export class Artist {
+  private name: string;
+
+  getName() {
+    return this.name;
+  }
+  setName(name: string) {
+    this.name = name;
+  }
+}
+
+export class Membership {
+  private user: User;
+  private artist: Artist;
+
+  getUser() {
+    return this.user;
+  }
+  getArtist() {
+    return this.artist;
+  }
+  setUser(user: User) {
+    this.user = user;
+  }
+  setArtist(artist: Artist) {
+    this.artist = artist;
   }
 }
