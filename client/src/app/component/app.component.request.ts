@@ -31,7 +31,7 @@ export class AppRequestComponent {
 
 
 	constructor(http: Http,userService: userService) {
-    	this.http = http;
+    this.http = http;
 		this.currentUser = userService.getUser();
 		this.check_login(userService);
 	}
