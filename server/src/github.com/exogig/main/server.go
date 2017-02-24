@@ -47,7 +47,7 @@ func fill_database() {
 
 	/* ADDING ALL THE MUTHAFUCKIN' DATA */
 	kendrick_set_1 := gig.Set{
-		SetName: "kendrick_section_80",
+		SetName: "Section.80",
 		SongsInSet: []gig.Song{
 			{Name: "Fuck Your Ethnicity", Rating: 5}, {Name: "Hol' Up", Rating: 5},
 			{Name: "A.D.H.D", Rating: 5}, {Name: "No Make-Up (Her Vice)", Rating: 12},
@@ -60,7 +60,7 @@ func fill_database() {
 		},
 	}
 	kendrick_set_2 := gig.Set{
-		SetName: "kendrick_good_kid_maad_city",
+		SetName: "Good Kid, M.A.A.D. City",
 		SongsInSet: []gig.Song{
 			{Name: "Sherane a.k.a Master Splinter's Daughter", Rating: 5}, {Name: "Bitch, Don't Kill My Vibe", Rating: 5},
 			{Name: "Backseat Freestyle", Rating: 5}, {Name: "The Art of Peer Pressure", Rating: 12},
@@ -72,7 +72,7 @@ func fill_database() {
 	}
 
 	kendrick_set_3 := gig.Set{
-		SetName: "kendrick_to_pimp_a_butterfly",
+		SetName: "To Pimp a Butterfly",
 		SongsInSet: []gig.Song{
 			{Name: "Wesley's Theory", Rating: 5}, {Name: "For Free? (Interlude)", Rating: 5},
 			{Name: "King Kunta", Rating: 5}, {Name: "Institutionalized", Rating: 12},
@@ -93,8 +93,8 @@ func fill_database() {
 	temp_requested_song := gig.Song{Name: "Collard Greens", Rating: 0}
 
 	kendricks_gig := gig.Gig{
-		GigId:          "s3xy",
-		GigName:        "The Blacker the Berry: Spokane",
+		GigId:          "kdot",
+		GigName:        "The Blacker the Berry",
 		GigTime:        "21:00",
 		GigDate:        "2017-05-14",
 		GigLocation:    "Knitting Factory",

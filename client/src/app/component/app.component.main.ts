@@ -19,9 +19,11 @@ export class AppMainComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
 	quickie: string;
 	gigName: string;
+  gigLocation: string;
 
 	constructor(public http_obj: Http, public gigService: gigService) {
 		this.gigName = gigService.getGig().GigName;
+    this.gigLocation = gigService.getGig().GigLocation;
 	}
 
 	public emit_event(location:string) {
