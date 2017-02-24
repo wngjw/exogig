@@ -15,31 +15,21 @@
 
 	<h2 style="text-align:center;margin-top:0px;padding-top:3vh" class="text"> Request </h2>
 	<div materialize class="col s12">
-    	<div class="row">
-        	<div class="input-field col s6">
-            	<input id="q" [(ngModel)]="question" class="underline_accenting" type="text">
-              	<label for="q" class="text">Question</label>
-            </div>
-            <div class="input-field col s6">
-            	<input id="sr" [(ngModel)]="request" class="underline_accenting" type="text">
-            	<label for="sr" class="text">Song Request</label>
-            </div>
-        </div>
-			<div style="margin-left:auto;margin-right:auto;text-align:center;width:75%">
-				<md-card>
-					<div *ngFor="let list of receivedSongList">
-						<md-card-title>
-							{{list.ListName}}
-						</md-card-title>
-						<p *ngFor="let song of list.Songs">
-							{{song.Name}}
-						</p>
-					</div>
-				</md-card>
+			<div style="margin-left:auto;margin-right:auto;text-align:center;width:50%;height:75%;overflow-y:scroll">
+			  <md-card md-scroll-y>
+			    <div *ngFor="let set of gigSetList.SetsInSetList">
+			      <md-card-title>
+			        {{set.SetName}}
+			      </md-card-title>
+			      <p *ngFor="let song of set.SongsInSet">
+			        {{song.Name}}
+			      </p>
+			    </div>
+			  </md-card>
 			</div>
 	</div>
 
-	<div style="text-align:center;padding-top:30vh">
+	<div style="text-align:center;padding-top:5vh">
     	<a (click)="submitRequest()" class="waves-effect waves-white btn white" style="color:#263238"><i class="material-icons right" style="!important;color:#263238">send</i>Submit</a>
 	</div>
 

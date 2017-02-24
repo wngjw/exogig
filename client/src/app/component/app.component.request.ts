@@ -10,6 +10,8 @@ import { Headers, Http } from '@angular/http';
 import { Song, SongList } from '../gig/app.gig.gig';
 import { userService } from '../services/app.service.user';
 import { User } from '../gig/app.gig.users';
+import { gigService } from '../services/app.service.gig';
+import { Gig, SetList } from '../gig/app.gig.gig';
 
 @Component({
  	selector: 'request',
@@ -28,12 +30,16 @@ export class AppRequestComponent {
 	http: Http;
  	receivedSongList: SongList;
 	loggedInSymbol: string;
+	gigObject: Gig;
+  gigSetList: SetList;
 
 
-	constructor(http: Http,userService: userService) {
+	constructor(http: Http, userService: userService, gigService: gigService) {
     this.http = http;
 		this.currentUser = userService.getUser();
 		this.check_login(userService);
+    this.gigObject = gigService.getGig();
+    this.gigSetList = this.gigObject.GigSetList;
 	}
 
 	private check_login(userService: userService) {

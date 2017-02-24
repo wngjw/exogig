@@ -8,7 +8,6 @@
 import { Component, Directive, Injectable, EventEmitter, Output } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { gigService } from '../services/app.service.gig';
-import { Gig, SetList } from '../gig/app.gig.gig';
 
 @Component({
  	selector: 'main-page',
@@ -20,13 +19,9 @@ export class AppMainComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
 	quickie: string;
 	gigName: string;
-	gigObject: Gig;
-  gigSetList: SetList;
 
 	constructor(public http_obj: Http, public gigService: gigService) {
 		this.gigName = gigService.getGig().GigName;
-    this.gigObject = gigService.getGig();
-    this.gigSetList = this.gigObject.GigSetList;
 	}
 
 	public emit_event(location:string) {
