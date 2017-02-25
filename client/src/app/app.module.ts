@@ -10,13 +10,13 @@ import { AppLoginComponent } from './component/app.component.login';
 import { AppControllerComponent } from './component/app.component.controller';
 import { AppMainComponent } from './component/app.component.main'
 import { AppSongListComponent } from './component/app.component.songlist';
-import { AppBandPageComponent } from './component/app.component.bandpage';
-import { AppBandViewerComponent } from './component/app.component.bandviewer'
+import { AppArtistPageComponent } from './component/app.component.artistpage';
+import { AppArtistViewerComponent } from './component/app.component.artistviewer'
 import { AppChatComponent } from './component/app.component.chat';
 import { AppCreateEventComponent } from './component/app.component.createevent';
 import { AppEditBioComponent } from './component/app.component.editbio'
 import { AppCreateSetlistComponent } from './component/app.component.makesetlist';
-import { AppBandOptionsComponent } from './component/app.component.bandoptions';
+import { AppArtistOptionsComponent } from './component/app.component.artistoptions';
 import { AppRequestComponent } from './component/app.component.request'
 import { AppSetComponent } from './component/app.component.set';
 import { AppNotificationsComponent } from './component/app.component.notifications';
@@ -51,13 +51,13 @@ import { userService } from './services/app.service.user';
   	AppLoginComponent,
   	AppControllerComponent,
   	AppSongListComponent,
-  	AppBandPageComponent,
-  	AppBandViewerComponent,
+  	AppArtistPageComponent,
+  	AppArtistViewerComponent,
   	AppChatComponent,
   	AppCreateEventComponent,
   	AppEditBioComponent,
   	AppCreateSetlistComponent,
-  	AppBandOptionsComponent,
+  	AppArtistOptionsComponent,
   	AppRequestComponent,
   	AppSetComponent,
   	AppNotificationsComponent,
