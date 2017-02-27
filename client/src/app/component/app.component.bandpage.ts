@@ -32,7 +32,7 @@ export class AppBandPageComponent {
 	private swap_view() {
 		//If logged in, swap to not at Gig view.
 		if(this.currentUser.getLoggedIn() == true) {
-			this.emit_event('bandviewer')
+			this.emit_event('loginhome')
 		}
 		//If not logged in, popup the login option.
 		else {

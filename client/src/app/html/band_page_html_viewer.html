@@ -7,7 +7,7 @@
 		</a>
 		<ul>
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-			<li><a (click)="swap_view()" class="btn-floating white"><i class="material-icons" style="color:#263238">swap_horiz</i></a></li>
+			<li><a (click)="emit_event('loginhome')" class="btn-floating white"><i class="material-icons" style="color:#263238">swap_horiz</i></a></li>
 			<li><a (click)="emit_event('bandviewer')" class="btn-floating white"><i class="material-icons" style="color:#263238">search</i></a></li>
 			<li><a (click)="emit_event('bandoptions')" class="btn-floating white"><i class="material-icons" style="color:#263238">local_play</i></a></li>
 			<li><a (click)="emit_event('notifications')" class="btn-floating white"><i class="material-icons" style="color:#263238">info_outline</i></a></li>

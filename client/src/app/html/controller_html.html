@@ -1,19 +1,20 @@
 <login-page *ngIf="currentState == 'login'" (notify)='onNotify($event)'>Loading Login Page...</login-page>
 <main-page *ngIf="currentState == 'main'" (notify)='onNotify($event)'>Loading Main Page...</main-page>
-<band-page *ngIf="currentState == 'bandpage'" (notify)='onNotify($event)'>Loading Band Page... </band-page>
 
 <chat *ngIf="currentState == 'chat'" (notify)='onNotify($event)'>Loading Chat...</chat>
 <request *ngIf="currentState == 'request'" (notify)='onNotify($event)'>Loading Request...</request>
 <set *ngIf="currentState == 'set'" (notify)='onNotify($event)'>Loading Set...</set>
 
+<loginhome *ngIf="currentState == 'loginhome'" (notify)='onNotify($event)'>Loading Transition Page...</loginhome>
+
 <band-viewer *ngIf="currentState == 'bandviewer'" (notify)='onNotify($event)'>Loading Band Viewer...</band-viewer>
-
-<create-event *ngIf="currentState == 'createevent'" (notify)='onNotify($event)'>Loading Create Event...</create-event>
-
-<edit-bio *ngIf="currentState == 'editbio'" (notify)='onNotify($event)'>Loading Edit Bio...</edit-bio>
-<edit-songlist *ngIf="currentState == 'songlist'" (notify)='onNotify($event)'>Loading Edit Songlist...</edit-songlist>
-<create-setlist *ngIf="currentState == 'setlist'" (notify)='onNotify($event)'>Loading Edit Setlist...</create-setlist>
-<create-sets *ngIf="currentState == 'createsets'" (notify)='onNotify($event)'>Loading Edit Sets...</create-sets>
-
 <bandoptions *ngIf="currentState == 'bandoptions'" (notify)='onNotify($event)'>Loading Band Options...</bandoptions>
 <notifications *ngIf="currentState == 'notifications'" (notify)='onNotify($event)'>Loading Notifications...</notifications>
+
+<band-page *ngIf="currentState == 'bandpage'" (notify)='onNotify($event)'>Loading Band Page... </band-page>
+
+<edit-bio *ngIf="currentState == 'editbio'" (notify)='onNotify($event)'>Loading Band Bio...</edit-bio>
+<edit-songlist *ngIf="currentState == 'songlist'" (notify)='onNotify($event)'>Loading Band Songlist...</edit-songlist>
+<create-setlist *ngIf="currentState == 'setlist'" (notify)='onNotify($event)'>Loading Band Setlist...</create-setlist>
+
+<create-event *ngIf="currentState == 'createevent'" (notify)='onNotify($event)'>Loading Create Event...</create-event>

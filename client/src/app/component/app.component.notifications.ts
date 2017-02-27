@@ -22,7 +22,7 @@ export class AppNotificationsComponent {
 	}
 
 	public swap_view() {
-		this.emit_event('bandpage')
+		this.emit_event('loginhome')
 	}
 
 

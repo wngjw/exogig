@@ -26,12 +26,13 @@ export class AppBandOptionsComponent {
 	}
 
 	public swap_view() {
-		this.emit_event('bandpage')
+		this.emit_event('loginhome')
 	}
 
 	//All of the band information pertaining to a user will need to be downloaded upon loading this page.
 	//This will just pass the select band information onto 
 	public enter_band_view(band: string) {
 		console.log("Going into " + band + "'s band instance");
+		this.emit_event('bandpage');
 	}
 }

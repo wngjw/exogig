@@ -20,7 +20,7 @@ import { AppBandOptionsComponent } from './component/app.component.bandoptions';
 import { AppRequestComponent } from './component/app.component.request'
 import { AppSetComponent } from './component/app.component.set';
 import { AppNotificationsComponent } from './component/app.component.notifications';
-import { AppCreateSetsComponent } from './component/app.component.makesets';
+import { AppCreateLoginHomeComponent } from './component/app.component.loginhome';
 
 /* Material design */
 import { MaterializeDirective } from "angular2-materialize";
@@ -63,7 +63,7 @@ import { WindowRef } from './gig/app.gig.window';
   	AppRequestComponent,
   	AppSetComponent,
   	AppNotificationsComponent,
-  	AppCreateSetsComponent,
+  	AppCreateLoginHomeComponent,
 	  MaterializeDirective,
   ],
   bootstrap: [AppControllerComponent],	//From what I understand, bootstrap is basically which component it tries to setup first.

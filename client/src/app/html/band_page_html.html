@@ -6,12 +6,19 @@
 		</a>
 		<ul>
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-			<li><a (click)="swap_view()" class="btn-floating white"><i class="material-icons" style="color:#263238">{{loggedInSymbol}}</i></a></li>
-			<li><a (click)="emit_event('chat')" class="btn-floating white"><i class="material-icons" style="color:#263238">question_answer</i></a></li>
-			<li><a (click)="emit_event('request')" class="btn-floating white"><i class="material-icons" style="color:#263238">feedback</i></a></li>
-			<li><a (click)="emit_event('set')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_video</i></a></li>
+			<li><a (click)="emit_event('bandpage')" class="btn-floating white"><i class="material-icons" style="color:#263238">{{loggedInSymbol}}</i></a></li>
+			<li><a (click)="emit_event('editbio')" class="btn-floating white"><i class="material-icons" style="color:#263238">question_answer</i></a></li>
+			<li><a (click)="emit_event('songlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">feedback</i></a></li>
+			<li><a (click)="emit_event('setlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_video</i></a></li>
 		</ul>
 	</div>
+
+	<div style="padding-top:2vh;text-align:center;margin-left:auto;margin-right:auto">
+		<button md-button class="waves-effect waves-white btn-flat" style="color:#263238;background-color:#eceff1;font-size:1em;" (click)="emit_event('createevent')">Create Gig</button>
+	</div>
+
+
+
 <!--
 	<div>
 		<a (click)="emit_event('editbio')" class="">edit bio</a>
