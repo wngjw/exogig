@@ -34,6 +34,8 @@ import { MdGridList, MdGridListModule } from '@angular2-material/grid-list'
 import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
 
+import { WindowRef } from './gig/app.gig.window';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -65,7 +67,7 @@ import { userService } from './services/app.service.user';
 	  MaterializeDirective,
   ],
   bootstrap: [AppControllerComponent],	//From what I understand, bootstrap is basically which component it tries to setup first.
-  providers: [MdIconRegistry, gigService, userService]
+  providers: [MdIconRegistry, gigService, userService, WindowRef]
 })
 
 export class AppModule { }

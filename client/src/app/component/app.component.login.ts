@@ -13,6 +13,7 @@ import { gigService } from '../services/app.service.gig';
 import { Gig } from '../gig/app.gig.gig';
 import { userService } from '../services/app.service.user';
 import { User } from '../gig/app.gig.users';
+import { WindowRef } from '../gig/app.gig.window';
 
 declare var gapi: any;
 declare var FB: any;
@@ -39,18 +40,14 @@ export class AppLoginComponent {
   userDisplayName = "empty";
   auth2: any;
   user: User = new User();
+  document: any;
   googleLoginButtonId = "gapiLogin";
 
 
   //By defining gigService as public, it makes the service accessible within the class (within AppLoginComponent).
-  constructor(http: Http, public userService: userService, public gigService: gigService, private _zone: NgZone, private fb: FacebookService) {
-    document.getElementById('gigInput').onkeypress=function(e){
-    if(e.keyCode==13){
-        document.getElementById('enterGig').click();
-    }
-
-    }
+  constructor(private winRef: WindowRef,http: Http, public userService: userService, public gigService: gigService, private _zone: NgZone, private fb: FacebookService) {
     console.log("Constructor");
+    this.document = winRef.nativeWindow.document;
     this.http = http;
     userService.setUser(this.user);
     let fbParams: FacebookInitParams = {
@@ -64,6 +61,12 @@ export class AppLoginComponent {
 
   ngOnInit() {
     this.renderSignInButton();
+    //This will run the joinEvent function via the page's button upon the enter key being pressed. Needs tested on mobile.
+    this.document.getElementById('gigInput').onkeypress = (e) => {
+        if (e.keyCode==13) {
+          this.document.getElementById('enterGig').click();
+        }
+      } 
   }
 
   // Converts the Google login button stub to an actual button.
@@ -195,9 +198,12 @@ export class AppLoginComponent {
   }
 
   public joinEvent(location: string) {
-    // The input from the html page
+    // The input from the html page is checked to ensure it's not empty
     console.log("[DEBUG] input key:", this.inputKey)
-
+    if (typeof(this.inputKey) === "undefined") {
+      console.log("Key not defined, Breaking");
+      return
+    }
     // Stores value from input element
     var uploadObj = {
       key: this.inputKey
@@ -237,8 +243,10 @@ export class AppLoginComponent {
     setTimeout(() => {
       console.log("[DEBUG] Gig object:", this.entireGigObject);
       this.gigService.setGig(this.entireGigObject);
-      this.notify.emit(location);
-    }, 1000);
+      if(typeof(this.entireGigObject) !== 'undefined') {
+        this.notify.emit(location);
+      }
+    }, 750);
   }
 
   public signOut() {
