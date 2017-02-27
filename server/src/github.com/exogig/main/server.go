@@ -45,11 +45,10 @@ func fill_database() {
 	err = collection.EnsureIndex(index)
 	check_error(err)
 
-	/* ADDING ALL THE MUTHAFUCKIN' DATA */
 	kendrick_set_1 := gig.Set{
 		SetName: "Section.80",
 		SongsInSet: []gig.Song{
-			{Name: "Fuck Your Ethnicity", Rating: 5}, {Name: "Hol' Up", Rating: 5},
+			{Name: "Your Ethnicity", Rating: 5}, {Name: "Hol' Up", Rating: 5},
 			{Name: "A.D.H.D", Rating: 5}, {Name: "No Make-Up (Her Vice)", Rating: 12},
 			{Name: "Tammy's Song (Her Evils)", Rating: 5}, {Name: "Chapter Six", Rating: 0},
 			{Name: "Ronald Reagan Era", Rating: 5}, {Name: "Poe Mans Dreams (His Vice)", Rating: 0},
@@ -62,7 +61,7 @@ func fill_database() {
 	kendrick_set_2 := gig.Set{
 		SetName: "Good Kid, M.A.A.D. City",
 		SongsInSet: []gig.Song{
-			{Name: "Sherane a.k.a Master Splinter's Daughter", Rating: 5}, {Name: "Bitch, Don't Kill My Vibe", Rating: 5},
+			{Name: "Sherane a.k.a Master Splinter's Daughter", Rating: 5}, {Name: "Don't Kill My Vibe", Rating: 5},
 			{Name: "Backseat Freestyle", Rating: 5}, {Name: "The Art of Peer Pressure", Rating: 12},
 			{Name: "Money Trees", Rating: 5}, {Name: "Poetic Justice", Rating: 0},
 			{Name: "good kid", Rating: 5}, {Name: "m.A.A.d city", Rating: 0},
