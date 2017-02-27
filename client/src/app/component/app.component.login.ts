@@ -44,6 +44,12 @@ export class AppLoginComponent {
 
   //By defining gigService as public, it makes the service accessible within the class (within AppLoginComponent).
   constructor(http: Http, public userService: userService, public gigService: gigService, private _zone: NgZone, private fb: FacebookService) {
+    document.getElementById('gigInput').onkeypress=function(e){
+    if(e.keyCode==13){
+        document.getElementById('enterGig').click();
+    }
+
+    }
     console.log("Constructor");
     this.http = http;
     userService.setUser(this.user);

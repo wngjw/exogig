@@ -7,13 +7,13 @@
     <!--start login link-->
     <div style="height:auto;margin-top:10vh;margin-left:auto;margin-right:auto;display:block;justify-content:center;display: block;">
       <div style="width:48%;margin-left:auto;margin-right:auto;">
-        <input class="underline_accenting" [(ngModel)]="inputKey" style="text-align:center;font-size:2em;width:100%;" type="text" placeholder="Gig ID" maxlength="4" />
+        <input id="gigInput" class="underline_accenting" [(ngModel)]="inputKey" style="text-align:center;font-size:2em;width:100%;" type="text" placeholder="Gig ID" maxlength="4" />
       </div>
 
       <!-- Probably going to want to create a login insertion template, for handing registration stuffs / logging in -->
 
       <div style="left:50%;position:absolute;transform: translate(-50%,20%)">
-        <a class="waves-effect waves-light waves-effect btn" (click)="joinEvent('main')" style="background:#82d4f9;color:#263238;font-weight:bolder;">Enter</a>
+        <a id="enterGig" class="waves-effect waves-light waves-effect btn" (click)="joinEvent('main')" style="background:#82d4f9;color:#263238;font-weight:bolder;">Enter</a>
       </div>
     </div>
       <!-- This button will take you to the login -->
