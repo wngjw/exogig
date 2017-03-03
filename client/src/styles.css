@@ -77,6 +77,19 @@ md-icon {
     display: block !important;
 }
 
+.fab_def {
+    font-size:1em;
+    padding: 2px;
+    margin-top: 8px;
+    right: 60px;
+    position:absolute;
+    background-color:#2d2d2d;
+    color:white;
+    border-radius: 2px;
+    box-shadow: 1px 1px #000000;
+    visibility: visible !important;
+
+}
 
 
 

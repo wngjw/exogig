@@ -1,19 +1,19 @@
 <div style="height:100%;width:100%">
 	<h2 style="text-align:center;margin-top:0px;padding-top:3vh" class="text"> Band Options </h2>
-	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
+	<div (click)="animateLabels()" class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
 		<a class="btn-floating btn-large white">
 			<i class="material-icons large mdi-navigation-menu" style="font-size:3em;width:auto !important;height:auto !important;color:#263238">fingerprint</i>
 		</a>
 		<ul>
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-			<li><a (click)="swap_view()" class="btn-floating white"><i class="material-icons" style="color:#263238">swap_horiz</i></a></li>
-			<li><a (click)="emit_event('bandviewer')" class="btn-floating white"><i class="material-icons" style="color:#263238">search</i></a></li>
-			<li><a (click)="emit_event('bandoptions')" class="btn-floating white"><i class="material-icons" style="color:#263238">local_play</i></a></li>
-			<li><a (click)="emit_event('notifications')" class="btn-floating white"><i class="material-icons" style="color:#263238">info_outline</i></a></li>
+			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Home</span><a (click)="swap_view()" class="btn-floating white"><i class="material-icons" style="color:#263238">home</i></a></li>
+			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Browse</span><a (click)="emit_event('bandviewer')" class="btn-floating white"><i class="material-icons" style="color:#263238">search</i></a></li>
+			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Options</span><a (click)="emit_event('bandoptions')" class="btn-floating white"><i class="material-icons" style="color:#263238">local_play</i></a></li>
+			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Notifications</span><a (click)="emit_event('notifications')" class="btn-floating white"><i class="material-icons" style="color:#263238">info_outline</i></a></li>
 		</ul>
 	</div>
 	<div style="overflow:hidden;width:100%;height:74%;overflow-x:scroll;overflow-y:scroll">
-		<md-card style="padding:4 px">
+		<md-card style="margin:2px;padding:4 px">
 			<div style="text-align:center">
 				<md-card-title>
 					Your Bands
@@ -22,11 +22,7 @@
 					<button md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view('bandpage')"> Metallica </button>
 					<button md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view('bandpage')"> A7X </button>
 					<button md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view('bandpage')"> RATM </button>
-				</md-card-content>
-			</div>
-		</md-card>
-		<md-card style="padding:4 px">
-			<div style="text-align:center">
+				</md-card-content>		
 				<md-card-title>
 					New Band
 				</md-card-title>

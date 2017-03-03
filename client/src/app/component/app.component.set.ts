@@ -5,7 +5,7 @@
 * Date Modified: 16 February 2017
 */
 
-import { Component, Directive, Injectable, EventEmitter, Output } from '@angular/core';
+import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate  } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { gigService } from '../services/app.service.gig';
 import { Gig } from '../gig/app.gig.gig';
@@ -29,7 +29,19 @@ interface SongList {
 @Component({
  	selector: 'set',
 	templateUrl: '../html/set_html.html',
-	outputs: ['notify']
+	outputs: ['notify'],
+	animations: [
+		//Animation handling for nav labels.
+    	trigger('labelstate', [
+   			transition('void => *', [		//Starting styles on enter.
+      			style({fontSize: '0px',height: '5px',width: '5px',marginTop: '40px',marginRight: '15px', opacity: '0'}),
+      			animate(400)
+    		]),
+			transition('* => void', [		//Goal styles on exit.
+      			animate(400, style({fontSize: '0px',height: '5px',width: '5px',marginTop: '40px',marginRight: '15px',opacity: '0'}))
+    		])
+  		])
+	]
 })
 
 export class AppSetComponent {
@@ -41,6 +53,8 @@ export class AppSetComponent {
 	currentUser: User = new User();
 	gigObject: Gig;	 //I define this object so we can later store the gig object and edit it.
 	loggedInSymbol: string;
+	topOption: string;
+	showLabels = false;
 
 
 	//I assume this is ran on initializing the page.
@@ -58,11 +72,18 @@ export class AppSetComponent {
 
 	private check_login(userService: userService) {
 		if (userService.getUser().getLoggedIn() == true) {
-			this.loggedInSymbol = "swap_horiz";
+			this.loggedInSymbol = "home";
+			this.topOption = "Home";
 		}
 		else {
-			this.loggedInSymbol = "person_add";
+			this.loggedInSymbol = "close";
+			this.topOption = "Exit";
 		}
+	}
+
+	//Toggling function for label animations, placed on big white button
+	public animateLabels() {
+		this.showLabels = !this.showLabels;
 	}
 
 	private swap_view() {
