@@ -22,7 +22,7 @@ import { Headers, Http } from '@angular/http';
 export class AppNotificationsComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
 	song: string;
-	topOption: string;
+	topOption: string;	//Shouldn't need.
 	showLabels = false;
 
 	constructor() {
