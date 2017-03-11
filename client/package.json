@@ -27,6 +27,7 @@
     "@angular2-material/grid-list": "^2.0.0-alpha.8-2",
     "@angular2-material/icon": "^2.0.0-alpha.8-2",
     "@angular2-material/input": "^2.0.0-alpha.8-2",
+    "@angular2-material/list": "^2.0.0-alpha.8-2",
     "@angular2-material/tabs": "^2.0.0-alpha.8-2",
     "@types/gapi": "0.0.30",
     "@types/gapi.auth2": "0.0.34",

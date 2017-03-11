@@ -8,28 +8,29 @@ import { HttpModule }    from '@angular/http';
 /* Component files */
 import { AppLoginComponent } from './component/app.component.login';
 import { AppControllerComponent } from './component/app.component.controller';
-import { AppMainComponent } from './component/app.component.main'
+import { AppMainComponent } from './component/app.component.main';
 import { AppSongListComponent } from './component/app.component.songlist';
 import { AppBandPageComponent } from './component/app.component.bandpage';
 import { AppBandViewerComponent } from './component/app.component.bandviewer'
 import { AppChatComponent } from './component/app.component.chat';
 import { AppCreateEventComponent } from './component/app.component.createevent';
-import { AppEditBioComponent } from './component/app.component.editbio'
+import { AppEditBioComponent } from './component/app.component.editbio';
 import { AppCreateSetlistComponent } from './component/app.component.makesetlist';
 import { AppBandOptionsComponent } from './component/app.component.bandoptions';
-import { AppRequestComponent } from './component/app.component.request'
+import { AppRequestComponent } from './component/app.component.request';
 import { AppSetComponent } from './component/app.component.set';
 import { AppNotificationsComponent } from './component/app.component.notifications';
 import { AppCreateLoginHomeComponent } from './component/app.component.loginhome';
 
 /* Material design */
 import { MaterializeDirective } from "angular2-materialize";
-import { MdButton, MdButtonModule, MdAnchor } from '@angular2-material/button'
-import { MdIcon, MdIconModule, MdIconRegistry } from '@angular2-material/icon'
-import { MdInput, MdInputModule } from '@angular2-material/input'
-import { MdTab, MdTabsModule, MdTabGroup, MdTabChangeEvent } from '@angular2-material/tabs'
-import { MdCard, MdCardActions, MdCardContent, MdCardHeader, MdCardModule, MdCardTitle, MdCardSubtitle, MdCardTitleGroup } from '@angular2-material/card'
-import { MdGridList, MdGridListModule } from '@angular2-material/grid-list'
+import { MdButton, MdButtonModule, MdAnchor } from '@angular2-material/button';
+import { MdIcon, MdIconModule, MdIconRegistry } from '@angular2-material/icon';
+import { MdInput, MdInputModule } from '@angular2-material/input';
+import { MdTab, MdTabsModule, MdTabGroup, MdTabChangeEvent } from '@angular2-material/tabs';
+import { MdCard, MdCardActions, MdCardContent, MdCardHeader, MdCardModule, MdCardTitle, MdCardSubtitle, MdCardTitleGroup } from '@angular2-material/card';
+import { MdGridList, MdGridListModule } from '@angular2-material/grid-list';
+import {MdListModule} from '@angular2-material/list/list';
 
 import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
@@ -47,6 +48,7 @@ import { WindowRef } from './gig/app.gig.window';
     MdTabsModule,
     MdCardModule,
     MdGridListModule,
+    MdListModule,
   ],
   declarations: [
 	  AppMainComponent,
