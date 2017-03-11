@@ -29,9 +29,10 @@ func check_error(err error) {
 
 func get_input() (string) {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter text: ")
+	fmt.Print("Please enter the Database password: ")
 	text, _ := reader.ReadString('\n')
-	return text
+	fmt.Print("111" + text[0:len(text)-1] + "222")
+	return text[0:len(text)-1]
 }
 
 /**
