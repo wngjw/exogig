@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"bufio"
 	"log"
 	"math/rand"
 	"net/http"
@@ -23,13 +21,6 @@ func check_error(err error) {
 	}
 }
 
-func get_input() (string) {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Please enter the Database password: ")
-	text, _ := reader.ReadString('\n')
-	fmt.Print("111" + text[0:len(text)-1] + "222")
-	return text[0:len(text)-1]
-}
 
 // This is the setup function that will allow the database to hold our test
 // data. This is so that @Spencer will still love us.
@@ -37,7 +28,8 @@ func fill_database() {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
 
-	err = session.DB("exogig").Login("gustudent",get_input())
+	app.SavePassword()
+	err = session.DB("exogig").Login("gustudent",app.GetPassword())
 	check_error(err)
 
 	defer session.Close()

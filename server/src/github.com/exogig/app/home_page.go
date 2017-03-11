@@ -27,12 +27,17 @@ func check_error(err error) {
 	}
 }
 
-func get_input() (string) {
+var password string
+
+func SavePassword(){
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Please enter the Database password: ")
 	text, _ := reader.ReadString('\n')
-	fmt.Print("111" + text[0:len(text)-1] + "222")
-	return text[0:len(text)-1]
+	password = text[0:len(text)-1]
+}
+
+func GetPassword() (string) {
+	return password
 }
 
 /**
@@ -42,7 +47,7 @@ func get_input() (string) {
 func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
-	err = session.DB("exogig").Login("gustudent",get_input())
+	err = session.DB("exogig").Login("gustudent",GetPassword())
 	check_error(err)
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
