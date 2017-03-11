@@ -15,6 +15,9 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"log"
+	"bufio"
+	"fmt"
+	"os"
 	"net/http"
 )
 
@@ -24,6 +27,13 @@ func check_error(err error) {
 	}
 }
 
+func get_input() (string) {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter text: ")
+	text, _ := reader.ReadString('\n')
+	return text
+}
+
 /**
 * Handler for entering a gig code.
  */
@@ -31,9 +41,11 @@ func check_error(err error) {
 func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
+	err = session.DB("exogig").Login("gustudent",get_input())
+	check_error(err)
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
-	collection := session.DB("test").C("songs")
+	collection := session.DB("exogig").C("gigs")
 
 	// Creates the decoder for the http request body
 	decoder := json.NewDecoder(r.Body)
