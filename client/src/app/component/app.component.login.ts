@@ -92,8 +92,10 @@ export class AppLoginComponent {
     console.log("onGoogleLoginSuccess");
     this._zone.run(() => {
         console.log("_zone.run() in onGoogleLoginSuccess")
-        this.userAuthToken = loggedInUser.getAuthResponse().id_token;
-        this.userDisplayName = loggedInUser.getBasicProfile().getName();
+        var profile = loggedInUser.getBasicProfile();
+        //this.userAuthToken = loggedInUser.getAuthResponse().id_token;
+        //this.userDisplayName = loggedInUser.getBasicProfile().getName();
+        this.createGoogleUser(profile);
     });
   }
 
@@ -125,21 +127,40 @@ export class AppLoginComponent {
       (googleUser) => {
         this._zone.run(() => {
           var profile = googleUser.getBasicProfile();
-          this.userDisplayName = profile.getName();
-          this.userService.setUser(this.user);
-          this.user.setName(profile.getName());
-          this.user.setEmail(profile.getEmail());
-          this.user.setId(profile.getId());
-          this.user.setLoggedIn(true);
-          this.user.setVip(false);
-          this.user.setType("google");
-          console.log(this.user);
+          this.createGoogleUser(profile);
         });
       }, (error) => {
         alert(JSON.stringify(error, undefined, 2));
     });
   }
 
+  public createGoogleUser(profile) {
+    console.log("createGoogleUser");
+    this.userDisplayName = profile.getName();
+    this.userService.setUser(this.user);
+    this.user.setName(profile.getName());
+    this.user.setEmail(profile.getEmail());
+    this.user.setId(profile.getId());
+    this.user.setLoggedIn(true);
+    this.user.setVip(false);
+    this.user.setType("google");
+    console.log(this.user);
+  }
+
+
+  public createFBUser(){
+    if (this.fb.getLoginStatus()) {
+      FB.api('/me','GET',{"fields":"name,email"},function(response) {
+        this.user.setName(response.name);
+        this.user.setEmail(response.email);
+        this.user.setId(response.id);
+      });
+      this.user.setLoggedIn(true);
+      this.user.setVip(false);
+      this.user.setType("facebook");
+    }
+    console.log(this.user);
+  }
 
   ngAfterViewInit() {
     console.log("ngAfterViewInit")
@@ -162,36 +183,6 @@ export class AppLoginComponent {
   }
   public closeModal2() {
     this.modalActionsMore.emit({action:"modal",params:['close']});
-  }
-
-  /*public getSigninStatus() {
-    var signedIn : boolean;
-    if(this.auth2.getAuthInstance().isSignedIn.get() & FB.getLoginStatus())
-    return signedIn;
-  }*/
-
-  public createUserObject() {
-    console.log("createUserObject");
-    if (gapi.auth2.isSignedIn.get()) {
-      var profile = gapi.auth2.currentUser.get().getBasicProfile();
-      this.user.setName(profile.getName());
-      this.user.setEmail(profile.getEmail());
-      this.user.setId(profile.getId());
-      this.user.setLoggedIn(true);
-      this.user.setVip(false);
-      this.user.setType("google");
-    }
-    else if (this.fb.getLoginStatus()) {
-      FB.api('/me','GET',{"fields":"name,email"},function(response) {
-        this.user.setName(response.name);
-        this.user.setEmail(response.email);
-        this.user.setId(response.id);
-      });
-      this.user.setLoggedIn(true);
-      this.user.setVip(false);
-      this.user.setType("facebook");
-    }
-    console.log(this.user);
   }
 
   public facebookLogin() {
