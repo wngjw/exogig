@@ -33,8 +33,9 @@ export class AppLoginComponent {
   entireGigObject: Gig;
   http: Http;
 
-  modalActions1 = new EventEmitter<string|MaterializeAction>();
-  modalActions2 = new EventEmitter<string|MaterializeAction>();
+  modalActionsLogin = new EventEmitter<string|MaterializeAction>();
+  modalActionsLogout = new EventEmitter<string|MaterializeAction>();
+  modalActionsMore = new EventEmitter<string|MaterializeAction>();
 
   userAuthToken = null;
   userDisplayName = "empty";
@@ -66,7 +67,7 @@ export class AppLoginComponent {
         if (e.keyCode==13) {
           this.document.getElementById('enterGig').click();
         }
-      } 
+      }
   }
 
   // Converts the Google login button stub to an actual button.
@@ -145,16 +146,22 @@ export class AppLoginComponent {
   }
 
   public openModal1() {
-    this.modalActions1.emit({action:"modal",params:['open'],});
+    if (this.user.getLoggedIn() == true) {
+      this.modalActionsLogout.emit({action:"modal",params:['open'],});
+    }
+    else {
+      this.modalActionsLogin.emit({action:"modal",params:['open'],});
+    }
   }
   public openModal2() {
-    this.modalActions2.emit({action:"modal",params:['open'],});
+    this.modalActionsMore.emit({action:"modal",params:['open'],});
   }
   public closeModal1() {
-    this.modalActions1.emit({action:"modal",params:['close']});
+    this.modalActionsLogin.emit({action:"modal",params:['close'],});
+    this.modalActionsLogout.emit({action:"modal",params:['close'],});
   }
   public closeModal2() {
-    this.modalActions2.emit({action:"modal",params:['close']});
+    this.modalActionsMore.emit({action:"modal",params:['close']});
   }
 
   /*public getSigninStatus() {
@@ -254,6 +261,7 @@ export class AppLoginComponent {
     auth2.signOut().then(function() {
       console.log('User signed out.');
     });
+    this.user.setLoggedIn(false);
   }
 
   public emit_event(location: string) {
