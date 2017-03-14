@@ -21,18 +21,23 @@ func check_error(err error) {
 	}
 }
 
+
 // This is the setup function that will allow the database to hold our test
 // data. This is so that @Spencer will still love us.
 func fill_database() {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
 
-	defer session.Close()
-
-	err = session.DB("test").DropDatabase()
+	app.SavePassword()
+	err = session.DB("exogig").Login("gustudent",app.GetPassword())
 	check_error(err)
 
-	collection := session.DB("test").C("songs")
+	defer session.Close()
+
+	err = session.DB("exogig").DropDatabase()
+	check_error(err)
+
+	collection := session.DB("exogig").C("gigs")
 
 	index := mgo.Index{
 		Key:        []string{"gigid"},
@@ -102,7 +107,6 @@ func fill_database() {
 	}
 
 	err = collection.Insert(&kendricks_gig)
-
 	check_error(err)
 }
 
@@ -117,13 +121,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	session.SetMode(mgo.Monotonic, true)
 
 	if IsDrop {
-		err = session.DB("test2").DropDatabase()
+		err = session.DB("test3").DropDatabase()
 		if err != nil {
 			panic(err)
 		}
 	}
 
-	collection := session.DB("test2").C("songs")
+	collection := session.DB("test3").C("songs")
 
 	// Index
 	index := mgo.Index{
@@ -181,5 +185,5 @@ func main() {
 
 	fs := http.FileServer(http.Dir("../client/dist/"))
 	http.Handle("/", fs)
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }

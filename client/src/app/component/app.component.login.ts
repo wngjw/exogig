@@ -33,8 +33,9 @@ export class AppLoginComponent {
   entireGigObject: Gig;
   http: Http;
 
-  modalActions1 = new EventEmitter<string|MaterializeAction>();
-  modalActions2 = new EventEmitter<string|MaterializeAction>();
+  modalActionsLogin = new EventEmitter<string|MaterializeAction>();
+  modalActionsLogout = new EventEmitter<string|MaterializeAction>();
+  modalActionsMore = new EventEmitter<string|MaterializeAction>();
 
   userAuthToken = null;
   userDisplayName = "empty";
@@ -66,7 +67,7 @@ export class AppLoginComponent {
         if (e.keyCode==13) {
           this.document.getElementById('enterGig').click();
         }
-      } 
+      }
   }
 
   // Converts the Google login button stub to an actual button.
@@ -91,8 +92,10 @@ export class AppLoginComponent {
     console.log("onGoogleLoginSuccess");
     this._zone.run(() => {
         console.log("_zone.run() in onGoogleLoginSuccess")
-        this.userAuthToken = loggedInUser.getAuthResponse().id_token;
-        this.userDisplayName = loggedInUser.getBasicProfile().getName();
+        var profile = loggedInUser.getBasicProfile();
+        //this.userAuthToken = loggedInUser.getAuthResponse().id_token;
+        //this.userDisplayName = loggedInUser.getBasicProfile().getName();
+        this.createGoogleUser(profile);
     });
   }
 
@@ -124,57 +127,29 @@ export class AppLoginComponent {
       (googleUser) => {
         this._zone.run(() => {
           var profile = googleUser.getBasicProfile();
-          this.userDisplayName = profile.getName();
-          this.userService.setUser(this.user);
-          this.user.setName(profile.getName());
-          this.user.setEmail(profile.getEmail());
-          this.user.setId(profile.getId());
-          this.user.setLoggedIn(true);
-          this.user.setVip(false);
-          this.user.setType("google");
-          console.log(this.user);
+          this.createGoogleUser(profile);
         });
       }, (error) => {
         alert(JSON.stringify(error, undefined, 2));
     });
   }
 
-
-  ngAfterViewInit() {
-    console.log("ngAfterViewInit")
+  public createGoogleUser(profile) {
+    console.log("createGoogleUser");
+    this.userDisplayName = profile.getName();
+    this.userService.setUser(this.user);
+    this.user.setName(profile.getName());
+    this.user.setEmail(profile.getEmail());
+    this.user.setId(profile.getId());
+    this.user.setLoggedIn(true);
+    this.user.setVip(false);
+    this.user.setType("google");
+    console.log(this.user);
   }
 
-  public openModal1() {
-    this.modalActions1.emit({action:"modal",params:['open'],});
-  }
-  public openModal2() {
-    this.modalActions2.emit({action:"modal",params:['open'],});
-  }
-  public closeModal1() {
-    this.modalActions1.emit({action:"modal",params:['close']});
-  }
-  public closeModal2() {
-    this.modalActions2.emit({action:"modal",params:['close']});
-  }
 
-  /*public getSigninStatus() {
-    var signedIn : boolean;
-    if(this.auth2.getAuthInstance().isSignedIn.get() & FB.getLoginStatus())
-    return signedIn;
-  }*/
-
-  public createUserObject() {
-    console.log("createUserObject");
-    if (gapi.auth2.isSignedIn.get()) {
-      var profile = gapi.auth2.currentUser.get().getBasicProfile();
-      this.user.setName(profile.getName());
-      this.user.setEmail(profile.getEmail());
-      this.user.setId(profile.getId());
-      this.user.setLoggedIn(true);
-      this.user.setVip(false);
-      this.user.setType("google");
-    }
-    else if (this.fb.getLoginStatus()) {
+  public createFBUser(){
+    if (this.fb.getLoginStatus()) {
       FB.api('/me','GET',{"fields":"name,email"},function(response) {
         this.user.setName(response.name);
         this.user.setEmail(response.email);
@@ -185,6 +160,29 @@ export class AppLoginComponent {
       this.user.setType("facebook");
     }
     console.log(this.user);
+  }
+
+  ngAfterViewInit() {
+    console.log("ngAfterViewInit")
+  }
+
+  public openModal1() {
+    if (this.user.getLoggedIn() == true) {
+      this.modalActionsLogout.emit({action:"modal",params:['open'],});
+    }
+    else {
+      this.modalActionsLogin.emit({action:"modal",params:['open'],});
+    }
+  }
+  public openModal2() {
+    this.modalActionsMore.emit({action:"modal",params:['open'],});
+  }
+  public closeModal1() {
+    this.modalActionsLogin.emit({action:"modal",params:['close'],});
+    this.modalActionsLogout.emit({action:"modal",params:['close'],});
+  }
+  public closeModal2() {
+    this.modalActionsMore.emit({action:"modal",params:['close']});
   }
 
   public facebookLogin() {
@@ -254,6 +252,7 @@ export class AppLoginComponent {
     auth2.signOut().then(function() {
       console.log('User signed out.');
     });
+    this.user.setLoggedIn(false);
   }
 
   public emit_event(location: string) {

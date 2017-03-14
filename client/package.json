@@ -12,9 +12,9 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "2.2.1",
+    "@angular/common": "^2.4.9",
     "@angular/compiler": "2.2.1",
-    "@angular/core": "2.2.1",
+    "@angular/core": "^2.4.9",
     "@angular/forms": "2.2.1",
     "@angular/http": "2.2.1",
     "@angular/material": "^2.0.0-beta.2",
@@ -31,9 +31,11 @@
     "@angular2-material/tabs": "^2.0.0-alpha.8-2",
     "@types/gapi": "0.0.30",
     "@types/gapi.auth2": "0.0.34",
+    "@types/hammerjs": "^2.0.34",
     "angular-GAPI": "^0.5.2",
     "angular-google-signin": "^0.1.5",
-    "angular2-materialize": "^6.6.0",
+    "angular2-materialize": "^6.7.1",
+    "autoprefixer": "^6.7.6",
     "core-js": "^2.4.1",
     "facebook-node-sdk": "^0.2.0",
     "gapi": "0.0.3",
@@ -41,9 +43,9 @@
     "jquery": "^2.2.4",
     "materialize-css": "^0.97.8",
     "ng2-facebook-sdk": "^1.2.0",
-    "rxjs": "5.0.0-beta.12",
+    "rxjs": "^5.2.0",
     "ts-helpers": "^1.1.1",
-    "zone.js": "^0.6.23"
+    "zone.js": "^0.7.7"
   },
   "devDependencies": {
     "@angular/compiler-cli": "2.2.1",
