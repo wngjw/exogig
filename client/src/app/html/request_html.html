@@ -21,9 +21,9 @@
 			      <md-card-title>
 			        {{set.SetName}}
 			      </md-card-title>
-							<md-list-item class="clickCard" ng-click="dummy()" *ngFor="let song of set.SongsInSet">
-			        {{song.Name}}
-							</md-list-item>
+							<p *ngFor="let song of set.SongsInSet">
+			        	{{song.Name}}
+							</p>
 			    </div>
 			  </md-card>
 			</div>

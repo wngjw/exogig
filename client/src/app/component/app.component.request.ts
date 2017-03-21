@@ -44,7 +44,7 @@ export class AppRequestComponent {
 	loggedInSymbol: string;
 	topOption: string;
 	gigObject: Gig;
-  	gigSetList: SetList;
+  gigSetList: SetList;
 	showLabels = false;
 
 

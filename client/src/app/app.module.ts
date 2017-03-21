@@ -30,7 +30,8 @@ import { MdInput, MdInputModule } from '@angular2-material/input';
 import { MdTab, MdTabsModule, MdTabGroup, MdTabChangeEvent } from '@angular2-material/tabs';
 import { MdCard, MdCardActions, MdCardContent, MdCardHeader, MdCardModule, MdCardTitle, MdCardSubtitle, MdCardTitleGroup } from '@angular2-material/card';
 import { MdGridList, MdGridListModule } from '@angular2-material/grid-list';
-import {MdListModule} from '@angular2-material/list/list';
+import { MdListModule } from '@angular2-material/list/list';
+import { MdCheckbox } from '@angular2-material/checkbox';
 
 import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
