@@ -31,7 +31,7 @@ import { MdTab, MdTabsModule, MdTabGroup, MdTabChangeEvent } from '@angular2-mat
 import { MdCard, MdCardActions, MdCardContent, MdCardHeader, MdCardModule, MdCardTitle, MdCardSubtitle, MdCardTitleGroup } from '@angular2-material/card';
 import { MdGridList, MdGridListModule } from '@angular2-material/grid-list';
 import { MdListModule } from '@angular2-material/list/list';
-import { MdCheckbox } from '@angular2-material/checkbox';
+import { MdCheckboxModule } from '@angular2-material/checkbox';
 
 import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
@@ -50,6 +50,7 @@ import { WindowRef } from './gig/app.gig.window';
     MdCardModule,
     MdGridListModule,
     MdListModule,
+    MdCheckboxModule
   ],
   declarations: [
 	  AppMainComponent,
