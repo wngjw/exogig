@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"os"
 	"net/http"
+	"strings"
 )
 
 func check_error(err error) {
@@ -59,6 +60,7 @@ func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	var requestedId string
 	// Decode the JSON, and return error
 	err = decoder.Decode(&requestedId)
+	requestedId = strings.ToUpper(requestedId)
 	if err != nil {
 		panic(err)
 	}
@@ -79,9 +81,9 @@ func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	resultJson, _ := json.Marshal(result)
 
 	//Check to see if the requested ID matches the Gig we provided
-	if requestedId == result.GigId {
+	if strings.ToUpper(requestedId) == strings.ToUpper(result.GigId) {
 		w.Write(resultJson)
-		log.Println("[DEBUG] found gig:", requestedId)
+		log.Println("[DEBUG] found requested gig:", requestedId)
 	} else {
 		log.Println("[DEBUG] gig not found:", requestedId)
 	}
