@@ -182,6 +182,8 @@ func main() {
 	http.HandleFunc("/kendrick", app.GigCodeHandler)
 	http.HandleFunc("/generate", generate_gig_id)
 	http.HandleFunc("/2", app.RequestPageHandler)
+	http.HandleFunc("/addmem", app.AddMember)
+	http.HandleFunc("/findmem", app.FindMembership)
 
 	fs := http.FileServer(http.Dir("../client/dist/"))
 	http.Handle("/", fs)

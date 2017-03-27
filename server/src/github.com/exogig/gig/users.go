@@ -22,3 +22,7 @@ type Artist struct {
     picture     string
     name        string
 }
+type Membership struct {
+    artist      string
+    user        string
+}
