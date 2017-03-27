@@ -21,11 +21,11 @@
 			      <md-card-title>
 			        {{set.SetName}}
 			      </md-card-title>
+						<md-radio-group [(ngModel)]="chosenOption">
 							<div style="margin-left:3vh;text-align:left" *ngFor="let song of set.SongsInSet">
-							<md-checkbox>
-			        	{{song.Name}}
-							</md-checkbox>
+							<md-radio-button [value]="song.Name">{{song.Name}}</md-radio-button>
 						</div>
+						</md-radio-group>
 			    </div>
 			  </md-card>
 			</div>
