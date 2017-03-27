@@ -15,15 +15,17 @@
 
 	<h2 style="text-align:center;margin-top:0px;padding-top:3vh" class="text"> Request Songs </h2>
 	<div materialize class="col s12">
-			<div style="margin-left:auto;margin-right:auto;text-align:center;width:75%;height:75%;overflow-y:scroll">
+			<div style="margin-left:auto;margin-right:auto;width:75%;height:75%;overflow-y:scroll">
 			  <md-card md-scroll-y>
-			    <div *ngFor="let set of gigSetList.SetsInSetList">
+			    <div style="text-align:center;padding-bottom:2vh" *ngFor="let set of gigSetList.SetsInSetList">
 			      <md-card-title>
 			        {{set.SetName}}
 			      </md-card-title>
-							<p *ngFor="let song of set.SongsInSet">
-			        	{{song.Name}}
-							</p>
+						<md-radio-group [(ngModel)]="chosenOption">
+							<div style="margin-left:3vh;text-align:left" *ngFor="let song of set.SongsInSet">
+							<md-radio-button [value]="song.Name">{{song.Name}}</md-radio-button>
+						</div>
+						</md-radio-group>
 			    </div>
 			  </md-card>
 			</div>

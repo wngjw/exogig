@@ -27,11 +27,12 @@ import { MaterializeDirective } from "angular2-materialize";
 import { MdButton, MdButtonModule, MdAnchor } from '@angular2-material/button';
 import { MdIcon, MdIconModule, MdIconRegistry } from '@angular2-material/icon';
 import { MdInput, MdInputModule } from '@angular2-material/input';
+import { MdUniqueSelectionDispatcher } from '@angular2-material/core';
 import { MdTab, MdTabsModule, MdTabGroup, MdTabChangeEvent } from '@angular2-material/tabs';
 import { MdCard, MdCardActions, MdCardContent, MdCardHeader, MdCardModule, MdCardTitle, MdCardSubtitle, MdCardTitleGroup } from '@angular2-material/card';
 import { MdGridList, MdGridListModule } from '@angular2-material/grid-list';
 import { MdListModule } from '@angular2-material/list/list';
-import { MdCheckbox } from '@angular2-material/checkbox';
+import { MdRadioModule } from '@angular2-material/radio';
 
 import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
@@ -50,6 +51,7 @@ import { WindowRef } from './gig/app.gig.window';
     MdCardModule,
     MdGridListModule,
     MdListModule,
+    MdRadioModule,
   ],
   declarations: [
 	  AppMainComponent,
@@ -70,7 +72,7 @@ import { WindowRef } from './gig/app.gig.window';
 	  MaterializeDirective,
   ],
   bootstrap: [AppControllerComponent],	//From what I understand, bootstrap is basically which component it tries to setup first.
-  providers: [MdIconRegistry, gigService, userService, WindowRef]
+  providers: [MdIconRegistry, gigService, userService, WindowRef, MdUniqueSelectionDispatcher]
 })
 
 export class AppModule { }
