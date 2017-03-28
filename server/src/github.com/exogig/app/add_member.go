@@ -5,7 +5,7 @@
 *
 * Author: Bethany Bogensberger
 *
-* Date Modified: 23 March 2017
+* Date Modified: 28 March 2017
  */
 package app
 
@@ -27,13 +27,15 @@ import (
 func AddMember(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
+	err = session.DB("exogig").Login("gustudent",GetPassword())
+	check_error(err)
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
 	collection := session.DB("exogig").C("membership")
 
 	// Creates the decoder for the http request body
 	decoder := json.NewDecoder(r.Body)
-	// The "key" or "gig code" input from the login page
+	// The new membership to be added to the database
 	var new_mem gig.Membership
 	// Decode the JSON, and return error
 	err = decoder.Decode(&new_mem)
@@ -43,15 +45,13 @@ func AddMember(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	log.Println("[DEBUG] request body:", new_mem)
 
-	// Create the variable to store the gig being searched for
-	var result string
 	// inserts membership into the database
 	err = collection.Insert(&new_mem)
     // Searches the database for the band
     
     
 	//Return a nil value if the id doesn't have an associated Gig.
-	if len(result) == 0 {
+	if (len(new_mem.Artist) == 0 || len(new_mem.User) == 0) {
 		emptyJson, _ := json.Marshal(nil)
 		w.Write(emptyJson)
 	}
@@ -59,10 +59,10 @@ func AddMember(w http.ResponseWriter, r *http.Request) {
 	resultJson, _ := json.Marshal(new_mem)
 
 	//Check to see if the requested ID matches the Gig we provided
-	if len(result) != 0 {
+	if (len(new_mem.Artist) != 0 && len(new_mem.User) != 0) {
 		w.Write(resultJson)
-		log.Println("[DEBUG] membership added", result)
+		log.Println("[DEBUG] membership added", new_mem)
 	} else {
-		log.Println("[DEBUG] membership not added:", result)
+		log.Println("[DEBUG] membership not added:", new_mem)
 	}
 }

@@ -67,9 +67,9 @@ export class Artist {
 }
 
 export class Membership {
-  private user: string;
   private artist: string;
-
+  private user: string;
+  
   getUser() {
     return this.user;
   }

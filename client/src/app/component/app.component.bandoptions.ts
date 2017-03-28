@@ -32,6 +32,7 @@ export class AppBandOptionsComponent {
 	membership: Membership;
 	http: Http;
 	user: User = new User();
+	userName: string;
 	newArtist: string;
 	newUser: string;
 
@@ -39,7 +40,36 @@ export class AppBandOptionsComponent {
 		this.http = http;
 		this.user = userService.getUser();
 		this.currentSelectedIndex = 0;
-		this.http.get('/findmem').map(res => res.json()).subscribe(data => this.recievedArtist = data);
+		this.userName = this.user.getName();
+		
+		// set up parameters for post to find memberships
+		// that the user has already.
+		// this is in the constructor so it happens when the page is loaded
+		var uploadObj = {
+		key: this.userName
+		};
+		// Initialize parameters for URL 
+		let params: URLSearchParams = new URLSearchParams();
+		// Saves key/value pairs to URL query string
+		for (let key in uploadObj) {
+		params.set(key, uploadObj[key]);
+		}
+		// Create the headers for the page
+		var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		// Places parameters in query string
+		let options = new RequestOptions({
+		search: params,
+		headers: pageHeaders
+		});
+		// This conversion to a JSON string allows Go to parse the request body
+		let body = JSON.stringify(this.userName);
+		console.log("[DEBUG] body:", body);
+		// The post request which takes parameters of address, body, options
+		console.log("call post to find memberships");
+		this.http.post('/findmem', body, options)
+		.map((res) => res.json())
+		.subscribe(data => this.recievedArtist = data);
 	}
 
 	public submitRate(){
@@ -72,32 +102,28 @@ export class AppBandOptionsComponent {
 		// Stores value from input element
 		this.member.setArtist(this.newArtist);
 		this.member.setUser(this.newUser);
+		
+		//set parameters for post to push a new membership
 		var uploadObj = {
 		key: this.member
 		};
-
 		// Initialize parameters for URL
 		let params: URLSearchParams = new URLSearchParams();
-
 		// Saves key/value pairs to URL query string
 		for (let key in uploadObj) {
 		params.set(key, uploadObj[key]);
 		}
-
 		// Create the headers for the page
 		var pageHeaders = new Headers();
 		pageHeaders.append('Content-Type', 'application/json');
-
 		// Places parameters in query string
 		let options = new RequestOptions({
 		search: params,
 		headers: pageHeaders
 		});
-
 		// This conversion to a JSON string allows Go to parse the request body
 		let body = JSON.stringify(this.member);
 		console.log("[DEBUG] body:", body);
-
 		// The post request which takes parameters of address, body, options
 		this.http.post('/addmem', body, options)
 		.map((res) => res.json())

@@ -5,11 +5,12 @@
 *
 * Author: Bethany Bogensberger
 *
-* Date Modified: 23 March 2017
+* Date Modified: 28 March 2017
  */
 package app
 
 import (
+	"fmt"
 	"encoding/json"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -27,37 +28,39 @@ import (
 func FindMembership(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
+	err = session.DB("exogig").Login("gustudent",GetPassword())
+	check_error(err)
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
 	collection := session.DB("exogig").C("membership")
-	
 
 	// Creates the decoder for the http request body
 	decoder := json.NewDecoder(r.Body)
-	// The "key" or "gig code" input from the login page
+	fmt.Print("in find membership before decoder")
+	// The user that is logged in
 	var user_name string
 	// Decode the JSON, and return error
 	err = decoder.Decode(&user_name)
-	if err != nil {
-		panic(err)
-	}
+	check_error(err)
+
 	defer r.Body.Close()
-	log.Println("[DEBUG] request body:", user_name)
+	fmt.Print("[DEBUG] request body:", user_name)
 
 	// Create the variable to store the gig being searched for
 	var results []string
-	// inserts membership into the database
-	err = collection.Find(bson.M{"artist": user_name}).All(&results)
+	// this returns a list of band names that the user is a member of.
+	// .Distinct allows filtering so we don't collect entire instance
+	err = collection.Find(bson.M{"user":user_name}).Distinct("artist",&results)
 	log.Println("[DEBUG] found bands:", results)
 
 	//Return a nil value if the id doesn't have an associated Gig.
 	if len(results) == 0 {
 		emptyJson, _ := json.Marshal(nil)
 		w.Write(emptyJson)
+	}else{
+		resultJson, _ := json.Marshal(results)
+		w.Write(resultJson)
 	}
-	
-	resultJson, _ := json.Marshal(results)
-	w.Write(resultJson)
 	
 		
 	

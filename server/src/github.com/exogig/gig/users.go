@@ -23,6 +23,6 @@ type Artist struct {
     name        string
 }
 type Membership struct {
-    artist      string
-    user        string
+    Artist      string
+    User        string
 }
