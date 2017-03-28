@@ -168,7 +168,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func generate_gig_id(w http.ResponseWriter, r *http.Request) {
 	rand.Seed(time.Now().UTC().UnixNano())
-	const chars = "abcdefghijklmnopqrstuvwxyz0123456789"
+	// This excludes mispercieved characters JL10
+	const chars = "ABCDEFGHIKMNOPQRSTYUVWXYZ23456789"
 	result := make([]byte, 4)
 	for i := 0; i < 4; i++ {
 		result[i] = chars[rand.Intn(len(chars))]
