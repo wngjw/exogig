@@ -60,7 +60,14 @@ func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	var requestedId string
 	// Decode the JSON, and return error
 	err = decoder.Decode(&requestedId)
+
+  //format the input so that characters correct to gigcodes
 	requestedId = strings.ToUpper(requestedId)
+	requestedId = strings.Replace(requestedId,"J","I",-1)
+	requestedId = strings.Replace(requestedId,"L","I",-1)
+	requestedId = strings.Replace(requestedId,"1","I",-1)
+	requestedId = strings.Replace(requestedId,"0","O",-1)
+
 	if err != nil {
 		panic(err)
 	}
