@@ -140,6 +140,7 @@ func (a *Set) CompareSet(b *Set) (_ bool) {
  */
  type Request struct {
      RequestedSong       Song
+     NumTimesRequested   int
  }
 
 /*

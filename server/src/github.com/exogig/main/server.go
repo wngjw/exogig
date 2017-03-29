@@ -103,7 +103,7 @@ func fill_database() {
 		GigDate:        "2017-05-14",
 		GigLocation:    "Knitting Factory",
 		GigSetList:     kendrick_set_list,
-		GigRequestList: []gig.Request{{temp_requested_song}},
+		GigRequestList: []gig.Request{{temp_requested_song, 0}},
 	}
 
 	err = collection.Insert(&kendricks_gig)

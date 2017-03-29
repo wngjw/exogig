@@ -56,6 +56,7 @@ export class SetList {
 
 export class Request {
   requestedSong: Song;
+  numTimesRequested: number;
   getRequestedSong() {
     return this.requestedSong;
   }
