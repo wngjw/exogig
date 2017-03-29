@@ -7,7 +7,7 @@
 
 import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { Song, SongList } from '../gig/app.gig.gig';
+import { Request, Song, SongList } from '../gig/app.gig.gig';
 import { userService } from '../services/app.service.user';
 import { User } from '../gig/app.gig.users';
 import { gigService } from '../services/app.service.gig';
@@ -41,6 +41,7 @@ export class AppRequestComponent {
 	currentUser: User = new User();
 	http: Http;
  	receivedSongList: SongList;
+  requestedSong: Request;
 	loggedInSymbol: string;
 	topOption: string;
 	gigObject: Gig;
