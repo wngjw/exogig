@@ -51,7 +51,7 @@ func AddMember(w http.ResponseWriter, r *http.Request) {
     
     
 	//Return a nil value if the id doesn't have an associated Gig.
-	if (len(new_mem.Artist) == 0 || len(new_mem.User) == 0) {
+	if (len(new_mem.Artist) == 0 || len(new_mem.Email) == 0) {
 		emptyJson, _ := json.Marshal(nil)
 		w.Write(emptyJson)
 	}
@@ -59,7 +59,7 @@ func AddMember(w http.ResponseWriter, r *http.Request) {
 	resultJson, _ := json.Marshal(new_mem)
 
 	//Check to see if the requested ID matches the Gig we provided
-	if (len(new_mem.Artist) != 0 && len(new_mem.User) != 0) {
+	if (len(new_mem.Artist) != 0 && len(new_mem.Email) != 0) {
 		w.Write(resultJson)
 		log.Println("[DEBUG] membership added", new_mem)
 	} else {

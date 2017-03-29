@@ -32,21 +32,21 @@ export class AppBandOptionsComponent {
 	membership: Membership;
 	http: Http;
 	user: User = new User();
-	userName: string;
+	userEmail: string;
 	newArtist: string;
-	newUser: string;
+	newEmail: string;
 
 	constructor(http: Http, userService: userService) {
 		this.http = http;
 		this.user = userService.getUser();
 		this.currentSelectedIndex = 0;
-		this.userName = this.user.getName();
+		this.userEmail = this.user.getEmail();
 		
 		// set up parameters for post to find memberships
 		// that the user has already.
 		// this is in the constructor so it happens when the page is loaded
 		var uploadObj = {
-		key: this.userName
+		key: this.userEmail
 		};
 		// Initialize parameters for URL 
 		let params: URLSearchParams = new URLSearchParams();
@@ -63,7 +63,7 @@ export class AppBandOptionsComponent {
 		headers: pageHeaders
 		});
 		// This conversion to a JSON string allows Go to parse the request body
-		let body = JSON.stringify(this.userName);
+		let body = JSON.stringify(this.userEmail);
 		console.log("[DEBUG] body:", body);
 		// The post request which takes parameters of address, body, options
 		console.log("call post to find memberships");
@@ -101,7 +101,7 @@ export class AppBandOptionsComponent {
 	public enter_band_view(band: string) {
 		// Stores value from input element
 		this.member.setArtist(this.newArtist);
-		this.member.setUser(this.newUser);
+		this.member.setEmail(this.newEmail);
 		
 		//set parameters for post to push a new membership
 		var uploadObj = {

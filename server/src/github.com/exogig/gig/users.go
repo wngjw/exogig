@@ -24,5 +24,5 @@ type Artist struct {
 }
 type Membership struct {
     Artist      string
-    User        string
+    Email       string
 }
