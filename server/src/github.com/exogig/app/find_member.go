@@ -38,19 +38,19 @@ func FindMembership(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	fmt.Print("in find membership before decoder")
 	// The user that is logged in
-	var user_name string
+	var user_email string
 	// Decode the JSON, and return error
-	err = decoder.Decode(&user_name)
+	err = decoder.Decode(&user_email)
 	check_error(err)
 
 	defer r.Body.Close()
-	fmt.Print("[DEBUG] request body:", user_name)
+	fmt.Print("[DEBUG] request body:", user_email)
 
 	// Create the variable to store the gig being searched for
 	var results []string
 	// this returns a list of band names that the user is a member of.
 	// .Distinct allows filtering so we don't collect entire instance
-	err = collection.Find(bson.M{"user":user_name}).Distinct("artist",&results)
+	err = collection.Find(bson.M{"email":user_email}).Distinct("artist",&results)
 	log.Println("[DEBUG] found bands:", results)
 
 	//Return a nil value if the id doesn't have an associated Gig.

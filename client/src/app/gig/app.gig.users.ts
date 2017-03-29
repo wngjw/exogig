@@ -68,16 +68,16 @@ export class Artist {
 
 export class Membership {
   private artist: string;
-  private user: string;
+  private email: string;
   
   getUser() {
-    return this.user;
+    return this.email;
   }
   getArtist() {
     return this.artist;
   }
-  setUser(user: string) {
-    this.user = user;
+  setEmail(email: string) {
+    this.email = email;
   }
   setArtist(artist: string) {
     this.artist = artist;
