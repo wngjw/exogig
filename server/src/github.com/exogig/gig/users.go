@@ -14,13 +14,13 @@ type User struct {
 }
 
 type Artist struct {
-    members     []User
     gigs        []Gig
     songlist    SongList
     setlists    []SetList
-    bio         string
+    Bio         string
     picture     string
-    name        string
+    Name        string
+    Genre       string
 }
 type Membership struct {
     Artist      string

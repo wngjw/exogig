@@ -36,6 +36,8 @@ import { MdRadioModule } from '@angular2-material/radio';
 
 import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
+import { artistService } from './services/app.service.artist';
+
 
 import { WindowRef } from './gig/app.gig.window';
 
@@ -72,7 +74,7 @@ import { WindowRef } from './gig/app.gig.window';
 	  MaterializeDirective,
   ],
   bootstrap: [AppControllerComponent],	//From what I understand, bootstrap is basically which component it tries to setup first.
-  providers: [MdIconRegistry, gigService, userService, WindowRef, MdUniqueSelectionDispatcher]
+  providers: [MdIconRegistry, gigService, userService, artistService, WindowRef, MdUniqueSelectionDispatcher]
 })
 
 export class AppModule { }

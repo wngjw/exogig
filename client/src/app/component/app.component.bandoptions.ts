@@ -2,6 +2,7 @@ import { Component, Directive, Injectable, EventEmitter, Output, trigger, state,
 import { Headers, Http, URLSearchParams, RequestOptions } from '@angular/http';
 import { Membership, User, Artist } from '../gig/app.gig.users';
 import { userService } from '../services/app.service.user';
+import { artistService } from '../services/app.service.artist';
 
 @Component({
  	selector: 'bandoptions',
@@ -24,7 +25,7 @@ import { userService } from '../services/app.service.user';
 export class AppBandOptionsComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
 	rate: string;
-	recievedArtist: Artist;
+	recievedArtist: string[];
 	currentSelectedIndex: number;
 	topOption: string;
 	showLabels = false;
@@ -35,12 +36,16 @@ export class AppBandOptionsComponent {
 	userEmail: string;
 	newArtist: string;
 	newEmail: string;
+	art: Artist = new Artist();
+	artistService: artistService;
 
-	constructor(http: Http, userService: userService) {
+	constructor(http: Http, userService: userService, artistService:artistService) {
 		this.http = http;
 		this.user = userService.getUser();
 		this.currentSelectedIndex = 0;
 		this.userEmail = this.user.getEmail();
+		this.recievedArtist = [];
+		this.artistService=artistService;
 		
 		// set up parameters for post to find memberships
 		// that the user has already.
@@ -98,11 +103,15 @@ export class AppBandOptionsComponent {
 	}
 	//All of the band information pertaining to a user will need to be downloaded upon loading this page.
 	//This will just pass the select band information onto 
-	public enter_band_view(band: string) {
+	public enter_band_view(index: number) {
 		// Stores value from input element
 		this.member.setArtist(this.newArtist);
 		this.member.setEmail(this.newEmail);
-		
+		if (this.recievedArtist==null || index > this.recievedArtist.length){
+			this.art.setName(this.newArtist);
+		}
+		else{this.art.setName(this.recievedArtist[index])}
+		this.artistService.setArtist(this.art);
 		//set parameters for post to push a new membership
 		var uploadObj = {
 		key: this.member
@@ -129,7 +138,7 @@ export class AppBandOptionsComponent {
 		.map((res) => res.json())
 		.subscribe(data => this.membership = data);
 
-		console.log("Going into " + band + "'s band instance");
+		//console.log("Going into " + this.recievedArtist[index] + "'s band instance");
 		this.emit_event('bandpage');
 	}
 }

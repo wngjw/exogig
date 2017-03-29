@@ -1,8 +1,9 @@
 import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate  } from '@angular/core';
 import { Headers, Http, URLSearchParams, RequestOptions } from '@angular/http';
 import { MaterializeAction } from 'angular2-materialize';
-import { User } from '../gig/app.gig.users';
+import { User, Artist } from '../gig/app.gig.users';
 import { userService } from '../services/app.service.user';
+import { artistService } from '../services/app.service.artist';
 
 @Component({
  	selector: 'edit-bio',
@@ -24,18 +25,26 @@ import { userService } from '../services/app.service.user';
 
 export class AppEditBioComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
-	bio: string;
-	genre: string;
+	newBio: string;
+	newGenre: string;
+	oldBio: string;
+	oldGenre: string;
 	showLabels = false;
 	http: Http;
 	user: User;
 	loggedInSymbol: string;
 	topOption: string;
+	artist:Artist;
+	artistService: artistService;
 
-	constructor(http: Http) {
-		this.bio;
+	constructor(http: Http, artistService:artistService) {
 		this.http = http;
-		this.genre;
+
+		this.artist = artistService.getArtist();
+		this.oldBio = this.artist.getBio();
+		this.oldGenre = this.artist.getBio();
+		this.artistService=artistService;
+		
 	}
 	private check_login(userService: userService) {
 		if (userService.getUser().getLoggedIn() == true) {
@@ -50,35 +59,32 @@ export class AppEditBioComponent {
 
 
 	public changeBio(){
+		this.artist.setBio(this.newBio);
+		this.artist.setGenre(this.newGenre);
 		// Stores value from input element
 		var uploadObj = {
-			key: this.bio
+			key: this.artist
 		};
-
 		// Initialize parameters for URL
 		let params = new URLSearchParams();
-  		params.append('bio', this.bio);
-  		params.append('genre', this.genre);
-	
+  		params.append('bio', this.newBio);
+  		params.append('genre', this.newGenre);
 		// Create the headers for the page
 		var pageHeaders = new Headers();
 		pageHeaders.append('Content-Type', 'application/json');
-
 		// Places parameters in query string
 		let options = new RequestOptions({
 			search: params,
 			headers: pageHeaders
 		});
 		// This conversion to a JSON string allows Go to parse the request body
-   		let body = JSON.stringify(this.bio);
+   		let body = JSON.stringify(this.artist);
    		console.log("[DEBUG] body:", body);
-		console.log(this.bio);
-		console.log(this.genre);
-		  // The post request which takes parameters of address, body, options
-		this.http.post('/kendrick', body, options)
+		// The post request which takes parameters of address, body, options
+		this.http.post('/editbio', body, options)
 		.map((res) => res.json())
-		.subscribe(data => this.user = data);
-
+		.subscribe(data => this.artist = data);
+		this.artistService.setArtist(this.artist);
 		this.notify.emit('bandpage');
 	}
 

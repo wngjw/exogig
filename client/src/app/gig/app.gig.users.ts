@@ -8,6 +8,7 @@
 *
 * Date Modified: 16 February 2017
 */
+import { Gig,SongList,SetList } from '../gig/app.gig.gig'
 
 export class User {
   private id: number;
@@ -56,13 +57,30 @@ export class User {
 }
 
 export class Artist {
-  private name: string;
-
+    gigs:Gig[];
+    songlist:SongList;
+    setlists:SetList[];
+    Bio:string;
+    picture:string;
+    Name:string;
+    Genre:string;
+ getBio() {
+    return this.Bio;
+  }
+  setBio(bio: string) {
+    this.Bio = bio;
+  }
+  getGenre() {
+    return this.Genre;
+  }
+  setGenre(genre: string) {
+    this.Genre = genre;
+  }
   getName() {
-    return this.name;
+    return this.Name;
   }
   setName(name: string) {
-    this.name = name;
+    this.Name = name;
   }
 }
 

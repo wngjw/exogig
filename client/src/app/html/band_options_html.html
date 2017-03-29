@@ -18,20 +18,19 @@
 				<!-- HELP!!!!! I can;t figure out how to display my list(receivedArtist)
 					which has been returned from the server. I tried using ng in the 
 					p tag but it doen't work--> 
-				<p ng-value="receivedArtist" ng-repeat="artist in receivedArtist">
+				
 					<md-card-title>
 						Your Bands
 					</md-card-title>
 					<md-card-content>
-					
-						{{artist}} <button md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view('bandpage')" >sentiment_very_satisfied</button>
+						<button style="margin-top:4px" *ngFor="let name of recievedArtist;let n = index" md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view(n)">{{n+1}}. {{name}}</button>
 					<!-- 
 						<button md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view('bandpage')"> Metallica </button>
 						<button md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view('bandpage')"> A7X </button>
 						<button md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view('bandpage')"> RATM </button>
 					-->
 					</md-card-content>	
-				</p>	
+				
 				<md-card-title>
 					New Band
 				</md-card-title>

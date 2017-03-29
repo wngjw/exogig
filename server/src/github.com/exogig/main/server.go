@@ -185,6 +185,7 @@ func main() {
 	http.HandleFunc("/2", app.RequestPageHandler)
 	http.HandleFunc("/addmem", app.AddMember)
 	http.HandleFunc("/findmem", app.FindMembership)
+	http.HandleFunc("/editbio", app.UpdateArtist)
 
 	fs := http.FileServer(http.Dir("../client/dist/"))
 	http.Handle("/", fs)

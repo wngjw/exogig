@@ -39,6 +39,6 @@ export class AppBandViewerComponent {
 	}
 	
 	public swap_view() {
-		this.emit_event('bandpage')
+		this.emit_event('loginhome')
 	}
 }
