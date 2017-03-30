@@ -18,3 +18,4 @@
 <create-setlist *ngIf="currentState == 'setlist'" (notify)='onNotify($event)'>Loading Band Setlist...</create-setlist>
 
 <create-event *ngIf="currentState == 'createevent'" (notify)='onNotify($event)'>Loading Create Event...</create-event>
+<create-band *ngIf="currentState == 'createband'" (notify)='onNotify($event)'>Loading Create Event...</create-band>

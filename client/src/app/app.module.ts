@@ -17,6 +17,7 @@ import { AppCreateEventComponent } from './component/app.component.createevent';
 import { AppEditBioComponent } from './component/app.component.editbio';
 import { AppCreateSetlistComponent } from './component/app.component.makesetlist';
 import { AppBandOptionsComponent } from './component/app.component.bandoptions';
+import { AppCreateBandComponent } from './component/app.component.createband';
 import { AppRequestComponent } from './component/app.component.request';
 import { AppSetComponent } from './component/app.component.set';
 import { AppNotificationsComponent } from './component/app.component.notifications';
@@ -63,6 +64,7 @@ import { WindowRef } from './gig/app.gig.window';
   	AppBandPageComponent,
   	AppBandViewerComponent,
   	AppChatComponent,
+    AppCreateBandComponent,
   	AppCreateEventComponent,
   	AppEditBioComponent,
   	AppCreateSetlistComponent,

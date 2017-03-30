@@ -5,8 +5,8 @@ import { userService } from '../services/app.service.user';
 import { artistService } from '../services/app.service.artist';
 
 @Component({
- 	selector: 'bandoptions',
-	templateUrl: '../html/band_options_html.html',
+ 	selector: 'create-band',
+	templateUrl: '../html/create_band_html.html',
 	outputs: ['notify'],
 	animations: [
 		//Animation handling for nav labels.
@@ -22,57 +22,34 @@ import { artistService } from '../services/app.service.artist';
 	]
 })
 
-export class AppBandOptionsComponent {
+export class AppCreateBandComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
-	recievedArtist: string[];
-	currentSelectedIndex: number;
+
+
+
 	topOption: string;
 	showLabels = false;
+	member: Membership = new Membership();
+	membership: Membership;
+    artist: Artist;
 	http: Http;
 	user: User = new User();
 	userEmail: string;
-	
+	// needed to create a band
+    newArtist: string;
+    newGenre: string;
+    newBio: string;
+    // used to enter into that band's page
 	art: Artist = new Artist();
 	artistService: artistService;
 
 	constructor(http: Http, userService: userService, artistService:artistService) {
 		this.http = http;
 		this.user = userService.getUser();
-		this.currentSelectedIndex = 0;
 		this.userEmail = this.user.getEmail();
-		this.recievedArtist = [];
 		this.artistService=artistService;
 		
-		// set up parameters for post to find memberships
-		// that the user has already.
-		// this is in the constructor so it happens when the page is loaded
-		var uploadObj = {
-		key: this.userEmail
-		};
-		// Initialize parameters for URL 
-		let params: URLSearchParams = new URLSearchParams();
-		// Saves key/value pairs to URL query string
-		for (let key in uploadObj) {
-		params.set(key, uploadObj[key]);
-		}
-		// Create the headers for the page
-		var pageHeaders = new Headers();
-		pageHeaders.append('Content-Type', 'application/json');
-		// Places parameters in query string
-		let options = new RequestOptions({
-		search: params,
-		headers: pageHeaders
-		});
-		// This conversion to a JSON string allows Go to parse the request body
-		let body = JSON.stringify(this.userEmail);
-		console.log("[DEBUG] body:", body);
-		// The post request which takes parameters of address, body, options
-		console.log("call post to find memberships");
-		this.http.post('/findmem', body, options)
-		.map((res) => res.json())
-		.subscribe(data => this.recievedArtist = data);
 	}
-
 
 	public emit_event(location:string) {
 		this.notify.emit(location);
@@ -86,22 +63,22 @@ export class AppBandOptionsComponent {
 	public swap_view() {
 		this.emit_event('loginhome')
 	}
-	//This will check if a given index (artist/band), has been selected. If so it'll give the selected look.
-	public checkSelected(index: number,listNum: number):boolean {
-		if(this.currentSelectedIndex == index)
-			return true;
-		else {
-			return false;
-		}
-	}
+	
 	//All of the band information pertaining to a user will need to be downloaded upon loading this page.
 	//This will just pass the select band information onto 
 	public enter_band_view(index: number) {
 		// Stores value from input element
+		this.member.setArtist(this.newArtist);
+		this.member.setEmail(this.userEmail);
+		this.art.setName(this.newArtist);
+        this.art.setBio(this.newBio);
+        this.art.setGenre(this.newGenre);
+		this.artistService.setArtist(this.art);
+		//set parameters for post to push a new membership
 		var uploadObj = {
-		key: this.recievedArtist[index]
+		key: this.member
 		};
-		// Initialize parameters for URL 
+		// Initialize parameters for URL
 		let params: URLSearchParams = new URLSearchParams();
 		// Saves key/value pairs to URL query string
 		for (let key in uploadObj) {
@@ -116,17 +93,41 @@ export class AppBandOptionsComponent {
 		headers: pageHeaders
 		});
 		// This conversion to a JSON string allows Go to parse the request body
-		let body = JSON.stringify(this.userEmail);
+		let body = JSON.stringify(this.member);
 		console.log("[DEBUG] body:", body);
 		// The post request which takes parameters of address, body, options
-		console.log("call post to find memberships");
-		this.http.post('/getartist', body, options)
+		this.http.post('/addmem', body, options)
 		.map((res) => res.json())
-		.subscribe(data => this.art = data);
-
-
-		this.artistService.setArtist(this.art);
+		.subscribe(data => this.membership = data);
+        var uploadObj = {
+		key: this.member
+         };
+    
+	    //set parameters for post to push a new artist
+		var uploadObj2 = {
+		key: this.art
+		};
+		
+		// Saves key/value pairs to URL query string
+		for (let key in uploadObj2) {
+		params.set(key, uploadObj2[key]);
+		}
+		// Create the headers for the page
+		var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		// Places parameters in query string
+		options = new RequestOptions({
+		search: params,
+		headers: pageHeaders
+		});
+		// This conversion to a JSON string allows Go to parse the request body
+	    body = JSON.stringify(this.art);
+		console.log("[DEBUG] body:", body);
+		// The post request which takes parameters of address, body, options
+		this.http.post('/addartist', body, options)
+		.map((res) => res.json())
+		.subscribe(data => this.artist = data);
+		//console.log("Going into " + this.recievedArtist[index] + "'s band instance");
 		this.emit_event('bandpage');
 	}
 }
-
