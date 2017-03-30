@@ -46,6 +46,7 @@ export class AppLoginComponent {
   user: User = new User();
   document: any;
   googleLoginButtonId = "gapiLogin";
+  recievedArtist: string[];
 
 
   //By defining gigService as public, it makes the service accessible within the class (within AppLoginComponent).
@@ -53,6 +54,7 @@ export class AppLoginComponent {
     console.log("Constructor");
     this.document = winRef.nativeWindow.document;
     this.http = http;
+    this.recievedArtist = [];
     userService.setUser(this.user);
     let fbParams: FacebookInitParams = {
       appId: '1866232750300614',
@@ -147,12 +149,11 @@ export class AppLoginComponent {
     this.user.setLoggedIn(true);
     this.user.setVip(false);
     this.user.setType("google");
-    this.user.setArtist(false);
+    this.checkArtist();
     console.log(this.user);
   }
 
-
-  public createFBUser(){
+  /*public createFBUser(){
     if (this.fb.getLoginStatus()) {
       FB.api('/me','GET',{"fields":"name,email"},function(response) {
         this.user.setName(response.name);
@@ -164,6 +165,45 @@ export class AppLoginComponent {
       this.user.setType("facebook");
     }
     console.log(this.user);
+  }*/
+
+  public checkArtist() {
+    // set up parameters for post to find memberships
+		// that the user has already.
+		// this is in the constructor so it happens when the page is loaded
+		var uploadObj = {
+		key: this.user.getEmail()
+		};
+		// Initialize parameters for URL
+		let params: URLSearchParams = new URLSearchParams();
+		// Saves key/value pairs to URL query string
+		for (let key in uploadObj) {
+		  params.set(key, uploadObj[key]);
+		}
+		// Create the headers for the page
+		var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		// Places parameters in query string
+		let options = new RequestOptions({
+		  search: params,
+		  headers: pageHeaders
+		});
+		// This conversion to a JSON string allows Go to parse the request body
+		let body = JSON.stringify(this.user.getEmail());
+		// The post request which takes parameters of address, body, options
+		this.http.post('/findmem', body, options)
+		.map((res) => res.json())
+		.subscribe(data => this.recievedArtist = data);
+
+    if(this.recievedArtist.length === 0) {
+      console.log('Empty Array');
+      this.user.setArtist(false);
+    }
+    else{
+      console.log("Non Empty Array");
+      console.log(this.recievedArtist);
+      this.user.setArtist(true);
+    }
   }
 
   ngAfterViewInit() {
