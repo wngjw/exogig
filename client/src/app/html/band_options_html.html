@@ -15,9 +15,6 @@
 	<div style="overflow:hidden;width:100%;height:74%;overflow-x:scroll;overflow-y:scroll">
 		<md-card style="margin:2px;padding:4 px">
 			<div style="text-align:center;padding-bottom:2vh">
-				<!-- HELP!!!!! I can;t figure out how to display my list(receivedArtist)
-					which has been returned from the server. I tried using ng in the 
-					p tag but it doen't work--> 
 				
 					<md-card-title>
 						Your Bands
@@ -43,6 +40,7 @@
             			<input id="bm" [(ngModel)]="newEmail" class="underline_accenting" type="text">
               			<label for="bm" class="text">Band Member Emial</label>
             		</div>
+					
 					<button md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view('Create New Band')"> Create </button>
 				</md-card-content>
 			</div>

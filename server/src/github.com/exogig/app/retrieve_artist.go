@@ -28,7 +28,7 @@ import (
 * Handler for entering a bio and genre.
  */
 
-func UpdateArtist(w http.ResponseWriter, r *http.Request) {
+func RetrieveArtist(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
 	err = session.DB("exogig").Login("gustudent",GetPassword())
@@ -40,7 +40,7 @@ func UpdateArtist(w http.ResponseWriter, r *http.Request) {
 	// Creates the decoder for the http request body
 	decoder := json.NewDecoder(r.Body)
 	// The new membership to be added to the database
-	var artist gig.Artist
+	var artist string
 	// Decode the JSON, and return error
 	err = decoder.Decode(&artist)
 	if err != nil {
@@ -49,16 +49,10 @@ func UpdateArtist(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	log.Println("[DEBUG] request body:", artist)
 	var old_artist gig.Artist
-	err = collection.Find(bson.M{"name":artist.Name}).One(&old_artist)
-	// inserts membership into the database
-	old_artist.Bio = artist.Bio
-	old_artist.Genre = artist.Genre
-	err = collection.Insert(&old_artist)
-    // Searches the database for the band
-    
-    
+	err = collection.Find(bson.M{"name":artist}).One(&old_artist)
+
 	//Return a nil value if the id doesn't have an associated Gig.
-	if (len(artist.Bio) == 0 && len(artist.Genre) == 0) {
+	if (len(artist) == 0 && len(artist) == 0) {
 		emptyJson, _ := json.Marshal(nil)
 		w.Write(emptyJson)
 	}
@@ -66,7 +60,7 @@ func UpdateArtist(w http.ResponseWriter, r *http.Request) {
 	resultJson, _ := json.Marshal(artist)
 
 	//Check to see if the requested ID matches the Gig we provided
-	if (len(artist.Bio) != 0 || len(artist.Genre) != 0) {
+	if (len(artist) != 0 || len(artist) != 0) {
 		w.Write(resultJson)
 		log.Println("[DEBUG] artist updated", artist)
 	} else {
