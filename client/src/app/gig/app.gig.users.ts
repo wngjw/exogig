@@ -17,6 +17,7 @@ export class User {
   private email: string;
   private loggedIn: boolean;
   private vip: boolean;
+  private artist: boolean;
 
   setName(name: string) {
     this.name = name;
@@ -36,6 +37,9 @@ export class User {
   setType(type: string) {
     this.type = type;
   }
+  setArtist(artist: boolean) {
+    this.artist = artist;
+  }
   getName() {
     return this.name;
   }
@@ -53,6 +57,9 @@ export class User {
   }
   getEmail() {
     return this.email;
+  }
+  isArtist() {
+    return this.artist;
   }
 }
 
@@ -87,7 +94,7 @@ export class Artist {
 export class Membership {
   private artist: string;
   private email: string;
-  
+
   getUser() {
     return this.email;
   }

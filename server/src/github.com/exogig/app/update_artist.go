@@ -1,4 +1,4 @@
-U/*
+/*
 * update_artist.go
 *
 * A class for the functionality of the edit bio page
@@ -13,13 +13,12 @@ import (
 	"encoding/json"
 	"github.com/exogig/gig"
 	"gopkg.in/mgo.v2"
-	
+
 
 	"net/http"
 
 	"gopkg.in/mgo.v2/bson"
 	"log"
-
 )
 
 
@@ -55,8 +54,8 @@ func UpdateArtist(w http.ResponseWriter, r *http.Request) {
 	old_artist.Genre = artist.Genre
 	err = collection.Insert(&old_artist)
     // Searches the database for the band
-    
-    
+
+
 	//Return a nil value if the id doesn't have an associated Gig.
 	if (len(artist.Bio) == 0 && len(artist.Genre) == 0) {
 		emptyJson, _ := json.Marshal(nil)

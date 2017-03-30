@@ -36,6 +36,9 @@ export class AppLoginComponent {
   modalActionsLogin = new EventEmitter<string|MaterializeAction>();
   modalActionsLogout = new EventEmitter<string|MaterializeAction>();
   modalActionsMore = new EventEmitter<string|MaterializeAction>();
+  modalActionsMoreNotLoggedIn = new EventEmitter<string|MaterializeAction>();
+  modalActionsMoreLoggedInNotArtist = new EventEmitter<string|MaterializeAction>();
+  modalActionsMoreLoggedInArtist = new EventEmitter<string|MaterializeAction>();
 
   userAuthToken = null;
   userDisplayName = "empty";
@@ -144,6 +147,7 @@ export class AppLoginComponent {
     this.user.setLoggedIn(true);
     this.user.setVip(false);
     this.user.setType("google");
+    this.user.setArtist(false);
     console.log(this.user);
   }
 
@@ -175,14 +179,26 @@ export class AppLoginComponent {
     }
   }
   public openModal2() {
-    this.modalActionsMore.emit({action:"modal",params:['open'],});
+    if (this.user.getLoggedIn() == true) {
+      if(this.user.isArtist() == true) {
+        this.modalActionsMoreLoggedInArtist.emit({action:"modal",params:['open'],});
+      }
+      else {
+        this.modalActionsMoreLoggedInNotArtist.emit({action:"modal",params:['open'],})
+      }
+    }
+    else {
+      this.modalActionsMoreNotLoggedIn.emit({action:"modal",params:['open'],});
+    }
   }
   public closeModal1() {
     this.modalActionsLogin.emit({action:"modal",params:['close'],});
     this.modalActionsLogout.emit({action:"modal",params:['close'],});
   }
   public closeModal2() {
-    this.modalActionsMore.emit({action:"modal",params:['close']});
+    this.modalActionsMoreNotLoggedIn.emit({action:"modal",params:['close']});
+    this.modalActionsMoreLoggedInNotArtist.emit({action:"modal",params:['close']});
+    this.modalActionsMoreLoggedInArtist.emit({action:"modal",params:['close']});
   }
 
   public facebookLogin() {
