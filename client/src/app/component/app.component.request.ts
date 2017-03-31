@@ -41,7 +41,7 @@ export class AppRequestComponent {
 	currentUser: User = new User();
 	http: Http;
  	receivedSongList: SongList;
-  requestedSong: Request;
+  requestedSong: Request = new Request();
 	loggedInSymbol: string;
 	topOption: string;
 	gigObject: Gig;
@@ -90,6 +90,7 @@ export class AppRequestComponent {
     console.log(this.receivedSongList);   // Receiving the test song from the page
 		console.log(this.question);
 		console.log(this.request);
+    console.log(this.requestedSong);
   }
 
 	public emit_event(location:string) {

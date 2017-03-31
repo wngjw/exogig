@@ -17,16 +17,16 @@
 	<div materialize class="col s12">
 			<div style="margin-left:auto;margin-right:auto;width:75%;height:75%;overflow-y:scroll">
 			  <md-card md-scroll-y>
+				<md-radio-group [(ngModel)]="requestedSong.Name">
 			    <div style="text-align:center;padding-bottom:2vh" *ngFor="let set of gigSetList.SetsInSetList">
 			      <md-card-title>
 			        {{set.SetName}}
 			      </md-card-title>
-						<md-radio-group [(ngModel)]="chosenOption">
 							<div style="margin-left:3vh;text-align:left" *ngFor="let song of set.SongsInSet">
-							<md-radio-button [value]="song.Name">{{song.Name}}</md-radio-button>
+							<md-radio-button value="{{song.Name}}">{{song.Name}}</md-radio-button>
 						</div>
-						</md-radio-group>
 			    </div>
+					</md-radio-group>
 			  </md-card>
 			</div>
 	</div>
