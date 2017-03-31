@@ -42,15 +42,31 @@ export class AppCreateBandComponent {
     // used to enter into that band's page
 	art: Artist = new Artist();
 	artistService: artistService;
+	// for nav
+	buttonLabels: string[];
+	buttonIcon: string[];
+	pageEmitters: string[];
 
 	constructor(http: Http, userService: userService, artistService:artistService) {
 		this.http = http;
 		this.user = userService.getUser();
 		this.userEmail = this.user.getEmail();
 		this.artistService=artistService;
+		this.checkArtist();
 		
 	}
-
+	checkArtist(){
+		if(this.user.isArtist()){
+			this.buttonLabels = ['Home','Notifications','Browse','Options'];
+			this.buttonIcon = ['home','info_outline','search','local_play'];
+			this.pageEmitters = ['login','notifications','bandviewer','bandoptions'];
+		}
+		else{
+			this.buttonLabels = ['Home','Notifications','Browse'];
+			this.buttonIcon = ['home','info_outline','search'];
+			this.pageEmitters = ['login','notifications','bandviewer'];
+		}
+	}
 	public emit_event(location:string) {
 		this.notify.emit(location);
 	}

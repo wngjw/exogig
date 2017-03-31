@@ -27,9 +27,15 @@ export class AppBandPageComponent {
 	loggedInSymbol: string;
 	topOption: string;		//Shouldn't need.
 	showLabels = false;
+	buttonLabels: string[];
+	buttonIcon: string[];
+	pageEmitters: string[];
 
 	constructor(userService: userService) {
 		this.currentUser = userService.getUser();
+		this.buttonLabels = ['Home','Options','Info','Songs','Sets'];
+        this.buttonIcon = ['home','local_play','assignments','info_outline','search',];
+        this.pageEmitters = ['login','bandoptions','editbio','songlist','setlist'];
 	}
 
 	//Toggling function for label animations, placed on big white button

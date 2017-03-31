@@ -6,10 +6,9 @@
 		</a>
 		<ul>
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Options</span><a (click)="emit_event('bandoptions')" class="btn-floating white"><i class="material-icons" style="color:#263238">local_play</i></a></li>
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Info</span><a (click)="emit_event('editbio')" class="btn-floating white"><i class="material-icons" style="color:#263238">assignment</i></a></li>
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Songs</span><a (click)="emit_event('songlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_note</i></a></li>
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Sets</span><a (click)="emit_event('setlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">library_music</i></a></li>
+			<ng-container *ngIf="showLabels">
+				<li *ngFor="let label of buttonLabels;let i = index"><span [@labelstate] class="fab_def">{{label}}</span><a (click)="emit_event(pageEmitters[i])" class="btn-floating white"><i class="material-icons" style="color:#263238">{{buttonIcon[i]}}</i></a></li>
+			</ng-container>
 		</ul>
 	</div>
 

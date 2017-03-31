@@ -6,7 +6,7 @@
 		</a>
 		<ul>
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">{{topOption}}</span><a (click)="swap_view()" class="btn-floating white"><i class="material-icons" style="color:#263238">{{loggedInSymbol}}</i></a></li>
+			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Home</span><a (click)="emit_event('login')" class="btn-floating white"><i class="material-icons" style="color:#263238">home</i></a></li>
 			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Chat</span><a (click)="emit_event('chat')" class="btn-floating white"><i class="material-icons" style="color:#263238">question_answer</i></a></li>
 			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Request</span><a (click)="emit_event('request')" class="btn-floating white"><i class="material-icons" style="color:#263238">feedback</i></a></li>
 			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Set</span><a (click)="emit_event('set')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_video</i></a></li>
