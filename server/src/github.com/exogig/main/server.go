@@ -180,7 +180,7 @@ func generate_gig_id(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fill_database()
 	http.HandleFunc("/1", handler)
-	http.HandleFunc("/kendrick", app.GigCodeHandler)
+	http.HandleFunc("/gigcode", app.GigCodeHandler)
 	http.HandleFunc("/generate", generate_gig_id)
 	http.HandleFunc("/2", app.RequestPageHandler)
 	http.HandleFunc("/addmem", app.AddMember)

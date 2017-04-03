@@ -286,7 +286,7 @@ export class AppLoginComponent {
     console.log("[DEBUG] body:", body);
 
     // The post request which takes parameters of address, body, options
-    this.http.post('/kendrick', body, options)
+    this.http.post('/gigcode', body, options)
       .map((res) => res.json())
       .subscribe(data => this.entireGigObject = data);
 
