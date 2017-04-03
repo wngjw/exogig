@@ -17,7 +17,7 @@
 	<div materialize class="col s12">
 			<div style="margin-left:auto;margin-right:auto;width:75%;height:75%;overflow-y:scroll">
 			  <md-card md-scroll-y>
-				<md-radio-group [(ngModel)]="requestedSong.Name">
+				<md-radio-group [(ngModel)]="requestedSong.requestedSongName">
 			    <div style="text-align:center;padding-bottom:2vh" *ngFor="let set of gigSetList.SetsInSetList">
 			      <md-card-title>
 			        {{set.SetName}}

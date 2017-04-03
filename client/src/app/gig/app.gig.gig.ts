@@ -55,10 +55,10 @@ export class SetList {
 }
 
 export class Request {
-  requestedSong: Song;
+  requestedSongName: string;
   numTimesRequested: number;
   getRequestedSong() {
-    return this.requestedSong;
+    return this.requestedSongName;
   }
 }
 

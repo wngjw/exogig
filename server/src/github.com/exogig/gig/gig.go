@@ -136,10 +136,11 @@ func (a *Set) CompareSet(b *Set) (_ bool) {
  * Description:
  *    Represents a request for a song
  * Members:
- *    RequestedSong: the song being requested
+ *    RequestedSongName: the name of the song being requested
+ *    NumTimesRequested: the amount of times a song has been requested
  */
  type Request struct {
-     RequestedSong       Song
+     RequestedSongName   string
      NumTimesRequested   int
  }
 

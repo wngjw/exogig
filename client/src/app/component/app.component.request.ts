@@ -6,7 +6,7 @@
 */
 
 import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 import { Request, Song, SongList } from '../gig/app.gig.gig';
 import { userService } from '../services/app.service.user';
 import { User } from '../gig/app.gig.users';
@@ -40,7 +40,7 @@ export class AppRequestComponent {
 	request: string;
 	currentUser: User = new User();
 	http: Http;
- 	receivedSongList: SongList;
+ 	receivedSong: Request;
   requestedSong: Request = new Request();
 	loggedInSymbol: string;
 	topOption: string;
@@ -85,12 +85,27 @@ export class AppRequestComponent {
 		}
 	}
 
-	public submitRequest() {
-    this.http.get('/2').map(res => res.json()).subscribe(data => this.receivedSongList = data);
-    console.log(this.receivedSongList);   // Receiving the test song from the page
-		console.log(this.question);
-		console.log(this.request);
-    console.log(this.requestedSong);
+	public submitRequest() {    // Stores value from input element
+    // Create the headers for the page
+    var pageHeaders = new Headers();
+    pageHeaders.append('Content-Type', 'application/json');
+
+    // Places parameters in query string
+    let options = new RequestOptions({
+      headers: pageHeaders
+    });
+
+    this.requestedSong.numTimesRequested = 1;
+
+    let body = JSON.stringify(this.requestedSong);
+
+    console.log(body);
+
+    this.http.post('/2', body, options)
+    .map((res) => res.json())
+    .subscribe(data => this.receivedSong = data);
+
+    console.log(this.receivedSong);
   }
 
 	public emit_event(location:string) {

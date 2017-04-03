@@ -94,7 +94,7 @@ func fill_database() {
 		SetsInSetList: []gig.Set{kendrick_set_1, kendrick_set_2, kendrick_set_3},
 	}
 
-	temp_requested_song := gig.Song{Name: "Collard Greens", Rating: 0}
+	temp_requested_song := "Collard Greens"
 
 	kendricks_gig := gig.Gig{
 		GigId:          "KDOT",
