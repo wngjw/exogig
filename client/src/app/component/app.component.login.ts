@@ -194,8 +194,11 @@ export class AppLoginComponent {
 		// The post request which takes parameters of address, body, options
 		this.http.post('/findmem', body, options)
 		.map((res) => res.json())
-		.subscribe(data => this.recievedArtist = data);
+		.subscribe(this.thisBullshit);
+  }
 
+  private thisBullshit(res: any) {
+    this.recievedArtist = res;
     if(this.recievedArtist.length === 0) {
       console.log('Empty Array');
       this.user.setArtist(false);
