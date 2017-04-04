@@ -6,9 +6,10 @@
 */
 
 import { Input, Output, Component, Directive, Injectable, EventEmitter, NgZone } from '@angular/core';
-import { Headers, Http, URLSearchParams, RequestOptions } from '@angular/http';
+import { Headers, Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
 import { MaterializeAction } from 'angular2-materialize';
 import { FacebookService, FacebookLoginResponse, FacebookInitParams } from 'ng2-facebook-sdk';
+import { Observable } from 'rxjs';
 import { gigService } from '../services/app.service.gig';
 import { Gig } from '../gig/app.gig.gig';
 import { userService } from '../services/app.service.user';
@@ -262,45 +263,55 @@ export class AppLoginComponent {
     var uploadObj = {
       key: this.inputKey
     };
-
     // Initialize parameters for URL
     let params: URLSearchParams = new URLSearchParams();
-
     // Saves key/value pairs to URL query string
     for (let key in uploadObj) {
       params.set(key, uploadObj[key]);
     }
-
     // Create the headers for the page
     var pageHeaders = new Headers();
     pageHeaders.append('Content-Type', 'application/json');
-
     // Places parameters in query string
     let options = new RequestOptions({
       search: params,
       headers: pageHeaders
     });
-
     // This conversion to a JSON string allows Go to parse the request body
     let body = JSON.stringify(this.inputKey);
     console.log("[DEBUG] body:", body);
-
     // The post request which takes parameters of address, body, options
     this.http.post('/gigcode', body, options)
       .map((res) => res.json())
+      .catch(this.errorHandler)
       .subscribe(data => this.entireGigObject = data);
-
     // Takes gigService and saves the returned object to it.
     // Since JS executes asynchronously, we timeout to let the server response come in and set the gigService value.
-    // By placing gigService in the parameters, I'm telling Angular to inject the service here for use.
-
+    // By placing gigService in the parameters, I'm telling Angular to inject the service here for use.=
     setTimeout(() => {
       console.log("[DEBUG] Gig object:", this.entireGigObject);
       this.gigService.setGig(this.entireGigObject);
       if(typeof(this.entireGigObject) !== 'undefined') {
         this.notify.emit(location);
       }
+      else{
+        console.log('Bad Gig ID given');
+        document.getElementById("inputErrorMessage").style.visibility="visible";
+      }
     }, 750);
+  }
+
+  private errorHandler(error: Response | any) {
+    var errorMessage;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errorMessage = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errorMessage = error.message ? error.message : error.toString();
+    }
+    console.error(errorMessage);
+    return Observable.throw(errorMessage);
   }
 
   public signOut() {
