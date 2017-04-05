@@ -1,16 +1,16 @@
 package main
 
 import (
-	"fmt"
+
 	"log"
 	"math/rand"
 	"net/http"
 	"time"
-
+	"encoding/json"
 	"github.com/exogig/app"
 	"github.com/exogig/gig"
 	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
+	
 )
 
 var IsDrop = true
@@ -110,61 +110,6 @@ func fill_database() {
 	check_error(err)
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	session, err := mgo.Dial("127.0.0.1")
-	if err != nil {
-		panic(err)
-	}
-
-	defer session.Close()
-
-	session.SetMode(mgo.Monotonic, true)
-
-	if IsDrop {
-		err = session.DB("test3").DropDatabase()
-		if err != nil {
-			panic(err)
-		}
-	}
-
-	collection := session.DB("test3").C("songs")
-
-	// Index
-	index := mgo.Index{
-		Key:        []string{"listname"},
-		Unique:     true,
-		DropDups:   true,
-		Background: true,
-		Sparse:     true,
-	}
-
-	err = collection.EnsureIndex(index)
-
-	if err != nil {
-		panic(err)
-	}
-
-	// Inserts data
-	slist := gig.SongList{
-		ListName: "1",
-		Songs: []gig.Song{
-			{Name: "SilverScrapes", Rating: 0}, {Name: "EyeOfTheTiger", Rating: 0},
-		},
-	}
-	err = collection.Insert(&slist)
-
-	if err != nil {
-		panic(err)
-	}
-
-	result := gig.SongList{}
-	err = collection.Find(bson.M{"listname": r.URL.Path[1:]}).Select(bson.M{"songs": ""}).One(&result)
-	fmt.Fprintf(w, string(gig.GetSongNames(result.Songs)))
-
-	if err != nil {
-		panic(err)
-	}
-}
 
 func generate_gig_id(w http.ResponseWriter, r *http.Request) {
 	rand.Seed(time.Now().UTC().UnixNano())
@@ -174,20 +119,27 @@ func generate_gig_id(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < 4; i++ {
 		result[i] = chars[rand.Intn(len(chars))]
 	}
-	fmt.Fprintf(w, string(result))
+	log.Println("[DEBUG] code generated:", string(result))
+	resultJson, _ := json.Marshal(string(result))
+	w.Write(resultJson)
 }
 
 func main() {
 	fill_database()
-	http.HandleFunc("/1", handler)
 	http.HandleFunc("/gigcode", app.GigCodeHandler)
 	http.HandleFunc("/generate", generate_gig_id)
+<<<<<<< Updated upstream
 	http.HandleFunc("/request", app.RequestPageHandler)
+=======
+
+>>>>>>> Stashed changes
 	http.HandleFunc("/addmem", app.AddMember)
 	http.HandleFunc("/findmem", app.FindMembership)
-	http.HandleFunc("/editbio", app.UpdateArtist)
+	http.HandleFunc("/editbio", app.UpdateBio)
 	http.HandleFunc("/getartist", app.RetrieveArtist)
 	http.HandleFunc("/addartist", app.AddArtist)
+	http.HandleFunc("/addgig", app.AddGig)
+	http.HandleFunc("/updatesonglist", app.UpdateSonglist)
 
 	fs := http.FileServer(http.Dir("../client/dist/"))
 	http.Handle("/", fs)

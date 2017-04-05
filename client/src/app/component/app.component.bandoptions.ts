@@ -78,6 +78,7 @@ export class AppBandOptionsComponent {
 		this.http.post('/findmem', body, options)
 		.map((res) => res.json())
 		.subscribe(data => this.recievedArtist = data);
+		console.log(this.recievedArtist);
 	}
 
 
@@ -104,9 +105,11 @@ export class AppBandOptionsComponent {
 	//All of the band information pertaining to a user will need to be downloaded upon loading this page.
 	//This will just pass the select band information onto 
 	public enter_band_view(index: number) {
+		
+		var artistname = this.recievedArtist[index];
 		// Stores value from input element
 		var uploadObj = {
-		key: this.recievedArtist[index]
+		key: artistname
 		};
 		// Initialize parameters for URL 
 		let params: URLSearchParams = new URLSearchParams();
@@ -123,17 +126,29 @@ export class AppBandOptionsComponent {
 		headers: pageHeaders
 		});
 		// This conversion to a JSON string allows Go to parse the request body
-		let body = JSON.stringify(this.userEmail);
+		let body = JSON.stringify(this.recievedArtist[index]);
 		console.log("[DEBUG] body:", body);
 		// The post request which takes parameters of address, body, options
 		console.log("call post to find memberships");
 		this.http.post('/getartist', body, options)
 		.map((res) => res.json())
-		.subscribe(data => this.art = data);
+		.subscribe(this.waitForHttp);
 
-
-		this.artistService.setArtist(this.art);
+		console.log(this.art.getGigs());
+		
 		this.emit_event('bandpage');
 	}
+	private waitForHttp(res: any) {
+		this.art = res;
+		if(this.art.getName().length === 0) {
+			console.log('Empty Artist');
+		}
+		else{
+			console.log("There is an artist");
+			console.log(this.art);
+			this.art = res;
+			this.artistService.setArtist(this.art);
+    }
+  }
 }
 

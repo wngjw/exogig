@@ -43,27 +43,26 @@ func RetrieveArtist(w http.ResponseWriter, r *http.Request) {
 	var artist string
 	// Decode the JSON, and return error
 	err = decoder.Decode(&artist)
-	if err != nil {
-		panic(err)
-	}
+	check_error(err)
+
 	defer r.Body.Close()
 	log.Println("[DEBUG] request body:", artist)
 	var old_artist gig.Artist
 	err = collection.Find(bson.M{"name":artist}).One(&old_artist)
-
+	check_error(err)
 	//Return a nil value if the id doesn't have an associated Gig.
 	if (len(artist) == 0 && len(artist) == 0) {
 		emptyJson, _ := json.Marshal(nil)
 		w.Write(emptyJson)
 	}
 
-	resultJson, _ := json.Marshal(artist)
+	resultJson, _ := json.Marshal(old_artist)
 
 	//Check to see if the requested ID matches the Gig we provided
 	if (len(artist) != 0 || len(artist) != 0) {
 		w.Write(resultJson)
-		log.Println("[DEBUG] artist updated", artist)
+		log.Println("[DEBUG] artist retrieved", old_artist)
 	} else {
-		log.Println("[DEBUG] artist not updated:", artist)
+		log.Println("[DEBUG] artist not updated:", old_artist)
 	}
 }

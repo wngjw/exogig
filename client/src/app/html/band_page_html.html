@@ -11,22 +11,37 @@
 			</ng-container>
 		</ul>
 	</div>
-
-	<div style="padding-top:2vh;text-align:center;margin-left:auto;margin-right:auto">
-		<button md-button class="waves-effect waves-white btn-flat" style="color:#263238;background-color:#eceff1;font-size:1em;" (click)="emit_event('createevent')">Create Gig</button>
+	<div style="display: blocks;justify-content: center;">
+		<h1 style="color:#82d4f9;font-weight:bolder;text-align:center;">Welcome {{artistName}}</h1>
 	</div>
+	
+	<md-card-title>
+		Your Gigs
+	</md-card-title>
+	<md-card-content>
+		<button style="margin-top:4px" *ngFor="let name of gigs;let n = index" md-button class="waves-effect waves-light waves-effect" (click)="edit_gig(n)">{{n+1}}. {{name.GigName}}</button>
+	</md-card-content>
+	
+	<div class="input-field col s6">
+    	<input id="gn" [(ngModel)]="newGig.GigName" class="underline_accenting" type="text">
+        <label for="gn" class="text">{{gigNamePlace}}</label>
+    </div>
+	
+	<div class="input-field col s6">
+    	<input id="d" [(ngModel)]="newGig.GigDate" class="underline_accenting" type="text">
+        <label for="d" class="text">{{DateOfGigPlace}}</label>
+    </div>
+	<div class="input-field col s6">
+    	<input id="t" [(ngModel)]="newGig.GigTime" class="underline_accenting" type="text">
+        <label for="t" class="text">{{TimeOfGigPlace}}</label>
+    </div>
+	<div class="input-field col s6">
+    	<input id="t" [(ngModel)]="newGig.GigLocation" class="underline_accenting" type="text">
+        <label for="t" class="text">{{LocationOfGigPlace}}</label>
+    </div>
+	
+	<button md-button class="waves-effect waves-light waves-effect" (click)="createGig()"> Create </button>
 
 
 
-<!--
-	<div>
-		<a (click)="emit_event('editbio')" class="">edit bio</a>
-		<a (click)="emit_event('createevent')" class="">create new event</a>
-		<a (click)="emit_event('createsets')" class="">make sets</a>
-		<a (click)="emit_event('songlist')" class="">edit song list</a>
-	</div>
-	<div>
-		<a (click)="emit_event('main')" class="">browse bands</a>
-	</div>
-	-->
 </div>

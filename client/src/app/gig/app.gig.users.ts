@@ -8,7 +8,7 @@
 *
 * Date Modified: 16 February 2017
 */
-import { Gig,SongList,SetList } from '../gig/app.gig.gig'
+import { Gig,Song,SetList } from '../gig/app.gig.gig'
 
 export class User {
   private id: number;
@@ -64,8 +64,8 @@ export class User {
 }
 
 export class Artist {
-    gigs:Gig[];
-    songlist:SongList;
+    gigs:Gig[] = [];
+    songlist:Song[];
     setlists:SetList[];
     Bio:string;
     picture:string;
@@ -88,6 +88,15 @@ export class Artist {
   }
   setName(name: string) {
     this.Name = name;
+  }
+  getGigs(){
+    return this.gigs;
+  }
+  addGig(gig:Gig){
+    this.gigs.push(gig);
+  }
+  addSong(song:Song){
+    this.songlist.push(song);
   }
 }
 
