@@ -31,9 +31,10 @@ func RequestPageHandler(w http.ResponseWriter, r *http.Request) {
 	var requestedSong gig.Request
 	err = decoder.Decode(&requestedSong)
 
-	log.Println(requestedSong)
-	log.Println(requestedSong.RequestedSongName)
+	log.Println("[DEBUG] Requested song: ", requestedSong)
+	log.Println("[DEBUG] Name of requested song: ", requestedSong.RequestedSongName)
 
+/// Below is all old code that needs to be changed ///
   slist := gig.SongList {
     ListName:"Song List 1",
     Songs:[]gig.Song {

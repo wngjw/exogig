@@ -182,7 +182,7 @@ func main() {
 	http.HandleFunc("/1", handler)
 	http.HandleFunc("/gigcode", app.GigCodeHandler)
 	http.HandleFunc("/generate", generate_gig_id)
-	http.HandleFunc("/2", app.RequestPageHandler)
+	http.HandleFunc("/request", app.RequestPageHandler)
 	http.HandleFunc("/addmem", app.AddMember)
 	http.HandleFunc("/findmem", app.FindMembership)
 	http.HandleFunc("/editbio", app.UpdateArtist)

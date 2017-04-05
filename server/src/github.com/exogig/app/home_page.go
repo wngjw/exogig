@@ -72,7 +72,6 @@ func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	defer r.Body.Close()
-	log.Println("[DEBUG] request body:", requestedId)
 
 	// Create the variable to store the gig being searched for
 	var result gig.Gig
