@@ -34,7 +34,9 @@ export class AppSongListComponent {
 	constructor(artistService:artistService,http:Http) {
 		this.currentArtist = artistService.getArtist();
 		this.artistService = artistService;
-		this.songlist = this.currentArtist.songlist;
+		if(this.currentArtist.songlist != null){
+		this.songlist = this.currentArtist.songlist;}
+		else{this.songlist=[];}
 		this.http = http;
 	}
 	public delete(index:number){
@@ -44,16 +46,20 @@ export class AppSongListComponent {
 
 	}
 	public addSong(){
+		console.log("in add song");
 		this.addedSong.name=this.newSong;
-		if(this.songlist.length === 0){
+		if(this.songlist.length === null){
+			console.log("in if ")
 			this.songlist.push(this.addedSong);
 		}
 		else{
+			console.log("in else ")
 			this.songlist.splice(this.songlist.length,0,this.addedSong);
 		}
 		this.currentArtist.songlist = this.songlist;
 		this.artistService.setArtist(this.currentArtist);
 		this.newSong = null;
+		this.addedSong=new Song();
 		this.notify.emit('songlist');
 	}
 	//Toggling function for label animations, placed on big white button
@@ -86,6 +92,7 @@ export class AppSongListComponent {
 		this.http.post('/updatesonglist', body, options)
 		.map((res) => res.json())
 		.subscribe(data => this.currentArtist = data);
+		console.log(this.currentArtist.addSong);
 		this.notify.emit(location);
 	}
 
