@@ -78,13 +78,14 @@ export class AppBandPageComponent {
 	}
 	public edit_gig(index:number){
 		this.editIndex = index;
+    console.log(typeof this.currentArtist);
 		var gigToEdit = this.currentArtist.getGigs();
 		this.newGig = gigToEdit[index];
 		this.DateOfGigPlace = gigToEdit[index].GigDate;
 		this.gigNamePlace = gigToEdit[index].GigName;
 		this.TimeOfGigPlace = gigToEdit[index].GigTime;
 		this.LocationOfGigPlace = gigToEdit[index].GigLocation;
-		
+
 }
 
 	private catchError(error: Response) {
@@ -110,11 +111,11 @@ export class AppBandPageComponent {
 			this.newGig.GigTime=this.TimeOfGigPlace;
 			console.log(gen,"time");
 		}*/
-	
-	
+
+
 		// The post request which takes parameters of address, body, options
 		console.log(gen, "before get call");
-	
+
 		if(this.editIndex != null){
 			this.currentArtist.gigs[this.editIndex]=this.newGig;
 			gen = false;
@@ -130,8 +131,7 @@ export class AppBandPageComponent {
 			.subscribe(data => this.newGig.GigId = data);
 
 		}
-		
-		
+
 		this.artistService.setArtist(this.currentArtist);
 		console.log(this.newGig.GigId);
 		//set parameters for post to push a new membership
@@ -159,8 +159,8 @@ export class AppBandPageComponent {
 		// The post request which takes parameters of address, body, options
 		this.http.post('/addgig', body, options)
 		.map((res) => res.json())
-		.subscribe(this.waitForHttp);
-		
+		.subscribe((res) => this.waitForHttp(res));
+
 		console.log(this.currentArtist.getGigs());
 		this.artistService.setArtist(this.currentArtist);
 		this.newGig=new Gig();
@@ -172,15 +172,9 @@ export class AppBandPageComponent {
 	}
 
 	private waitForHttp(res: any) {
-		this.currentArtist = res;
-		if(this.currentArtist.gigs.length === 0) {
-			console.log('Empty Gig');
-		}
-		else{
-			console.log("There are gigs");
-			console.log(this.currentArtist);
+    if (res !== undefined) {
+      this.currentArtist = res as Artist;
     }
   }
 
 }
-

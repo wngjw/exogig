@@ -31,7 +31,7 @@ export class AppBandOptionsComponent {
 	http: Http;
 	user: User = new User();
 	userEmail: string;
-	
+
 	art: Artist = new Artist();
 	artistService: artistService;
 
@@ -49,14 +49,14 @@ export class AppBandOptionsComponent {
 		this.buttonLabels = ['Home','Notifications','Browse','Options', 'New Band'];
         this.buttonIcon = ['home','info_outline','search','local_play', 'library_add'];
         this.pageEmitters = ['login','notifications','bandviewer','bandoptions', 'createband'];
-		
+
 		// set up parameters for post to find memberships
 		// that the user has already.
 		// this is in the constructor so it happens when the page is loaded
 		var uploadObj = {
 		key: this.userEmail
 		};
-		// Initialize parameters for URL 
+		// Initialize parameters for URL
 		let params: URLSearchParams = new URLSearchParams();
 		// Saves key/value pairs to URL query string
 		for (let key in uploadObj) {
@@ -103,15 +103,15 @@ export class AppBandOptionsComponent {
 		}
 	}
 	//All of the band information pertaining to a user will need to be downloaded upon loading this page.
-	//This will just pass the select band information onto 
+	//This will just pass the select band information onto
 	public enter_band_view(index: number) {
-		
+
 		var artistname = this.recievedArtist[index];
 		// Stores value from input element
 		var uploadObj = {
 		key: artistname
 		};
-		// Initialize parameters for URL 
+		// Initialize parameters for URL
 		let params: URLSearchParams = new URLSearchParams();
 		// Saves key/value pairs to URL query string
 		for (let key in uploadObj) {
@@ -131,24 +131,19 @@ export class AppBandOptionsComponent {
 		// The post request which takes parameters of address, body, options
 		console.log("call post to find memberships");
 		this.http.post('/getartist', body, options)
-		.map((res) => res.json())
-		.subscribe(this.waitForHttp);
-
+		  .map((res) => res.json())
+  		.subscribe((res) => this.waitForHttp(res));
 		console.log(this.art.getGigs());
-		
 		this.emit_event('bandpage');
 	}
 	private waitForHttp(res: any) {
-		this.art = res;
-		if(this.art.getName().length === 0) {
-			console.log('Empty Artist');
-		}
-		else{
+    console.log(this);
+    console.log(typeof res);
+		if (res !== undefined) {
 			console.log("There is an artist");
 			console.log(this.art);
-			this.art = res;
+			this.art = res as Artist;
 			this.artistService.setArtist(this.art);
     }
   }
 }
-
