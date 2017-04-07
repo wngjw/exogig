@@ -2,6 +2,7 @@ import { Component, Directive, Injectable, EventEmitter, Output, trigger, state,
 import { Headers, Http } from '@angular/http';
 import { userService } from '../services/app.service.user';
 import { User } from '../gig/app.gig.users';
+import {ChatService} from '../services/app.service.chat';
 
 @Component({
  	selector: 'chat',
@@ -28,7 +29,7 @@ export class AppChatComponent {
 	topOption: string;
 	showLabels = false;
 
-	constructor(userService: userService) {
+	constructor(userService: userService,private chatService: ChatService) {
 		this.currentUser = userService.getUser();
 		this.check_login(userService);
 	}
