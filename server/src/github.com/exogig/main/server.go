@@ -128,11 +128,7 @@ func main() {
 	fill_database()
 	http.HandleFunc("/gigcode", app.GigCodeHandler)
 	http.HandleFunc("/generate", generate_gig_id)
-<<<<<<< Updated upstream
 	http.HandleFunc("/request", app.RequestPageHandler)
-=======
-
->>>>>>> Stashed changes
 	http.HandleFunc("/addmem", app.AddMember)
 	http.HandleFunc("/findmem", app.FindMembership)
 	http.HandleFunc("/editbio", app.UpdateBio)

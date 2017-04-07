@@ -35,19 +35,5 @@ func RequestPageHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("[DEBUG] Name of requested song: ", requestedSong.RequestedSongName)
 
 /// Below is all old code that needs to be changed ///
-  slist := gig.SongList {
-    ListName:"Song List 1",
-    Songs:[]gig.Song {
-      {Name:"SilverScrapes", Rating:0}, {Name:"EyeOfTheTiger", Rating:0},
-    },
-  }
-  slist2 := gig.SongList {
-    ListName:"Song List 2",
-    Songs:[]gig.Song {
-      {Name:"MyHeartWillGoOn", Rating:0}, {Name:"OceanMan", Rating:0},
-    },
-  }
-  var songLists = []gig.SongList{slist, slist2}
-  jsonSongList, _ := json.Marshal(songLists)
-  w.Write(jsonSongList)
+  
 }
