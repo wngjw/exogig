@@ -4,9 +4,9 @@ import { Artist } from '../gig/app.gig.users';
 @Injectable()
 
 export class artistService {
-  private artistObject;
+  private artistObject: Artist;
 
-  public getArtist() {
+  public getArtist(): Artist {
     return this.artistObject;
   }
 

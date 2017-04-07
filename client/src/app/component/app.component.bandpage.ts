@@ -50,13 +50,13 @@ export class AppBandPageComponent {
 	http:Http;
 	newGig: Gig = new Gig();
 
-	constructor(http: Http,userService: userService,artistService:artistService) {
+	constructor(http: Http, userService: userService, artistService:artistService) {
 		this.http = http;
 		this.currentUser = userService.getUser();
-		this.currentArtist = artistService.getArtist();
+		//this.currentArtist = artistService.getArtist();
 		this.artistName = this.currentArtist.getName();
 		this.gigs = this.currentArtist.getGigs();
-		this.artistService=artistService;
+		this.artistService = artistService;
 		this.buttonLabels = ['Home','Options','Info','Songs','Sets'];
         this.buttonIcon = ['home','local_play','assignments','info_outline','search',];
         this.pageEmitters = ['login','bandoptions','editbio','songlist','setlist'];
@@ -85,8 +85,7 @@ export class AppBandPageComponent {
 		this.gigNamePlace = gigToEdit[index].GigName;
 		this.TimeOfGigPlace = gigToEdit[index].GigTime;
 		this.LocationOfGigPlace = gigToEdit[index].GigLocation;
-
-}
+  }
 
 	private catchError(error: Response) {
 		var errorMes = "This shit is fucked";
@@ -129,7 +128,6 @@ export class AppBandPageComponent {
 			.map((res) => res.json())
 			.catch(this.catchError)
 			.subscribe(data => this.newGig.GigId = data);
-
 		}
 
 		this.artistService.setArtist(this.currentArtist);
@@ -160,8 +158,13 @@ export class AppBandPageComponent {
 		this.http.post('/addgig', body, options)
 		.map((res) => res.json())
 		.subscribe((res) => this.waitForHttp(res));
+	}
 
-		console.log(this.currentArtist.getGigs());
+	private waitForHttp(res: any) {
+    if (res !== undefined) {
+      this.currentArtist = res as Artist;
+    }
+    console.log(this.currentArtist.getGigs());
 		this.artistService.setArtist(this.currentArtist);
 		this.newGig=new Gig();
 		this.gigNamePlace = "Gig Name";
@@ -169,12 +172,6 @@ export class AppBandPageComponent {
 		this.TimeOfGigPlace = "Time of the Gig";
 		this.LocationOfGigPlace = "Location of the Gig";
 		this.emit_event('bandpage');
-	}
-
-	private waitForHttp(res: any) {
-    if (res !== undefined) {
-      this.currentArtist = res as Artist;
-    }
   }
 
 }
