@@ -2,7 +2,9 @@ import { Component, Directive, Injectable, EventEmitter, Output, trigger, state,
 import { Headers, Http } from '@angular/http';
 import { userService } from '../services/app.service.user';
 import { User } from '../gig/app.gig.users';
-import {ChatService} from '../services/app.service.chat';
+import { ChatService, Message} from '../services/app.service.chat';
+import { WindowRef } from '../gig/app.gig.window';
+
 
 @Component({
  	selector: 'chat',
@@ -28,11 +30,34 @@ export class AppChatComponent {
 	loggedInSymbol: string;
 	topOption: string;
 	showLabels = false;
+	comments: string[];
+	activeMsg = '';
+	document: any;
 
-	constructor(userService: userService,private chatService: ChatService) {
+	public messages: Message[] = new Array()
+	private submitted = false;
+	private message = {
+		author: 'testee',
+		message: 'Hi mom',
+	}
+
+	constructor(private winRef: WindowRef, userService: userService, private chatService: ChatService) {
+		chatService.messages.subscribe(msg => {
+			this.messages.push(msg);
+		})
+	    this.document = winRef.nativeWindow.document;
 		this.currentUser = userService.getUser();
 		this.check_login(userService);
 	}
+
+	ngOnInit() {
+    //This will run the joinEvent function via the page's button upon the enter key being pressed. Needs tested on mobile.
+    this.document.getElementById('msgInput').onkeypress = (e) => {
+        if (e.keyCode==13) {
+          this.document.getElementById('msgInput').click();
+        }
+      }
+  	}
 
 	private check_login(userService: userService) {
 		if (userService.getUser().getLoggedIn() == true) {
@@ -43,6 +68,12 @@ export class AppChatComponent {
 			this.loggedInSymbol = "close";
 			this.topOption = "Exit";
 		}
+	}
+
+	public sendMsg() {
+		this.message.message = this.activeMsg;
+		this.chatService.messages.next(this.message);
+		this.activeMsg = '';
 	}
 
 

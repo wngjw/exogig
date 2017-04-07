@@ -1,16 +1,16 @@
 package main
 
 import (
-
+	"encoding/json"
 	"log"
 	"math/rand"
 	"net/http"
 	"time"
-	"encoding/json"
+
 	"github.com/exogig/app"
+	"github.com/exogig/chat"
 	"github.com/exogig/gig"
 	"gopkg.in/mgo.v2"
-	
 )
 
 var IsDrop = true
@@ -21,7 +21,6 @@ func check_error(err error) {
 	}
 }
 
-
 // This is the setup function that will allow the database to hold our test
 // data. This is so that @Spencer will still love us.
 func fill_database() {
@@ -29,7 +28,7 @@ func fill_database() {
 	check_error(err)
 
 	app.SavePassword()
-	err = session.DB("exogig").Login("gustudent",app.GetPassword())
+	err = session.DB("exogig").Login("gustudent", app.GetPassword())
 	check_error(err)
 
 	defer session.Close()
@@ -110,7 +109,6 @@ func fill_database() {
 	check_error(err)
 }
 
-
 func generate_gig_id(w http.ResponseWriter, r *http.Request) {
 	rand.Seed(time.Now().UTC().UnixNano())
 	// This excludes mispercieved characters JL10
@@ -136,8 +134,10 @@ func main() {
 	http.HandleFunc("/addartist", app.AddArtist)
 	http.HandleFunc("/addgig", app.AddGig)
 	http.HandleFunc("/updatesonglist", app.UpdateSonglist)
-
+	chatserver := chat.NewServer("/chat", ":8082")
+	go chatserver.Listen()
 	fs := http.FileServer(http.Dir("../client/dist/"))
 	http.Handle("/", fs)
 	log.Fatal(http.ListenAndServe(":8081", nil))
+
 }
