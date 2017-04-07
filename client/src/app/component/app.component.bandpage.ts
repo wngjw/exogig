@@ -95,22 +95,6 @@ export class AppBandPageComponent {
 	public createGig(){
 		console.log(this.newGig);
 		var gen = true;
-		/*if(this.newGig.GigName === null){
-			gen = false;
-			this.newGig.GigName=this.gigNamePlace;
-			console.log(gen, "name");
-		}
-		if(this.newGig.GigDate === null){
-			gen = false;
-			this.newGig.GigDate=this.DateOfGigPlace;
-			console.log(gen, "date");
-		}
-		if(this.newGig.GigTime === null){
-			gen = false;
-			this.newGig.GigTime=this.TimeOfGigPlace;
-			console.log(gen,"time");
-		}*/
-
 
 		// The post request which takes parameters of address, body, options
 		console.log(gen, "before get call");
@@ -159,6 +143,7 @@ export class AppBandPageComponent {
 		.map((res) => res.json())
 		.subscribe((res) => this.waitForHttp(res));
 	}
+
 
 	private waitForHttp(res: any) {
     if (res !== undefined) {

@@ -34,13 +34,17 @@ export class Set {
 }
 
 export class SetList {
-  setsInSetList: Set[];
+  setsInSetList: Set[] = [];
   setListName: string;
+  
   getSetsInSetList() {
     return this.setsInSetList;
   }
   getSetListName() {
     return this.setListName;
+  }
+  addSet(set:Set){
+    this.setsInSetList.push(set);
   }
 }
 
