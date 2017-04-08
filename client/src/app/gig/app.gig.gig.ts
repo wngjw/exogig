@@ -21,16 +21,6 @@ export class Song {
   }
 }
 
-export class SongList {
-  listName: string;
-  songs: Song[];
-  getName() {
-    return this.listName;
-  }
-  getSongs() {
-    return this.songs;
-  }
-}
 
 export class Set {
   songsInSet: Song[];
@@ -44,13 +34,17 @@ export class Set {
 }
 
 export class SetList {
-  setsInSetList: Set[];
+  setsInSetList: Set[] = [];
   setListName: string;
+
   getSetsInSetList() {
     return this.setsInSetList;
   }
   getSetListName() {
     return this.setListName;
+  }
+  addSet(set:Set){
+    this.setsInSetList.push(set);
   }
 }
 
@@ -63,11 +57,11 @@ export class Request {
 }
 
 export class Gig {
+  GigId: string;
   GigSetList: SetList;
   GigName: string;
   GigTime: string;
   GigDate: string;
-  GigId: string;
   GigLocation: string;
   GigRequestList: Request[];
 }

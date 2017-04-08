@@ -1,7 +1,7 @@
 <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
 
 <!-- Load the necesary items for the Google Oauth -->
-<script src="https://apis.google.com/js/platform.js?onload=onLoaded" async defer></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="185214012256-p7bo73l7cqn59hc2e24b45dnni04rglm.apps.googleusercontent.com">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
@@ -20,6 +20,14 @@
 							defaultExtension: 'js'
 						}
 					}
+				});
+				System.config({
+    				map: {
+        				'ng2-drag-drop': 'node_modules/ng2-drag-drop'
+    				},
+   					packages: {
+       					'ng2-drag-drop':  { main: 'index.js',  defaultExtension: 'js' },
+    					}
 				});
 				System.import('app/main').then(null, console.error.bind(console));
 			});

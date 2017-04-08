@@ -31,7 +31,7 @@ export class AppBandOptionsComponent {
 	http: Http;
 	user: User = new User();
 	userEmail: string;
-	
+
 	art: Artist = new Artist();
 	artistService: artistService;
 
@@ -45,18 +45,18 @@ export class AppBandOptionsComponent {
 		this.currentSelectedIndex = 0;
 		this.userEmail = this.user.getEmail();
 		this.recievedArtist = [];
-		this.artistService=artistService;
+		this.artistService = artistService;
 		this.buttonLabels = ['Home','Notifications','Browse','Options', 'New Band'];
-        this.buttonIcon = ['home','info_outline','search','local_play', 'library_add'];
-        this.pageEmitters = ['login','notifications','bandviewer','bandoptions', 'createband'];
-		
+    this.buttonIcon = ['home','info_outline','search','local_play', 'library_add'];
+    this.pageEmitters = ['login','notifications','bandviewer','bandoptions', 'createband'];
+
 		// set up parameters for post to find memberships
 		// that the user has already.
 		// this is in the constructor so it happens when the page is loaded
 		var uploadObj = {
 		key: this.userEmail
 		};
-		// Initialize parameters for URL 
+		// Initialize parameters for URL
 		let params: URLSearchParams = new URLSearchParams();
 		// Saves key/value pairs to URL query string
 		for (let key in uploadObj) {
@@ -77,8 +77,14 @@ export class AppBandOptionsComponent {
 		console.log("call post to find memberships");
 		this.http.post('/findmem', body, options)
 		.map((res) => res.json())
-		.subscribe(data => this.recievedArtist = data);
+		.subscribe((data) => this.recieveArtist(data));
 	}
+
+  public recieveArtist(data: any) {
+    console.log(typeof this);
+    this.recievedArtist = data || [];
+    console.log(this.recievedArtist);
+  }
 
 
 	public emit_event(location:string) {
@@ -102,13 +108,14 @@ export class AppBandOptionsComponent {
 		}
 	}
 	//All of the band information pertaining to a user will need to be downloaded upon loading this page.
-	//This will just pass the select band information onto 
+	//This will just pass the select band information onto
 	public enter_band_view(index: number) {
+		var artistname = this.recievedArtist[index];
 		// Stores value from input element
 		var uploadObj = {
-		key: this.recievedArtist[index]
+		key: artistname
 		};
-		// Initialize parameters for URL 
+		// Initialize parameters for URL
 		let params: URLSearchParams = new URLSearchParams();
 		// Saves key/value pairs to URL query string
 		for (let key in uploadObj) {
@@ -123,17 +130,23 @@ export class AppBandOptionsComponent {
 		headers: pageHeaders
 		});
 		// This conversion to a JSON string allows Go to parse the request body
-		let body = JSON.stringify(this.userEmail);
+		let body = JSON.stringify(this.recievedArtist[index]);
 		console.log("[DEBUG] body:", body);
 		// The post request which takes parameters of address, body, options
-		console.log("call post to find memberships");
+		console.log("call post to find artist");
 		this.http.post('/getartist', body, options)
-		.map((res) => res.json())
-		.subscribe(data => this.art = data);
-
-
-		this.artistService.setArtist(this.art);
-		this.emit_event('bandpage');
+		  .map((res) => res.json())
+  		.subscribe((data) => this.waitForHttp(data));
 	}
-}
 
+	private waitForHttp(data: Artist) {
+		if (data !== undefined) {
+			console.log("There is an artist");
+			this.art = data as Artist;
+      this.art = Object.setPrototypeOf(this.art, Artist.prototype)
+      console.log("After reassignment:" + this.art.getName());
+			this.artistService.setArtist(this.art);
+    }
+		this.emit_event('bandpage');
+  }
+}

@@ -13,10 +13,43 @@
 			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Sets</span><a (click)="emit_event('setlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">library_music</i></a></li>
 		</ul>
 	</div>
+	<h3>{{welcome}}</h3>
+	<div style="display: blocks;justify-content: center;">
+			<input [(ngModel)]="numberSets" class="underline_accenting" type = "text" placeholder = "How many sets are in this setList?" maxlength="10" />
+			<button md-button style="display:inline-block;color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="enterNum()"> Enter </button>
 
-		<p>make set list page</p>
-		<div>
-			<p>display all songs</p>
-			<p>make drag and drop items</p>
+	</div>
+	<div class="row" style="text-align:center;">
+		<div class="col s6;" style="display:block;border-style:solid;border-width:5px;border-color: #82d4f9">
+			<ul class="list-group">
+                    <li draggable *ngFor="let item of songlist;let n of index"
+                        [dragOverClass]="'.drag-over-border'"
+                        [dragData]="item" class="list-group-item" style="color:#82d4f9;">
+                        {{item.name}}
+                    </li>
+                </ul>
+
+    	</div>
+		<div class="input-field col s6" style="display:inline-block;">
+			<input [(ngModel)]="pushSetList.name" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "SetList name" maxlength="30" />
 		</div>
+		<div *ngFor="let set of pushSetList.setsInSetList;let n of index">
+			<div class="col s6;" style="display:block;text-align:center" >
+				<div class="input-field col s6" style="display:inline-block;">
+					<input [(ngModel)]="set.setName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "setname" maxlength="30" />
+				</div>
+				<div class="col s6;" style="display:inline-block;border-style:solid;border-width:5px;border-color: #82d4ff">
+					<div class="panel panel-info" droppable  [dragOverClass]="'.drag-target-border-green'" (onDrop)="addToSet($event,n)">
+						<div class="panel-heading">Drop songs here for the set</div>
+						<div class="panel-body scroll-list">
+							<li *ngFor="let song of set.songsInSet" class="list-group-item" style="color:#82d4ff;">{{song.name}}</li>
+						</div>
+					</div>
+				</div>
+				
+
+			</div>
+		</div>
+		<button md-button style="display:inline-block;color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="save()"> Save </button>
+	</div>
 </div>

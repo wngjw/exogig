@@ -1,11 +1,11 @@
 /*
-* update_artist.go
+* update_songlist.go
 *
 * A class for the functionality of the edit bio page
 *
 * Author: Bethany Bogensberger
 *
-* Date Modified: 29 March 2017
+* Date Modified: 4 April 2017
  */
 package app
 
@@ -24,7 +24,7 @@ import (
 * Handler for entering a bio and genre.
  */
 
-func UpdateBio(w http.ResponseWriter, r *http.Request) {
+func UpdateSonglist(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
 	err = session.DB("exogig").Login("gustudent",GetPassword())
@@ -43,30 +43,22 @@ func UpdateBio(w http.ResponseWriter, r *http.Request) {
 
 	defer r.Body.Close()
 	log.Println("[DEBUG] request body:", artist)
-	
-	var old_artist gig.Artist
-	err = collection.Find(bson.M{"name":artist.Name}).One(&old_artist)
+
+	err = collection.Update(bson.M{"name":artist.Name},bson.M{"$set": bson.M{"songlist":artist.Songlist}})
 	check_error(err)
-	// inserts membership into the database
-	//old_artist.Bio = artist.Bio
-	//old_artist.Genre = artist.Genre
-	log.Println("[DEBUG] old artist:", old_artist)
-	
-	err = collection.Update(bson.M{"name":artist.Name},bson.M{"$set": bson.M{"bio":artist.Bio,"genre":artist.Genre}})
+	err = collection.Find(bson.M{"name":artist.Name}).One(&artist)
 	check_error(err)
-	err = collection.Find(bson.M{"name":artist.Name}).One(&old_artist)
-	check_error(err)
-	log.Println("[DEBUG] updated artist:", old_artist)
+	log.Println("[DEBUG] updated artist:", artist)
 	//Return a nil value if the id doesn't have an associated Gig.
-	if (len(artist.Bio) == 0 && len(artist.Genre) == 0) {
+	if (len(artist.Songlist) == 0 ) {
 		emptyJson, _ := json.Marshal(nil)
 		w.Write(emptyJson)
 	}
 
-	resultJson, _ := json.Marshal(old_artist)
+	resultJson, _ := json.Marshal(artist)
 
 	//Check to see if the requested ID matches the Gig we provided
-	if (len(artist.Bio) != 0 || len(artist.Genre) != 0) {
+	if (len(artist.Songlist) != 0 ) {
 		w.Write(resultJson)
 		log.Println("[DEBUG] artist updated", artist)
 	} else {

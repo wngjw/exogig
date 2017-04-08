@@ -44,16 +44,6 @@ func (a *Song) CompareSong(b *Song) (_ bool) {
   return true
 }
 
-/*
- * Description:
- *    Represents a song list
- * Members:
- *    Songs: the list, in array format, of songs
- */
- type SongList struct {
-   ListName string
-   Songs []Song
- }
 
 /*
  * Description:

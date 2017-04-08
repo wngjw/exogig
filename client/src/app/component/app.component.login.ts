@@ -169,6 +169,7 @@ export class AppLoginComponent {
   }*/
 
   public checkArtist() {
+    console.log("in check artist");
     // set up parameters for post to find memberships
 		// that the user has already.
 		// this is in the constructor so it happens when the page is loaded
@@ -194,11 +195,11 @@ export class AppLoginComponent {
 		// The post request which takes parameters of address, body, options
 		this.http.post('/findmem', body, options)
 		.map((res) => res.json())
-		.subscribe(this.thisBullshit);
+		.subscribe((res) => this.waitForHttp(res));
   }
 
-  private thisBullshit(res: any) {
-    this.recievedArtist = res;
+  private waitForHttp(res: any) {
+    this.recievedArtist = res || [];
     if(this.recievedArtist.length === 0) {
       console.log('Empty Array');
       this.user.setArtist(false);

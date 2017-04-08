@@ -10,16 +10,17 @@
 package app
 
 import (
+	"bufio"
 	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"strings"
+
 	"github.com/exogig/gig"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"log"
-	"bufio"
-	"fmt"
-	"os"
-	"net/http"
-	"strings"
 )
 
 func check_error(err error) {
@@ -30,14 +31,14 @@ func check_error(err error) {
 
 var password string
 
-func SavePassword(){
+func SavePassword() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Please enter the Database password: ")
 	text, _ := reader.ReadString('\n')
-	password = text[0:len(text)-1]
+	password = text[0 : len(text)-1]
 }
 
-func GetPassword() (string) {
+func GetPassword() string {
 	return password
 }
 
@@ -48,7 +49,7 @@ func GetPassword() (string) {
 func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("127.0.0.1")
 	check_error(err)
-	err = session.DB("exogig").Login("gustudent",GetPassword())
+	err = session.DB("exogig").Login("gustudent", GetPassword())
 	check_error(err)
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
@@ -61,12 +62,12 @@ func GigCodeHandler(w http.ResponseWriter, r *http.Request) {
 	// Decode the JSON, and return error
 	err = decoder.Decode(&requestedId)
 
-  //format the input so that characters correct to gigcodes
+	//format the input so that characters correct to gigcodes
 	requestedId = strings.ToUpper(requestedId)
-	requestedId = strings.Replace(requestedId,"J","I",-1)
-	requestedId = strings.Replace(requestedId,"L","I",-1)
-	requestedId = strings.Replace(requestedId,"1","I",-1)
-	requestedId = strings.Replace(requestedId,"0","O",-1)
+	requestedId = strings.Replace(requestedId, "J", "I", -1)
+	requestedId = strings.Replace(requestedId, "L", "I", -1)
+	requestedId = strings.Replace(requestedId, "1", "I", -1)
+	requestedId = strings.Replace(requestedId, "0", "O", -1)
 
 	if err != nil {
 		panic(err)

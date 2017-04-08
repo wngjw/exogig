@@ -14,9 +14,9 @@ type User struct {
 }
 
 type Artist struct {
-    gigs        []Gig
-    songlist    SongList
-    setlists    []SetList
+    Gigs        []Gig
+    Songlist    []Song
+    Setlists    []SetList
     Bio         string
     picture     string
     Name        string
