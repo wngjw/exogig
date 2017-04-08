@@ -41,12 +41,12 @@ export class AppRequestComponent {
 	currentUser: User = new User();
 	http: Http;
  	receivedSong: Request;
-    requestedSong: Request = new Request();
+  requestedSong: Request = new Request();
 	loggedInSymbol: string;
 	topOption: string;
 	gigObject: Gig;
-    gigSetList: SetList;
-	showLabels = false; 
+  gigSetList: SetList;
+	showLabels = false;
 
 
 	constructor(http: Http, userService: userService, gigService: gigService) {

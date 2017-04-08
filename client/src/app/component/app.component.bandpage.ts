@@ -50,22 +50,22 @@ export class AppBandPageComponent {
 	http:Http;
 	newGig: Gig = new Gig();
 
-	constructor(http: Http, userService: userService, artistService:artistService) {
+	constructor(http: Http, userService: userService, artistService: artistService) {
 		this.http = http;
 		this.currentUser = userService.getUser();
-		//this.currentArtist = artistService.getArtist();
+    this.artistService = artistService;
+		this.currentArtist = artistService.getArtist();
 		this.artistName = this.currentArtist.getName();
 		this.gigs = this.currentArtist.getGigs();
-		this.artistService = artistService;
 		this.buttonLabels = ['Home','Options','Info','Songs','Sets'];
-        this.buttonIcon = ['home','local_play','assignments','info_outline','search',];
-        this.pageEmitters = ['login','bandoptions','editbio','songlist','setlist'];
+    this.buttonIcon = ['home','local_play','assignments','info_outline','search',];
+    this.pageEmitters = ['login','bandoptions','editbio','songlist','setlist'];
 		this.gigNamePlace = "Gig Name";
 		this.DateOfGigPlace = "Date of the Gig";
 		this.TimeOfGigPlace = "Time of the Gig";
 		this.LocationOfGigPlace = "Location of the Gig";
 		this.editIndex = null;
-		console.log(this.gigs)
+		console.log(this.gigs);
 	}
 
 	//Toggling function for label animations, placed on big white button
@@ -104,6 +104,7 @@ export class AppBandPageComponent {
 			gen = false;
 		}
 		else{
+      console.log(this.currentArtist); ////TODO
 			this.currentArtist.addGig(this.newGig);
 		}
 		if(gen === true){
