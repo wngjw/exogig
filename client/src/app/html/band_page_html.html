@@ -1,7 +1,7 @@
 <div>
 	<!-- Default HTML for setting up nav button -->
-	<div (click)="animateLabels()" class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
-		<a class="btn-floating btn-large white">
+	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
+		<a class="btn-floating btn-large white" (click)="animateLabels()">
 			<i class="material-icons large mdi-navigation-menu" style="font-size:3em;width:auto !important;height:auto !important;color:#263238">fingerprint</i>
 		</a>
 		<ul>
@@ -14,7 +14,7 @@
 	<div style="display: blocks;justify-content: center;">
 		<h1 style="color:#82d4f9;font-weight:bolder;text-align:center;">Welcome {{artistName}}</h1>
 	</div>
-	
+
 	<md-card>
 		<md-card-title>
 			Your Gigs
@@ -29,7 +29,7 @@
     	<input id="gn" [(ngModel)]="newGig.GigName" class="underline_accenting" type="text">
         <label for="gn" class="text">{{gigNamePlace}}</label>
     </div>
-	
+
 	<div class="input-field col s6">
     	<input id="d" [(ngModel)]="newGig.GigDate" class="underline_accenting" type="text">
         <label for="d" class="text">{{DateOfGigPlace}}</label>
@@ -42,7 +42,7 @@
     	<input id="t" [(ngModel)]="newGig.GigLocation" class="underline_accenting" type="text">
         <label for="t" class="text">{{LocationOfGigPlace}}</label>
     </div>
-	
+
 	<button md-button class="waves-effect waves-light waves-effect" (click)="createGig()"> Create </button>
 	<button md-button class="waves-effect waves-light waves-effect" (click)="deleteGig()"> Delete </button>
 	<button md-button class="waves-effect waves-light waves-effect" (click)="enterGig()"> Enter </button>
