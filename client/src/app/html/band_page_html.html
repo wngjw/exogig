@@ -15,13 +15,16 @@
 		<h1 style="color:#82d4f9;font-weight:bolder;text-align:center;">Welcome {{artistName}}</h1>
 	</div>
 	
-	<md-card-title>
-		Your Gigs
-	</md-card-title>
-	<md-card-content>
-		<button style="margin-top:4px" *ngFor="let name of gigs;let n = index" md-button class="waves-effect waves-light waves-effect" (click)="edit_gig(n)">{{n+1}}. {{name.GigName}}</button>
-	</md-card-content>
-	
+	<md-card>
+		<md-card-title>
+			Your Gigs
+		</md-card-title>
+		<md-card-content>
+			<button style="margin-top:4px" *ngFor="let name of gigs;let n = index" md-button class="waves-effect waves-light waves-effect" (click)="edit_gig(n)">{{n+1}}. {{name.GigName}}</button>
+			<button style="margin-top:4px" md-button class="waves-effect waves-light waves-effect" (click)="addGig()"><i class="material-icons" style="color:#263238">add</i></button>
+		</md-card-content>
+	</md-card>
+
 	<div class="input-field col s6">
     	<input id="gn" [(ngModel)]="newGig.GigName" class="underline_accenting" type="text">
         <label for="gn" class="text">{{gigNamePlace}}</label>
@@ -41,7 +44,7 @@
     </div>
 	
 	<button md-button class="waves-effect waves-light waves-effect" (click)="createGig()"> Create </button>
-
-
+	<button md-button class="waves-effect waves-light waves-effect" (click)="deleteGig()"> Delete </button>
+	<button md-button class="waves-effect waves-light waves-effect" (click)="enterGig()"> Enter </button>
 
 </div>
