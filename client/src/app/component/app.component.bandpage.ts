@@ -78,18 +78,36 @@ export class AppBandPageComponent {
 	}
 	public edit_gig(index:number){
 		this.editIndex = index;
-    console.log(typeof this.currentArtist);
+    	console.log(typeof this.currentArtist);
+		
 		var gigToEdit = this.currentArtist.getGigs();
-		this.newGig = gigToEdit[index];
-		this.DateOfGigPlace = gigToEdit[index].GigDate;
-		this.gigNamePlace = gigToEdit[index].GigName;
-		this.TimeOfGigPlace = gigToEdit[index].GigTime;
-		this.LocationOfGigPlace = gigToEdit[index].GigLocation;
+		
+		this.newGig.GigName = gigToEdit[index].GigName;
+		this.newGig.GigDate = gigToEdit[index].GigDate;
+		this.newGig.GigTime = gigToEdit[index].GigTime;
+		this.newGig.GigLocation = gigToEdit[index].GigLocation;
   }
 
 	private catchError(error: Response) {
 		var errorMes = "This shit is fucked";
 		return Observable.throw(errorMes);
+	}
+
+	public addGig() {
+		console.log("Adding Gig");
+		this.newGig.GigName = "";
+		this.newGig.GigDate = "";
+		this.newGig.GigTime = "";
+		this.newGig.GigLocation = "";
+		this.editIndex = null;
+	}
+
+	public enterGig() {
+		console.log("Entering Gig");
+	}
+
+	public deleteGig() {
+		console.log("Deleting Gig");
 	}
 
 	public createGig(){
@@ -116,11 +134,16 @@ export class AppBandPageComponent {
 		console.log(gen, "before get call");
 
 		if(this.editIndex != null){
-			this.currentArtist.gigs[this.editIndex]=this.newGig;
+			this.currentArtist.gigs[this.editIndex].GigName = this.newGig.GigName;
+			this.currentArtist.gigs[this.editIndex].GigLocation = this.newGig.GigLocation;
+			this.currentArtist.gigs[this.editIndex].GigDate = this.newGig.GigDate;
+			this.currentArtist.gigs[this.editIndex].GigTime = this.newGig.GigTime;
+
 			gen = false;
 		}
 		else{
 			this.currentArtist.addGig(this.newGig);
+			this.newGig = new Gig();
 		}
 		if(gen === true){
 			console.log('in generate func');
