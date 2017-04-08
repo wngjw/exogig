@@ -39,7 +39,6 @@ import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
 import { artistService } from './services/app.service.artist';
 
-
 import { WindowRef } from './gig/app.gig.window';
 
 @NgModule({
@@ -73,7 +72,7 @@ import { WindowRef } from './gig/app.gig.window';
   	AppSetComponent,
   	AppNotificationsComponent,
   	AppCreateLoginHomeComponent,
-	  MaterializeDirective,
+	  MaterializeDirective
   ],
   bootstrap: [AppControllerComponent],	//From what I understand, bootstrap is basically which component it tries to setup first.
   providers: [MdIconRegistry, gigService, userService, artistService, WindowRef, MdUniqueSelectionDispatcher]

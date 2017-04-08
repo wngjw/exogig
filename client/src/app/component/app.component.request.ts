@@ -42,12 +42,12 @@ export class AppRequestComponent {
 	http: Http;
  	receivedSong: Request;
   requestedSong: Request = new Request();
+  prevRequestedSong: Request;
 	loggedInSymbol: string;
 	topOption: string;
 	gigObject: Gig;
   gigSetList: SetList;
 	showLabels = false;
-
 
 	constructor(http: Http, userService: userService, gigService: gigService) {
 		this.http = http;
@@ -99,13 +99,21 @@ export class AppRequestComponent {
 
     let body = JSON.stringify(this.requestedSong);
 
-    console.log(body);
+    if (this.prevRequestedSong == null) {
+      this.prevRequestedSong = new Request();
+    }
 
-    this.http.post('/2', body, options)
-    .map((res) => res.json())
-    .subscribe(data => this.receivedSong = data);
+    if (this.prevRequestedSong.requestedSongName === this.requestedSong.requestedSongName) {
+      console.log("[TO BE IMPLEMENTED]: <Displaying toast>");
+    } else {
+      this.http.post('/request', body, options)
+      .map((res) => res.json())
+      .subscribe(data => this.receivedSong = data);
+      console.log("[DEBUG] Sent song request:", body);
+      this.prevRequestedSong.requestedSongName = this.requestedSong.requestedSongName;
+    }
 
-    console.log(this.receivedSong);
+    //console.log(this.receivedSong);
   }
 
 	public emit_event(location:string) {
