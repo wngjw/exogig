@@ -18,13 +18,19 @@
 	<div style="display: blocks;justify-content: center;">
 		<h1 style="color:#82d4f9;font-weight:bolder;text-align:center;">Create and edit your Songlist</h1>
 	</div>
+	<div>
 		<div>
 		<div class="input-field col s6">
 			<input [(ngModel)]="newSong" class="underline_accenting" type = "text" placeholder = "song name" maxlength="30" />
 		</div>
 		<button md-button style="color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="addSong()"> Add Song </button>
 		<md-card-content>
-			<li *ngFor="let name of songlist;let n = index"><button style="margin-top:4px"  md-button class="waves-effect waves-light waves-effect" (click)="delete(n)"><i class="material-icons prefix">delete</i></button><span style="color:#82d4f9;font-weight:bolder;">{{n+1}}. {{name.name}}</span></li>
+			<li *ngFor="let name of songlist;let n = index">
+				<button style="margin-top:4px"  md-button class="waves-effect waves-light waves-effect" (click)="delete(n)">
+					<i class="material-icons prefix">delete</i>
+				</button>
+				<span style="color:#82d4f9;font-weight:bolder;">{{n+1}}. {{name.name}}</span>
+			</li>
 		</md-card-content>
 		</div>
 

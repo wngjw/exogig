@@ -98,6 +98,9 @@ export class Artist {
   addSong(song:Song){
     this.songlist.push(song);
   }
+  addSetList(set:SetList){
+    this.setlists.push(set);
+  }
 }
 
 export class Membership {

@@ -140,8 +140,13 @@ func main() {
 	http.HandleFunc("/addartist", app.AddArtist)
 	http.HandleFunc("/addgig", app.AddGig)
 	http.HandleFunc("/updatesonglist", app.UpdateSonglist)
+
 	chatserver := chat.NewServer("/chat", ":8082")
 	go chatserver.Listen()
+
+	http.HandleFunc("/addsetlist", app.AddSetList)
+
+
 	fs := http.FileServer(http.Dir("../client/dist/"))
 	http.Handle("/", fs)
 	log.Fatal(http.ListenAndServe(":8081", nil))

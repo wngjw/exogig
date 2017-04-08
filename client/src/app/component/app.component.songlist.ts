@@ -34,9 +34,14 @@ export class AppSongListComponent {
 	constructor(artistService:artistService,http:Http) {
 		this.currentArtist = artistService.getArtist();
 		this.artistService = artistService;
-		if(this.currentArtist.songlist != null){
-		this.songlist = this.currentArtist.songlist;}
-		else{this.songlist=[];}
+		if(this.currentArtist.songlist != null)
+		{
+			this.songlist = this.currentArtist.songlist;
+		}
+		else
+		{
+			this.songlist=[];
+		}
 		this.http = http;
 	}
 	public delete(index:number){
