@@ -92,6 +92,9 @@ export class Artist {
   getGigs(){
     return this.gigs;
   }
+  getSonglist(){
+    return this.songlist;
+  }
   addGig(gig:Gig){ //TODO
     this.gigs.push(gig);
   }

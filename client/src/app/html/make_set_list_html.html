@@ -42,7 +42,7 @@
 					<div class="panel panel-info" droppable  [dragOverClass]="'.drag-target-border-green'" (onDrop)="addToSet($event,n)">
 						<div class="panel-heading">Drop songs here for the set</div>
 						<div class="panel-body scroll-list">
-							<li *ngFor="let song of set.songsInSet" class="list-group-item" style="color:#82d4ff;">{{song.name}}</li>
+							<li *ngFor="let song of set.SongsInSet" class="list-group-item" style="color:#82d4ff;">{{song.name}}</li>
 						</div>
 					</div>
 				</div>
