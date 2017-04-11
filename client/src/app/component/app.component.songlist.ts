@@ -32,15 +32,17 @@ export class AppSongListComponent {
 	http:Http;
 
 	constructor(artistService:artistService,http:Http) {
-		this.currentArtist = artistService.getArtist();
+		this.currentArtist = artistService.getArtist() as Artist;
 		this.artistService = artistService;
-		if(this.currentArtist.songlist != null)
+		console.log(this.currentArtist.songlist);
+		if(this.currentArtist.songlist === null)
 		{
-			this.songlist = this.currentArtist.songlist;
+			this.songlist=[];
+			
 		}
 		else
 		{
-			this.songlist=[];
+			this.songlist = this.currentArtist.songlist;
 		}
 		this.http = http;
 	}

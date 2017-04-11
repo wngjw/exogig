@@ -53,13 +53,13 @@ export class AppBandPageComponent {
 	constructor(http: Http, userService: userService, artistService: artistService) {
 		this.http = http;
 		this.currentUser = userService.getUser();
-    this.artistService = artistService;
+    	this.artistService = artistService;
 		this.currentArtist = artistService.getArtist();
 		this.artistName = this.currentArtist.getName();
 		this.gigs = this.currentArtist.getGigs();
 		this.buttonLabels = ['Home','Options','Info','Songs','Sets'];
-    this.buttonIcon = ['home','local_play','assignments','info_outline','search',];
-    this.pageEmitters = ['login','bandoptions','editbio','songlist','setlist'];
+    	this.buttonIcon = ['home','local_play','assignments','info_outline','search',];
+    	this.pageEmitters = ['login','bandoptions','editbio','songlist','setlist'];
 		this.gigNamePlace = "Gig Name";
 		this.DateOfGigPlace = "Date of the Gig";
 		this.TimeOfGigPlace = "Time of the Gig";

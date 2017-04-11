@@ -47,8 +47,8 @@ export class AppBandOptionsComponent {
 		this.recievedArtist = [];
 		this.artistService = artistService;
 		this.buttonLabels = ['Home','Notifications','Browse','Options', 'New Band'];
-    this.buttonIcon = ['home','info_outline','search','local_play', 'library_add'];
-    this.pageEmitters = ['login','notifications','bandviewer','bandoptions', 'createband'];
+    	this.buttonIcon = ['home','info_outline','search','local_play', 'library_add'];
+    	this.pageEmitters = ['login','notifications','bandviewer','bandoptions', 'createband'];
 
 		// set up parameters for post to find memberships
 		// that the user has already.

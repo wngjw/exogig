@@ -7,9 +7,9 @@
 		</a>
 		<ul>
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Home</span><a (click)="emit_event('login')" class="btn-floating white"><i class="material-icons" style="color:#263238">home</i></a></li>
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Browse</span><a (click)="emit_event('bandviewer')" class="btn-floating white"><i class="material-icons" style="color:#263238">search</i></a></li>
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Notifications</span><a (click)="emit_event('notifications')" class="btn-floating white"><i class="material-icons" style="color:#263238">info_outline</i></a></li>
+			<ng-container *ngIf="showLabels">
+				<li *ngFor="let label of buttonLabels;let i = index"><span [@labelstate] class="fab_def">{{label}}</span><a (click)="emit_event(pageEmitters[i])" class="btn-floating white"><i class="material-icons" style="color:#263238">{{buttonIcon[i]}}</i></a></li>
+			</ng-container>
 		</ul>
 	</div>
 

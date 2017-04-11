@@ -1,6 +1,7 @@
 import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-
+import { userService } from '../services/app.service.user';
+import { User } from '../gig/app.gig.users';
 @Component({
  	selector: 'notifications',
 	templateUrl: '../html/notifications_html.html',
@@ -24,14 +25,33 @@ export class AppNotificationsComponent {
 	song: string;
 	topOption: string;	//Shouldn't need.
 	showLabels = false;
+	user: User = new User();
+	buttonLabels: string[];
+	buttonIcon: string[];
+	pageEmitters: string[];
 
-	constructor() {
-		this.song;
+	constructor(userService:userService) {
+		this.user = userService.getUser();
+		if(this.user.getLoggedIn() && this.user.isArtist()){
+			this.buttonLabels = ['Home','Notifications','Browse','Options', 'New Band'];
+    		this.buttonIcon = ['home','info_outline','search','local_play', 'library_add'];
+    		this.pageEmitters = ['login','notifications','bandviewer','bandoptions', 'createband'];
+		}
+		else{
+			if(this.user.getLoggedIn() && !this.user.isArtist()){
+				this.buttonLabels = ['Home','Notifications','Browse', 'New Band'];
+	    		this.buttonIcon = ['home','info_outline','search','library_add'];
+	    		this.pageEmitters = ['login','notifications','bandviewer', 'createband'];	
+			}
+			else{
+				this.buttonLabels = ['Home','Notifications','Browse'];
+	    		this.buttonIcon = ['home','info_outline','search'];
+	    		this.pageEmitters = ['login','notifications','bandviewer'];
+			}
+		}
 	}
 
-	public createSong(){
-		console.log(this.song);
-	}
+	
 	public emit_event(location:string) {
 		this.notify.emit(location);
 	}
