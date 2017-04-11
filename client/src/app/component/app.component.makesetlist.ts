@@ -63,28 +63,28 @@ export class AppCreateSetlistComponent {
 			this.newSetList.push(s);
 			var set = new Set();
 			
-			this.pushSetList.initilize(this.numberSets);
+			this.pushSetList.addSet(set);
 			i++;
 		}
 		this.notify.emit('setlist');
 	}
 
-	public addToSet(song:any, n:any){
+	public addToSet(song:any, n:number){
 		console.log("in add to set");
 		console.log(typeof n);
 		console.log("after n before song");
 		console.log(typeof song);
 		//console.log(this.pushSetList.setsInSetList[n] as Set);
-		if(this.pushSetList.setsInSetList[n as number] === undefined){
-			this.pushSetList.setsInSetList[n as number] = new Set();
+		if(this.pushSetList.setsInSetList[n].songsInSet === undefined){
+			this.pushSetList.setsInSetList[n] = new Set();
 			console.log("inside if statement");
-			console.log(this.pushSetList.setsInSetList[n as number] as Set);
-			this.pushSetList.setsInSetList[n as number].songsInSet= [song.dragData as Song];
+			console.log(this.pushSetList.setsInSetList[n]);
+			this.pushSetList.setsInSetList[n].songsInSet= [song.dragData as Song];
 		}
 		else{
-			this.pushSetList.setsInSetList[n as number].songsInSet.splice(this.pushSetList.setsInSetList[n as number].songsInSet.length,0,song.dragData as Song);
+			this.pushSetList.setsInSetList[n].songsInSet.splice(this.pushSetList.setsInSetList[n as number].songsInSet.length,0,song.dragData as Song);
 		}
-		console.log(n as number);
+		console.log(n);
 		//this.newSongs = this.newSet.songsInSet;
 		console.log(song);
 		this.notify.emit('setlist');
@@ -92,10 +92,12 @@ export class AppCreateSetlistComponent {
 	}
 	//this functon will be used to push to the server
 	public save(){
-		for(let set of this.newSetList){
-			this.pushSetList.addSet(set as Set);
+		if(this.currentArtist.setlists === undefined){
+			this.currentArtist.setlists = [this.pushSetList];
 		}
-		this.currentArtist.addSetList(this.pushSetList);
+		else{
+			this.currentArtist.setlists.push(this.pushSetList);
+		}
 		var uploadObj = {
 		key: this.currentArtist
 		};
