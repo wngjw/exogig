@@ -11,48 +11,49 @@
 */
 
 export class Song {
-  name: string;
-  rating: number;
+  Name: string;
+  Rating: number;
   getName() {
-    return this.name;
+    return this.Name;
   }
   getRating() {
-    return this.rating;
+    return this.Rating;
   }
 }
 
 
 export class Set {
-  songsInSet: Song[];
-  setName: string;
+  SongsInSet: Song[];
+  SetName: string;
   getSongsInSet() {
-    return this.songsInSet;
+    return this.SongsInSet;
   }
   getSetName() {
-    return this.setName;
+    return this.SetName;
   }
 }
 
 export class SetList {
-  setsInSetList: Set[] = [];
-  setListName: string;
+  SetListName: string;
+  SetsInSetList: Set[] = [];
+  
 
   getSetsInSetList() {
-    return this.setsInSetList;
+    return this.SetsInSetList;
   }
   getSetListName() {
-    return this.setListName;
+    return this.SetListName;
   }
   addSet(set:Set){
-    this.setsInSetList.push(set);
+    this.SetsInSetList.push(set);
   }
 }
 
 export class Request {
-  requestedSongName: string;
-  numTimesRequested: number;
+  RequestedSongName: string;
+  NumTimesRequested: number;
   getRequestedSong() {
-    return this.requestedSongName;
+    return this.RequestedSongName;
   }
 }
 

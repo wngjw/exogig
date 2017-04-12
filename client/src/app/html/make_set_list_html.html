@@ -25,24 +25,24 @@
                     <li draggable *ngFor="let item of songlist;let n of index"
                         [dragOverClass]="'.drag-over-border'"
                         [dragData]="item" class="list-group-item" style="color:#82d4f9;">
-                        {{item.name}}
+                        {{item.Name}}
                     </li>
                 </ul>
 
     	</div>
 		<div class="input-field col s6" style="display:inline-block;">
-			<input [(ngModel)]="pushSetList.name" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "SetList name" maxlength="30" />
+			<input [(ngModel)]="pushSetList.SetListName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "SetList name" maxlength="30" />
 		</div>
-		<div *ngFor="let set of pushSetList.setsInSetList; let n = index">
+		<div *ngFor="let set of pushSetList.SetsInSetList; let n = index">
 			<div class="col s6;" style="display:block;text-align:center" >
 				<div class="input-field col s6" style="display:inline-block;">
-					<input [(ngModel)]="set.setName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "setname" maxlength="30" />
+					<input [(ngModel)]="set.SetName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "setname" maxlength="30" />
 				</div>
 				<div class="col s6;" style="display:inline-block;border-style:solid;border-width:5px;border-color: #82d4ff">
 					<div class="panel panel-info" droppable  [dragOverClass]="'.drag-target-border-green'" (onDrop)="addToSet($event,n)">
 						<div class="panel-heading">Drop songs here for the set</div>
 						<div class="panel-body scroll-list">
-							<li *ngFor="let song of set.songsInSet" class="list-group-item" style="color:#82d4ff;">{{song.name}}</li>
+							<li *ngFor="let song of set.SongsInSet" class="list-group-item" style="color:#82d4ff;">{{song.Name}}</li>
 						</div>
 					</div>
 				</div>

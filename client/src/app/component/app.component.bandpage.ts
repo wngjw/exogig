@@ -3,7 +3,7 @@ import { Headers, Http, Response, URLSearchParams, RequestOptions } from '@angul
 import { userService } from '../services/app.service.user';
 import { artistService } from '../services/app.service.artist';
 import { User, Artist } from '../gig/app.gig.users';
-import { Gig } from '../gig/app.gig.gig';
+import { Gig, SetList } from '../gig/app.gig.gig';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -40,6 +40,7 @@ export class AppBandPageComponent {
 	gigs: Gig[];
 	LocationOfGigPlace:string;
 	editIndex:number;
+	setlist:SetList[];
 
 	loggedInSymbol: string;
 	topOption: string;		//Shouldn't need.
@@ -65,9 +66,12 @@ export class AppBandPageComponent {
 		this.TimeOfGigPlace = "Time of the Gig";
 		this.LocationOfGigPlace = "Location of the Gig";
 		this.editIndex = null;
+		this.setlist = this.currentArtist.Setlists;
 		console.log(this.gigs);
 	}
-
+	public addSetToGig(n:number){
+		this.newGig.GigSetList = this.setlist[n];
+	}
 	//Toggling function for label animations, placed on big white button
 	public animateLabels() {
 		this.showLabels = !this.showLabels;
@@ -93,7 +97,7 @@ export class AppBandPageComponent {
 		return Observable.throw(errorMes);
 	}
 
-	public addGig() {
+	public NewGig() {
 		console.log("Adding Gig");
 		this.newGig.GigName = "";
 		this.newGig.GigDate = "";
@@ -118,15 +122,15 @@ export class AppBandPageComponent {
 		console.log(gen, "before get call");
 
 		if(this.editIndex != null){
-			this.currentArtist.gigs[this.editIndex].GigName = this.newGig.GigName;
-			this.currentArtist.gigs[this.editIndex].GigLocation = this.newGig.GigLocation;
-			this.currentArtist.gigs[this.editIndex].GigDate = this.newGig.GigDate;
-			this.currentArtist.gigs[this.editIndex].GigTime = this.newGig.GigTime;
+			this.currentArtist.Gigs[this.editIndex].GigName = this.newGig.GigName;
+			this.currentArtist.Gigs[this.editIndex].GigLocation = this.newGig.GigLocation;
+			this.currentArtist.Gigs[this.editIndex].GigDate = this.newGig.GigDate;
+			this.currentArtist.Gigs[this.editIndex].GigTime = this.newGig.GigTime;
 
 			gen = false;
 		}
 		else{
-      console.log(this.currentArtist); ////TODO
+      		console.log(this.currentArtist); ////TODO
 			this.currentArtist.addGig(this.newGig);
 			this.newGig = new Gig();
 		}

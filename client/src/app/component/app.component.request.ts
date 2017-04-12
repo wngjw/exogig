@@ -95,7 +95,7 @@ export class AppRequestComponent {
       headers: pageHeaders
     });
 
-    this.requestedSong.numTimesRequested = 1;
+    this.requestedSong.NumTimesRequested = 1;
 
     let body = JSON.stringify(this.requestedSong);
 
@@ -103,7 +103,7 @@ export class AppRequestComponent {
       this.prevRequestedSong = new Request();
     }
 
-    if (this.prevRequestedSong.requestedSongName === this.requestedSong.requestedSongName) {
+    if (this.prevRequestedSong.requestedSongName === this.requestedSong.RequestedSongName) {
       document.getElementById("requestErrorMessage").style.visibility="visible";
       document.getElementById("requestReceivedMessage").style.visibility="hidden";
       console.log("[TO BE IMPLEMENTED]: <Displaying toast>");
@@ -114,7 +114,7 @@ export class AppRequestComponent {
       console.log("[DEBUG] Sent song request:", body);
       document.getElementById("requestErrorMessage").style.visibility="hidden";
       document.getElementById("requestReceivedMessage").style.visibility="visible";
-      this.prevRequestedSong.requestedSongName = this.requestedSong.requestedSongName;
+      this.prevRequestedSong.RequestedSongName = this.requestedSong.requestedSongName;
     }
 
     //console.log(this.receivedSong);

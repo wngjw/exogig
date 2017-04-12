@@ -33,35 +33,40 @@ export class AppSongListComponent {
 
 	constructor(artistService:artistService,http:Http) {
 		this.artistService = artistService;
-		this.currentArtist = artistService.getArtist();
+		this.currentArtist = this.artistService.getArtist();
 		console.log("in constructor");
+		console.log(this.currentArtist);
 		console.log(this.currentArtist.getSonglist());
-		if(this.currentArtist.getSonglist() === undefined)
-		{
+		console.log(typeof this.currentArtist.Songlist);
+		this.songlist = this.currentArtist.Songlist as Song[];
+		if(this.currentArtist.Songlist === undefined)
+		{	
+			console.log(this.currentArtist.Songlist);
 			this.songlist=[];
 		}
 		else
-		{
-			this.songlist = this.currentArtist.getSonglist();
+		{	
+			console.log(this.songlist);
+			this.songlist = this.currentArtist.getSonglist() as Song[];
 		}
 		this.http = http;
 	}
 	public delete(index:number){
 		this.songlist.splice(index,1);
-		this.currentArtist.songlist=this.songlist;
+		this.currentArtist.Songlist=this.songlist;
 		this.artistService.setArtist(this.currentArtist);
 
 	}
 	public addSong(){
 		console.log("in add song");
-		this.addedSong.name=this.newSong;
+		this.addedSong.Name=this.newSong;
 		if(this.songlist.length === null){
 			this.songlist.push(this.addedSong);
 		}
 		else{
 			this.songlist.splice(this.songlist.length,0,this.addedSong);
 		}
-		this.currentArtist.songlist = this.songlist;
+		this.currentArtist.Songlist = this.songlist;
 		this.artistService.setArtist(this.currentArtist);
 		this.newSong = null;
 		this.addedSong = new Song();
@@ -97,7 +102,7 @@ export class AppSongListComponent {
 		this.http.post('/updatesonglist', body, options)
 		.map((res) => res.json())
 		.subscribe(data => this.currentArtist = data);
-		console.log(this.currentArtist.songlist);
+		console.log(this.currentArtist.Songlist);
 		this.notify.emit(location);
 	}
 

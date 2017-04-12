@@ -43,7 +43,7 @@ export class AppCreateSetlistComponent {
 
 	constructor(http:Http, public artistService:artistService) {
 		this.currentArtist = artistService.getArtist();
-		if(this.currentArtist.songlist!=null){
+		if(this.currentArtist.Songlist!=null){
 			this.welcome = "Drag and drop songs for your set";
 		}
 		else{
@@ -59,11 +59,10 @@ export class AppCreateSetlistComponent {
 		this.newSetList=[];
 		//this.pushSetList.setsInSetList = new Set[this.numberSets];
 		while(i <= this.numberSets){
-			var s = [];
-			this.newSetList.push(s);
 			var set = new Set();
 			
 			this.pushSetList.addSet(set);
+			console.log(this.pushSetList);
 			i++;
 		}
 		this.notify.emit('setlist');
@@ -75,14 +74,14 @@ export class AppCreateSetlistComponent {
 		console.log("after n before song");
 		console.log(typeof song);
 		//console.log(this.pushSetList.setsInSetList[n] as Set);
-		if(this.pushSetList.setsInSetList[n].songsInSet === undefined){
-			this.pushSetList.setsInSetList[n] = new Set();
+		if(this.pushSetList.SetsInSetList[n].SongsInSet === undefined){
+			this.pushSetList.SetsInSetList[n] = new Set();
 			console.log("inside if statement");
-			console.log(this.pushSetList.setsInSetList[n]);
-			this.pushSetList.setsInSetList[n].songsInSet= [song.dragData as Song];
+			console.log(this.pushSetList.SetsInSetList[n]);
+			this.pushSetList.SetsInSetList[n].SongsInSet= [song.dragData as Song];
 		}
 		else{
-			this.pushSetList.setsInSetList[n].songsInSet.splice(this.pushSetList.setsInSetList[n as number].songsInSet.length,0,song.dragData as Song);
+			this.pushSetList.SetsInSetList[n].SongsInSet.splice(this.pushSetList.SetsInSetList[n as number].SongsInSet.length,0,song.dragData as Song);
 		}
 		console.log(n);
 		//this.newSongs = this.newSet.songsInSet;
@@ -92,11 +91,11 @@ export class AppCreateSetlistComponent {
 	}
 	//this functon will be used to push to the server
 	public save(){
-		if(this.currentArtist.setlists === undefined){
-			this.currentArtist.setlists = [this.pushSetList];
+		if(this.currentArtist.Setlists === undefined){
+			this.currentArtist.Setlists = [this.pushSetList];
 		}
 		else{
-			this.currentArtist.setlists.push(this.pushSetList);
+			this.currentArtist.Setlists.push(this.pushSetList);
 		}
 		var uploadObj = {
 		key: this.currentArtist
