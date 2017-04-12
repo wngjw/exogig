@@ -64,9 +64,9 @@ export class User {
 }
 
 export class Artist {
-    gigs:Gig[] = [];
-    songlist:Song[];
-    setlists:SetList[];
+    Gigs:Gig[] = [];
+    Songlist:Song[];
+    Setlists:SetList[];
     Bio:string;
     picture:string;
     Name:string;
@@ -90,19 +90,19 @@ export class Artist {
     this.Name = name;
   }
   getGigs(){
-    return this.gigs;
+    return this.Gigs;
   }
   getSonglist(){
-    return this.songlist;
+    return this.Songlist;
   }
   addGig(gig:Gig){ //TODO
-    this.gigs.push(gig);
+    this.Gigs.push(gig);
   }
   addSong(song:Song){
-    this.songlist.push(song);
+    this.Songlist.push(song);
   }
   addSetList(set:SetList){
-    this.setlists.push(set);
+    this.Setlists.push(set);
   }
 }
 
