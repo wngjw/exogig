@@ -104,12 +104,16 @@ export class AppRequestComponent {
     }
 
     if (this.prevRequestedSong.requestedSongName === this.requestedSong.requestedSongName) {
+      document.getElementById("requestErrorMessage").style.visibility="visible";
+      document.getElementById("requestReceivedMessage").style.visibility="hidden";
       console.log("[TO BE IMPLEMENTED]: <Displaying toast>");
     } else {
       this.http.post('/request', body, options)
       .map((res) => res.json())
       .subscribe(data => this.receivedSong = data);
       console.log("[DEBUG] Sent song request:", body);
+      document.getElementById("requestErrorMessage").style.visibility="hidden";
+      document.getElementById("requestReceivedMessage").style.visibility="visible";
       this.prevRequestedSong.requestedSongName = this.requestedSong.requestedSongName;
     }
 
