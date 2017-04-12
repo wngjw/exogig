@@ -4,9 +4,9 @@ import { Gig } from '../gig/app.gig.gig';
 @Injectable()
 
 export class gigService {
-  private gigObject;
+  private gigObject: Gig;
 
-  public getGig() {
+  public getGig(): Gig {
     return this.gigObject;
   }
 

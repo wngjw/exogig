@@ -203,8 +203,7 @@ export class AppLoginComponent {
     if(this.recievedArtist.length === 0) {
       console.log('Empty Array');
       this.user.setArtist(false);
-    }
-    else{
+    } else {
       console.log("Non Empty Array");
       console.log(this.recievedArtist);
       this.user.setArtist(true);
@@ -283,7 +282,6 @@ export class AppLoginComponent {
     });
     // This conversion to a JSON string allows Go to parse the request body
     let body = JSON.stringify(this.inputKey);
-    console.log("[DEBUG] body:", body);
     // The post request which takes parameters of address, body, options
     this.http.post('/gigcode', body, options)
       .map((res) => res.json())

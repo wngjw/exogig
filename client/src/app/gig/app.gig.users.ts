@@ -92,7 +92,10 @@ export class Artist {
   getGigs(){
     return this.gigs;
   }
-  addGig(gig:Gig){
+  getSonglist(){
+    return this.songlist;
+  }
+  addGig(gig:Gig){ //TODO
     this.gigs.push(gig);
   }
   addSong(song:Song){

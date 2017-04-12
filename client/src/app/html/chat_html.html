@@ -1,7 +1,7 @@
 <div style="height:100%;width:100%;">
 <!-- Default HTML for setting up nav button -->
-	<div (click)="animateLabels()" class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
-		<a class="btn-floating btn-large white">
+	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
+		<a class="btn-floating btn-large white" (click)="animateLabels()">
 			<i class="material-icons large mdi-navigation-menu" style="font-size:3em;width:auto !important;height:auto !important;color:#263238">fingerprint</i>
 		</a>
 		<ul>
@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="text" style="text-align:center;font-size:2em;width:auto;height:100%;padding-top:10% !important;margin:auto">
-	
+
 		<div style="margin-left:3px;margin-right:3px;display:inline-block;overflow-y:scroll;width:96%;height:80%">
 			<p *ngFor="let msg of messages" style="margin:0px;background-color:white;box-shadow:0px 5px 5px #263238;border-style:solid;border-width:2px;border-color:grey;font-size:0.7em;display:block;word-wrap:break-word">{{msg.author}}: {{msg.message}}</p>
 		</div>

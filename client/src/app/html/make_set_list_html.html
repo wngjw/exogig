@@ -1,8 +1,8 @@
 <div>
 
 	<!-- Default HTML for setting up nav button -->
-	<div (click)="animateLabels()" class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
-		<a class="btn-floating btn-large white">
+	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
+		<a class="btn-floating btn-large white" (click)="animateLabels()">
 			<i class="material-icons large mdi-navigation-menu" style="font-size:3em;width:auto !important;height:auto !important;color:#263238">fingerprint</i>
 		</a>
 		<ul>
@@ -33,7 +33,7 @@
 		<div class="input-field col s6" style="display:inline-block;">
 			<input [(ngModel)]="pushSetList.name" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "SetList name" maxlength="30" />
 		</div>
-		<div *ngFor="let set of pushSetList.setsInSetList;let n of index">
+		<div *ngFor="let set of pushSetList.setsInSetList; let n = index">
 			<div class="col s6;" style="display:block;text-align:center" >
 				<div class="input-field col s6" style="display:inline-block;">
 					<input [(ngModel)]="set.setName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "setname" maxlength="30" />
@@ -46,7 +46,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 
 			</div>
 		</div>

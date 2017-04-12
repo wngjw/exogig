@@ -22,6 +22,7 @@ import { AppRequestComponent } from './component/app.component.request';
 import { AppSetComponent } from './component/app.component.set';
 import { AppNotificationsComponent } from './component/app.component.notifications';
 import { AppCreateLoginHomeComponent } from './component/app.component.loginhome';
+import { AppGigViewerComponent } from './component/app.component.gigviewer'
 
 /* Material design */
 import { MaterializeDirective } from "angular2-materialize";
@@ -34,10 +35,11 @@ import { MdCard, MdCardActions, MdCardContent, MdCardHeader, MdCardModule, MdCar
 import { MdGridList, MdGridListModule } from '@angular2-material/grid-list';
 import { MdListModule } from '@angular2-material/list/list';
 import { MdRadioModule } from '@angular2-material/radio';
-import {Ng2DragDropModule} from "ng2-drag-drop";
+import { Ng2DragDropModule } from "ng2-drag-drop";
 import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
 import { artistService } from './services/app.service.artist';
+
 import { ChatService } from './services/app.service.chat';
 import { WebSocketService } from './services/app.service.websocket';
 
@@ -76,7 +78,8 @@ import { WindowRef } from './gig/app.gig.window';
   	AppNotificationsComponent,
   	AppCreateLoginHomeComponent,
 	  MaterializeDirective,
-  ],
+    AppGigViewerComponent],
+
   bootstrap: [AppControllerComponent],	//From what I understand, bootstrap is basically which component it tries to setup first.
   providers: [MdIconRegistry, gigService, userService, artistService, ChatService, WebSocketService, WindowRef, MdUniqueSelectionDispatcher]
 })

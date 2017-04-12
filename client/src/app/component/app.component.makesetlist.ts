@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import { artistService } from '../services/app.service.artist';
 import { Artist } from '../gig/app.gig.users';
 import { Song, Set, SetList } from '../gig/app.gig.gig';
-import {Ng2DragDropModule} from "ng2-drag-drop";
+import { Ng2DragDropModule } from "ng2-drag-drop";
 
 
 @Component({
@@ -29,7 +29,7 @@ export class AppCreateSetlistComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
 	setlist: string;
 	showLabels = false;
-	currentArtist: Artist;
+	currentArtist: Artist = new Artist();
 	http:Http;
 	welcome:string;
 	newSet: Set = new Set();
@@ -49,7 +49,7 @@ export class AppCreateSetlistComponent {
 		else{
 			this.welcome = "please add songs to your song list";
 		}
-		this.songlist = this.currentArtist.songlist;
+		this.songlist = this.currentArtist.getSonglist();
 		this.http=http;
 		this.numberSets = 3;
 	}
@@ -71,14 +71,20 @@ export class AppCreateSetlistComponent {
 
 	public addToSet(song:any, n:number){
 		console.log("in add to set");
-		console.log(this.pushSetList.setsInSetList[n]);
-		if(this.pushSetList.setsInSetList[n].songsInSet== null){
-			this.pushSetList.setsInSetList[n].songsInSet =[song.dragData as Song];
+		console.log(typeof n);
+		console.log("after n before song");
+		console.log(typeof song);
+		//console.log(this.pushSetList.setsInSetList[n] as Set);
+		if(this.pushSetList.setsInSetList[n].songsInSet === undefined){
+			this.pushSetList.setsInSetList[n] = new Set();
+			console.log("inside if statement");
+			console.log(this.pushSetList.setsInSetList[n]);
+			this.pushSetList.setsInSetList[n].songsInSet= [song.dragData as Song];
 		}
 		else{
-			this.pushSetList.setsInSetList[n].songsInSet.splice(this.pushSetList.setsInSetList[n].songsInSet.length,0,song.dragData as Song);
+			this.pushSetList.setsInSetList[n].songsInSet.splice(this.pushSetList.setsInSetList[n as number].songsInSet.length,0,song.dragData as Song);
 		}
-		console.log(this.pushSetList.setsInSetList[n].songsInSet)
+		console.log(n);
 		//this.newSongs = this.newSet.songsInSet;
 		console.log(song);
 		this.notify.emit('setlist');
@@ -86,10 +92,12 @@ export class AppCreateSetlistComponent {
 	}
 	//this functon will be used to push to the server
 	public save(){
-		for(let set of this.newSetList){
-			this.pushSetList.addSet(set as Set);
+		if(this.currentArtist.setlists === undefined){
+			this.currentArtist.setlists = [this.pushSetList];
 		}
-		this.currentArtist.addSetList(this.pushSetList);
+		else{
+			this.currentArtist.setlists.push(this.pushSetList);
+		}
 		var uploadObj = {
 		key: this.currentArtist
 		};

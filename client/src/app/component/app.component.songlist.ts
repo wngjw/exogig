@@ -27,20 +27,22 @@ export class AppSongListComponent {
 	newSong:string;
 	addedSong:Song = new Song();
 	artistService:artistService;
-	currentArtist: Artist;
+	currentArtist: Artist = new Artist();
 	songlist:Song[];
 	http:Http;
 
 	constructor(artistService:artistService,http:Http) {
-		this.currentArtist = artistService.getArtist();
 		this.artistService = artistService;
-		if(this.currentArtist.songlist != null)
+		this.currentArtist = artistService.getArtist();
+		console.log("in constructor");
+		console.log(this.currentArtist.getSonglist());
+		if(this.currentArtist.getSonglist() === undefined)
 		{
-			this.songlist = this.currentArtist.songlist;
+			this.songlist=[];
 		}
 		else
 		{
-			this.songlist=[];
+			this.songlist = this.currentArtist.getSonglist();
 		}
 		this.http = http;
 	}
@@ -54,17 +56,15 @@ export class AppSongListComponent {
 		console.log("in add song");
 		this.addedSong.name=this.newSong;
 		if(this.songlist.length === null){
-			console.log("in if ")
 			this.songlist.push(this.addedSong);
 		}
 		else{
-			console.log("in else ")
 			this.songlist.splice(this.songlist.length,0,this.addedSong);
 		}
 		this.currentArtist.songlist = this.songlist;
 		this.artistService.setArtist(this.currentArtist);
 		this.newSong = null;
-		this.addedSong=new Song();
+		this.addedSong = new Song();
 		this.notify.emit('songlist');
 	}
 	//Toggling function for label animations, placed on big white button
@@ -97,7 +97,7 @@ export class AppSongListComponent {
 		this.http.post('/updatesonglist', body, options)
 		.map((res) => res.json())
 		.subscribe(data => this.currentArtist = data);
-		console.log(this.currentArtist.addSong);
+		console.log(this.currentArtist.songlist);
 		this.notify.emit(location);
 	}
 

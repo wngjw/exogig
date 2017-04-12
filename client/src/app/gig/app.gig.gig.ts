@@ -36,7 +36,7 @@ export class Set {
 export class SetList {
   setsInSetList: Set[] = [];
   setListName: string;
-  
+
   getSetsInSetList() {
     return this.setsInSetList;
   }

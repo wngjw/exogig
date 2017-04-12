@@ -6,6 +6,7 @@
 <set *ngIf="currentState == 'set'" (notify)='onNotify($event)'>Loading Set...</set>
 
 <loginhome *ngIf="currentState == 'loginhome'" (notify)='onNotify($event)'>Loading Transition Page...</loginhome>
+<gigviewer *ngIf="currentState == 'gigviewer'" (notify)='onNotify($event)'>Loading Gig Viewer...</gigviewer>
 
 <band-viewer *ngIf="currentState == 'bandviewer'" (notify)='onNotify($event)'>Loading Band Viewer...</band-viewer>
 <bandoptions *ngIf="currentState == 'bandoptions'" (notify)='onNotify($event)'>Loading Band Options...</bandoptions>

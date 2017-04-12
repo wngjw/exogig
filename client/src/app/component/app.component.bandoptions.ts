@@ -47,8 +47,8 @@ export class AppBandOptionsComponent {
 		this.recievedArtist = [];
 		this.artistService = artistService;
 		this.buttonLabels = ['Home','Notifications','Browse','Options', 'New Band'];
-        this.buttonIcon = ['home','info_outline','search','local_play', 'library_add'];
-        this.pageEmitters = ['login','notifications','bandviewer','bandoptions', 'createband'];
+    	this.buttonIcon = ['home','info_outline','search','local_play', 'library_add'];
+    	this.pageEmitters = ['login','notifications','bandviewer','bandoptions', 'createband'];
 
 		// set up parameters for post to find memberships
 		// that the user has already.
@@ -136,18 +136,17 @@ export class AppBandOptionsComponent {
 		console.log("call post to find artist");
 		this.http.post('/getartist', body, options)
 		  .map((res) => res.json())
-  		.subscribe((res) => this.waitForHttp(res));
+  		.subscribe((data) => this.waitForHttp(data));
 	}
-	private waitForHttp(res: any) {
-    console.log(this);
-    console.log(typeof res);
-		if (res !== undefined) {
+
+	private waitForHttp(data: Artist) {
+		if (data !== undefined) {
 			console.log("There is an artist");
-			this.art = res as Artist;
-      console.log("After reassignment:" + this.art);
+			this.art = data as Artist;
+      this.art = Object.setPrototypeOf(this.art, Artist.prototype)
+      console.log("After reassignment:" + this.art.getName());
 			this.artistService.setArtist(this.art);
     }
-    console.log(this);
 		this.emit_event('bandpage');
   }
 }
