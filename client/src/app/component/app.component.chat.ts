@@ -48,13 +48,18 @@ export class AppChatComponent {
 	    this.document = winRef.nativeWindow.document;
 		this.currentUser = userService.getUser();
 		this.check_login(userService);
+		this.message.author = this.currentUser.getName();
+		if (this.message.author == '' || this.message.author == null ) {
+			this.message.author = "Anonymous";
+		}
 	}
 
 	ngOnInit() {
     //This will run the joinEvent function via the page's button upon the enter key being pressed. Needs tested on mobile.
     this.document.getElementById('msgInput').onkeypress = (e) => {
         if (e.keyCode==13) {
-          this.document.getElementById('msgInput').click();
+			console.log("ran");
+          this.document.getElementById('triggedDiv').click();
         }
       }
   	}
@@ -71,6 +76,7 @@ export class AppChatComponent {
 	}
 
 	public sendMsg() {
+		console.log('Happenin!');
 		this.message.message = this.activeMsg;
 		this.chatService.messages.next(this.message);
 		this.activeMsg = '';
