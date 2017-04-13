@@ -50,6 +50,7 @@ export class AppBandPageComponent {
 	pageEmitters: string[];
 	http:Http;
 	newGig: Gig = new Gig();
+	selectedSetList:string;
 
 	constructor(http: Http, userService: userService, artistService: artistService) {
 		this.http = http;
@@ -67,10 +68,13 @@ export class AppBandPageComponent {
 		this.LocationOfGigPlace = "Location of the Gig";
 		this.editIndex = null;
 		this.setlist = this.currentArtist.Setlists;
+		this.selectedSetList = "No set list has been selected";
 		console.log(this.gigs);
 	}
 	public addSetToGig(n:number){
+		console.log("in add set to gig");
 		this.newGig.GigSetList = this.setlist[n];
+		this.selectedSetList = this.setlist[n].SetListName;
 	}
 	//Toggling function for label animations, placed on big white button
 	public animateLabels() {
@@ -90,6 +94,8 @@ export class AppBandPageComponent {
 		this.newGig.GigDate = gigToEdit[index].GigDate;
 		this.newGig.GigTime = gigToEdit[index].GigTime;
 		this.newGig.GigLocation = gigToEdit[index].GigLocation;
+		this.newGig.GigSetList = gigToEdit[index].GigSetList;
+		this.selectedSetList = this.newGig.GigSetList.SetListName;
   }
 
 	private catchError(error: Response) {
@@ -107,14 +113,24 @@ export class AppBandPageComponent {
 	}
 
 	public enterGig() {
+		// TODO!!!!!
+
 		console.log("Entering Gig");
 	}
 
 	public deleteGig() {
+		if(this.editIndex != null){
+			this.currentArtist.Gigs.splice(this.editIndex,1);
+		}
+		else{
+			this.NewGig()
+		}
 		console.log("Deleting Gig");
+		this.emit_event('bandpage');
 	}
 
 	public createGig(){
+
 		console.log(this.newGig);
 		var gen = true;
 
@@ -140,6 +156,7 @@ export class AppBandPageComponent {
 				.map((res) => res.json())
 				.catch(this.catchError)
 				.subscribe(data => this.newGig.GigId = data);
+			console.log(this.newGig.GigId);
 		}
 
 		this.artistService.setArtist(this.currentArtist);
@@ -177,7 +194,7 @@ export class AppBandPageComponent {
     if (res !== undefined) {
       this.currentArtist = res as Artist;
     }
-    console.log(this.currentArtist.getGigs());
+    //console.log(this.currentArtist.getGigs());
 		this.artistService.setArtist(this.currentArtist);
 		this.newGig=new Gig();
 		this.gigNamePlace = "Gig Name";
