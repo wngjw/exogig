@@ -103,7 +103,7 @@ export class AppRequestComponent {
       this.prevRequestedSong = new Request();
     }
 
-    if (this.prevRequestedSong.requestedSongName === this.requestedSong.RequestedSongName) {
+    if (this.prevRequestedSong.RequestedSongName === this.requestedSong.RequestedSongName) {
       document.getElementById("requestErrorMessage").style.visibility="visible";
       document.getElementById("requestReceivedMessage").style.visibility="hidden";
       console.log("[TO BE IMPLEMENTED]: <Displaying toast>");
@@ -114,7 +114,7 @@ export class AppRequestComponent {
       console.log("[DEBUG] Sent song request:", body);
       document.getElementById("requestErrorMessage").style.visibility="hidden";
       document.getElementById("requestReceivedMessage").style.visibility="visible";
-      this.prevRequestedSong.RequestedSongName = this.requestedSong.requestedSongName;
+      this.prevRequestedSong.RequestedSongName = this.requestedSong.RequestedSongName;
     }
 
     //console.log(this.receivedSong);

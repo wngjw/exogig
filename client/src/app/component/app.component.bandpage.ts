@@ -137,9 +137,9 @@ export class AppBandPageComponent {
 		if(gen === true){
 			console.log('in generate func');
 			this.http.get('/generate')
-			.map((res) => res.json())
-			.catch(this.catchError)
-			.subscribe(data => this.newGig.GigId = data);
+				.map((res) => res.json())
+				.catch(this.catchError)
+				.subscribe(data => this.newGig.GigId = data);
 		}
 
 		this.artistService.setArtist(this.currentArtist);

@@ -12,5 +12,10 @@
 			</ng-container>
 		</ul>
 	</div>
+	<div>
+		<ul>
+			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
+				<li><button style="margin-top:4px" *ngFor="let name of artistList;let n=index" md-button class="waves-effect waves-light waves-effect" (click)="enter_band_view(n)">{{name}}</button></li>
+		</ul>
 
 </div>

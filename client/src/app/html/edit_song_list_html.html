@@ -1,4 +1,4 @@
-<div>
+<div style="padding:2vh">
 
 	<!-- Default HTML for setting up nav button -->
 	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
@@ -21,7 +21,7 @@
 	<div>
 		<div>
 		<div class="input-field col s6">
-			<input [(ngModel)]="newSong" class="underline_accenting" type = "text" placeholder = "song name" maxlength="30" />
+			<input [(ngModel)]="newSong" class="underline_accenting" type = "text" placeholder = "song name" maxlength="50" />
 		</div>
 		<button md-button style="color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="addSong()"> Add Song </button>
 		<md-card-content>
@@ -32,6 +32,7 @@
 				<span style="color:#82d4f9;font-weight:bolder;">{{n+1}}. {{name.Name}}</span>
 			</li>
 		</md-card-content>
+		<button md-button style="display:inline-block;color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="save()"> Save </button>
 		</div>
 
 </div>

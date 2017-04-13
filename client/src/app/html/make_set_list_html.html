@@ -1,4 +1,4 @@
-<div>
+<div style="padding:2vh">
 
 	<!-- Default HTML for setting up nav button -->
 	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
@@ -15,7 +15,7 @@
 	</div>
 	<h3>{{welcome}}</h3>
 	<div style="display: blocks;justify-content: center;">
-			<input [(ngModel)]="numberSets" class="underline_accenting" type = "text" placeholder = "How many sets are in this setList?" maxlength="10" />
+			<input [(ngModel)]="numberSets" class="underline_accenting" type = "text" placeholder = "How many sets are in this setList?" maxlength="2" />
 			<button md-button style="display:inline-block;color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="enterNum()"> Enter </button>
 
 	</div>

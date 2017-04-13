@@ -1,5 +1,9 @@
 import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
+import { userService } from '../services/app.service.user';
+import { artistService } from '../services/app.service.artist';
+import { User, Artist } from '../gig/app.gig.users';
+import { Gig } from '../gig/app.gig.gig';
 
 @Component({
  	selector: 'create-event',
@@ -21,31 +25,55 @@ import { Headers, Http } from '@angular/http';
 
 export class AppCreateEventComponent {
 	notify: EventEmitter<string> = new EventEmitter<string>();
-	createeventhtml: string;
- 	eventname: string;
- 	date: string;
- 	location: string;
- 	time: string;
- 	notes: string;
- 	showLabels = false;
+	user: User = new User();
+	buttonLabels: string[];
+	buttonIcon: string[];
+	pageEmitters: string[];
+	artistList: string[];
+	http:Http;
+	viewArtist:Artist = new Artist();
+	showLabels = false;
+	gigs: Gig[];
+	bio:string;
+	name:string;
+	genre:string;
 
 
-	constructor() {
-		this.eventname;
- 		this.date;
- 		this.location;
- 		this.time;
- 		this.notes;
+	constructor(http:Http,public userService:userService,public artistService:artistService) {
+		this.http = http;
+		console.log("constructor");
+		this.user = userService.getUser();
+		this.viewArtist = artistService.getArtist();
+		console.log("before check artist");
+		this.checkArtist();
+		this.gigs = this.viewArtist.getGigs();
+		this.bio = this.viewArtist.getBio();
+		this.name = this.viewArtist.getName();
+		this.genre = this.viewArtist.getGenre();
+
+
+	}
+	checkArtist(){
+		console.log("in check artist");
+		if(!this.user.getLoggedIn()){
+			this.buttonLabels = ['Home','Notifications','Browse'];
+			this.buttonIcon = ['home','info_outline','search'];
+			this.pageEmitters = ['login','notifications','bandviewer'];
+		}
+		else if(this.user.getLoggedIn() && !this.user.isArtist()){
+			this.buttonLabels = ['Home','Notifications','Browse','New Band'];
+			this.buttonIcon = ['home','info_outline','search','library_add'];
+			this.pageEmitters = ['login','notifications','bandviewer','createband'];
+		}
+		else{
+			this.buttonLabels = ['Home','Notifications','Browse','New Band','Options'];
+			this.buttonIcon = ['home','info_outline','search','library_add','local_play'];
+			this.pageEmitters = ['login','notifications','bandviewer','createband','bandoptions'];
+		}
+		console.log("end of check artist");
 	}
 
-	public changeEvent() {
-     	console.log(this.eventname)
- 		console.log(this.date)
- 		console.log(this.location)
- 		console.log(this.time)
- 		console.log(this.notes)
-
-   	}
+	
 
 	//Toggling function for label animations, placed on big white button
 	public animateLabels() {

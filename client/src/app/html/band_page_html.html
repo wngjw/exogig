@@ -1,4 +1,4 @@
-<div>
+<div style="padding:2vh">
 	<!-- Default HTML for setting up nav button -->
 	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
 		<a class="btn-floating btn-large white" (click)="animateLabels()">
@@ -26,20 +26,20 @@
 	</md-card>
 
 	<div class="input-field col s6">
-    	<input id="gn" [(ngModel)]="newGig.GigName" class="underline_accenting" type="text">
+    	<input id="gn" [(ngModel)]="newGig.GigName" class="underline_accenting" type="text" maxlength="20">
         <label for="gn" class="text">{{gigNamePlace}}</label>
     </div>
 
 	<div class="input-field col s6">
-    	<input id="d" [(ngModel)]="newGig.GigDate" class="underline_accenting" type="text">
+    	<input id="d" [(ngModel)]="newGig.GigDate" class="underline_accenting" type="text" maxlength="10">
         <label for="d" class="text">{{DateOfGigPlace}}</label>
     </div>
 	<div class="input-field col s6">
-    	<input id="t" [(ngModel)]="newGig.GigTime" class="underline_accenting" type="text">
+    	<input id="t" [(ngModel)]="newGig.GigTime" class="underline_accenting" type="text" maxlength="7">
         <label for="t" class="text">{{TimeOfGigPlace}}</label>
     </div>
 	<div class="input-field col s6">
-    	<input id="t" [(ngModel)]="newGig.GigLocation" class="underline_accenting" type="text">
+    	<input id="t" [(ngModel)]="newGig.GigLocation" class="underline_accenting" type="text" maxlength="30">
         <label for="t" class="text">{{LocationOfGigPlace}}</label>
     </div>
 

@@ -1,4 +1,4 @@
-<div>
+<div style="padding:2vw">
 
 	<!-- Default HTML for setting up nav button -->
 	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
@@ -20,7 +20,7 @@
 				<textarea type="text" [(ngModel)]="bio" cols="40" rows="5" style="text-align:center;color:white;width:75%;height:20%;" placeholder="oldBio">Enter your band info here</textarea>
 			</div>
 			<div>
-				<input class="underline_accenting" [(ngModel)]="genre" style="text-align:center;font-size:2em;width:100%;" type="text" placeholder="oldGenre" maxlength="20">
+				<input class="underline_accenting" [(ngModel)]="genre" style="text-align:center;font-size:2em;width:100%;" type="text" placeholder="oldGenre" maxlength="30">
 			</div>
 			<div style="padding-left:25%;justify-content:center;">
 				<button md-button class="waves-effect waves-light waves-effect" style="text-align:center;justify-content:center;" (click)="changeBio()">save</button>
