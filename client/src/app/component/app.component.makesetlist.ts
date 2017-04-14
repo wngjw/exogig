@@ -38,6 +38,7 @@ export class AppCreateSetlistComponent {
 	newSetList:any[];
 	numberSets:number;
 	pushSetList:SetList=new SetList();
+	editIndex:number;
 
 
 
@@ -51,16 +52,55 @@ export class AppCreateSetlistComponent {
 		}
 		this.songlist = this.currentArtist.getSonglist();
 		this.http=http;
-		this.numberSets = 3;
+		this.editIndex = null;
 	}
+	public edit_set_list(index:number){
+		this.editIndex = index;
+    	console.log(typeof this.currentArtist);
+		
+		var setToEdit = this.currentArtist.Setlists;
+		
+		this.pushSetList.SetListName = setToEdit[index].SetListName;
+		this.pushSetList.SetsInSetList = setToEdit[index].SetsInSetList;
+		this.numberSets = setToEdit[index].SetsInSetList.length;
+		
+  }
+  public delete(index:number){
+		this.currentArtist.Setlists.splice(this.editIndex,1);
+		this.artistService.setArtist(this.currentArtist);
+		var uploadObj = {
+		key: this.currentArtist
+		};
+		// Initialize parameters for URL
+		let params: URLSearchParams = new URLSearchParams();
+		// Saves key/value pairs to URL query string
+		for (let key in uploadObj) {
+		params.set(key, uploadObj[key]);
+		}
+		// Create the headers for the page
+		var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		// Places parameters in query string
+		let options = new RequestOptions({
+		search: params,
+		headers: pageHeaders
+		});
+		console.log(this.currentArtist);
+		// This conversion to a JSON string allows Go to parse the request body
+		let body = JSON.stringify(this.currentArtist);
+		console.log("[DEBUG] body:", body);
+		// The post request which takes parameters of address, body, options
+		this.http.post('/addsetlist', body, options)
+		.map((res) => res.json())
+		.subscribe((res) => this.waitForHttp(res));
 
+	}
 	public enterNum(){
 		var i = 1;
-		this.newSetList=[];
+		this.pushSetList = new SetList();
 		//this.pushSetList.setsInSetList = new Set[this.numberSets];
 		while(i <= this.numberSets){
 			var set = new Set();
-			
 			this.pushSetList.addSet(set);
 			console.log(this.pushSetList);
 			i++;
@@ -91,11 +131,18 @@ export class AppCreateSetlistComponent {
 	}
 	//this functon will be used to push to the server
 	public save(){
+
 		if(this.currentArtist.Setlists === undefined){
 			this.currentArtist.Setlists = [this.pushSetList];
 		}
 		else{
-			this.currentArtist.Setlists.push(this.pushSetList);
+			if(this.editIndex != null){
+				this.currentArtist.Setlists[this.editIndex].SetListName = this.pushSetList.SetListName;
+				this.currentArtist.Setlists[this.editIndex].SetsInSetList = this.pushSetList.SetsInSetList;
+			}
+			else{
+				this.currentArtist.Setlists.push(this.pushSetList);
+			}
 		}
 		var uploadObj = {
 		key: this.currentArtist

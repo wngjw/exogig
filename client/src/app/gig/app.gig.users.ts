@@ -104,6 +104,9 @@ export class Artist {
   addSetList(set:SetList){
     this.Setlists.push(set);
   }
+  getSetList(){
+    return this.Setlists;
+  }
 }
 
 export class Membership {

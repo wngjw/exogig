@@ -1,55 +1,72 @@
-<div style="padding:2vh">
-
-	<!-- Default HTML for setting up nav button -->
-	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
-		<a class="btn-floating btn-large white" (click)="animateLabels()">
-			<i class="material-icons large mdi-navigation-menu" style="font-size:3em;width:auto !important;height:auto !important;color:#263238">fingerprint</i>
-		</a>
-		<ul>
-			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Back</span><a (click)="emit_event('bandpage')" class="btn-floating white"><i class="material-icons" style="color:#263238">arrow_back</i></a></li>
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Info</span><a (click)="emit_event('editbio')" class="btn-floating white"><i class="material-icons" style="color:#263238">assignment</i></a></li>
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Songs</span><a (click)="emit_event('songlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_note</i></a></li>
-			<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Sets</span><a (click)="emit_event('setlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">library_music</i></a></li>
-		</ul>
-	</div>
-	<h3>{{welcome}}</h3>
-	<div style="display: blocks;justify-content: center;">
-			<input [(ngModel)]="numberSets" class="underline_accenting" type = "text" placeholder = "How many sets are in this setList?" maxlength="2" />
-			<button md-button style="display:inline-block;color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="enterNum()"> Enter </button>
-
-	</div>
-	<div class="row" style="text-align:center;">
-		<div class="col s6;" style="display:block;border-style:solid;border-width:5px;border-color: #82d4f9">
-			<ul class="list-group">
-                    <li draggable *ngFor="let item of songlist;let n of index"
-                        [dragOverClass]="'.drag-over-border'"
-                        [dragData]="item" class="list-group-item" style="color:#82d4f9;">
-                        {{item.Name}}
-                    </li>
-                </ul>
-
-    	</div>
-		<div class="input-field col s6" style="display:inline-block;">
-			<input [(ngModel)]="pushSetList.SetListName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "SetList name" maxlength="30" />
-		</div>
-		<div *ngFor="let set of pushSetList.SetsInSetList; let n = index">
-			<div class="col s6;" style="display:block;text-align:center" >
-				<div class="input-field col s6" style="display:inline-block;">
-					<input [(ngModel)]="set.SetName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "setname" maxlength="30" />
-				</div>
-				<div class="col s6;" style="display:inline-block;border-style:solid;border-width:5px;border-color: #82d4ff">
-					<div class="panel panel-info" droppable  [dragOverClass]="'.drag-target-border-green'" (onDrop)="addToSet($event,n)">
-						<div class="panel-heading">Drop songs here for the set</div>
-						<div class="panel-body scroll-list">
-							<li *ngFor="let song of set.SongsInSet" class="list-group-item" style="color:#82d4ff;">{{song.Name}}</li>
+<div style="background-color:#263238">
+	<div style="padding:2vh">
+		<md-card >
+					<md-card-title>
+						Your current setlists 
+					</md-card-title>
+					<md-card-content>
+						<div class="scrollmenu" style="overflow: auto; white-space: nowrap;">
+							<button style="margin-top:4px" *ngFor="let name of currentArtist.Setlists;let n = index" md-button class="waves-effect waves-light waves-effect" (click)="edit_set_list(n)">
+								<button style="margin-top:4px"  md-button class="waves-effect waves-light waves-effect" (click)="delete(n)">
+									<i class="material-icons prefix">delete</i>
+								</button> 
+								{{name.SetListName}}
+							</button>
 						</div>
-					</div>
-				</div>
+					</md-card-content>
+				</md-card>
 
+		<!-- Default HTML for setting up nav button -->
+		<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
+			<a class="btn-floating btn-large white" (click)="animateLabels()">
+				<i class="material-icons large mdi-navigation-menu" style="font-size:3em;width:auto !important;height:auto !important;color:#263238">fingerprint</i>
+			</a>
+			<ul>
+				<!-- The click event here at the top button should either open a sign-in modal, or idk -->
+				<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Back</span><a (click)="emit_event('bandpage')" class="btn-floating white"><i class="material-icons" style="color:#263238">arrow_back</i></a></li>
+				<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Info</span><a (click)="emit_event('editbio')" class="btn-floating white"><i class="material-icons" style="color:#263238">assignment</i></a></li>
+				<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Songs</span><a (click)="emit_event('songlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">music_note</i></a></li>
+				<li><span *ngIf="showLabels" [@labelstate] class="fab_def">Sets</span><a (click)="emit_event('setlist')" class="btn-floating white"><i class="material-icons" style="color:#263238">library_music</i></a></li>
+			</ul>
+		</div>
+		<h3>{{welcome}}</h3>
+		<div style="display: blocks;justify-content: center;">
+				<input [(ngModel)]="numberSets" class="underline_accenting" type = "text" placeholder = "How many sets are in this setList?" maxlength="2" />
+				<button md-button style="display:inline-block;color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="enterNum()"> Enter </button>
+
+		</div>
+		<div class="row" style="text-align:center;">
+			<div class="col s6;" style="display:block;border-style:solid;border-width:5px;border-color: #82d4f9">
+				<ul class="list-group">
+						<li draggable *ngFor="let item of songlist;let n of index"
+							[dragOverClass]="'.drag-over-border'"
+							[dragData]="item" class="list-group-item" style="color:#82d4f9;">
+							{{item.Name}}
+						</li>
+					</ul>
 
 			</div>
+			<div class="input-field col s6" style="display:inline-block;">
+				<input [(ngModel)]="pushSetList.SetListName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "SetList name" maxlength="30" />
+			</div>
+			<div *ngFor="let set of pushSetList.SetsInSetList; let n = index">
+				<div class="col s6;" style="display:block;text-align:center" >
+					<div class="input-field col s6" style="display:inline-block;">
+						<input [(ngModel)]="set.SetName" style="text-align:center;" class="underline_accenting" type = "text" placeholder = "setname" maxlength="30" />
+					</div>
+					<div class="col s6;" style="display:inline-block;border-style:solid;border-width:5px;border-color: #82d4ff">
+						<div class="panel panel-info" droppable  [dragOverClass]="'.drag-target-border-green'" (onDrop)="addToSet($event,n)">
+							<div class="panel-heading">Drop songs here for the set</div>
+							<div class="panel-body scroll-list">
+								<li *ngFor="let song of set.SongsInSet" class="list-group-item" style="color:#82d4ff;">{{song.Name}}</li>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<button md-button style="display:inline-block;color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="save()"> Save </button>
 		</div>
-		<button md-button style="display:inline-block;color:#82d4f9;" class="waves-effect waves-light waves-effect" (click)="save()"> Save </button>
 	</div>
 </div>
