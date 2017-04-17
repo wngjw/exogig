@@ -45,8 +45,8 @@ export class AppEditBioComponent {
 		this.memEmail="Enter new Band Member's email"
 		this.artist = artistService.getArtist();
 		console.log(this.artist);
-		this.oldBio = this.artist.getBio();
-		this.oldGenre = this.artist.getGenre();
+		this.oldBio = this.artist.Bio;
+		this.oldGenre = this.artist.Genre;
 		this.artistService=artistService;
 		this.newMembership.setArtist(this.artist.Name);
 		this.retrieveMems();

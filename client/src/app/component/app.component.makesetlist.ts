@@ -65,6 +65,11 @@ export class AppCreateSetlistComponent {
 		this.numberSets = setToEdit[index].SetsInSetList.length;
 		
   }
+  public NewSet(){
+	  this.numberSets=null;
+	  this.pushSetList = new SetList();
+	  this.notify.emit('setlist');
+  }
   public delete(index:number){
 		this.currentArtist.Setlists.splice(this.editIndex,1);
 		this.artistService.setArtist(this.currentArtist);
