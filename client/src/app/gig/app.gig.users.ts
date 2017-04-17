@@ -110,19 +110,19 @@ export class Artist {
 }
 
 export class Membership {
-  private artist: string;
-  private email: string;
+  Artist: string;
+  Email: string;
 
   getUser() {
-    return this.email;
+    return this.Email;
   }
   getArtist() {
-    return this.artist;
+    return this.Artist;
   }
   setEmail(email: string) {
-    this.email = email;
+    this.Email = email;
   }
   setArtist(artist: string) {
-    this.artist = artist;
+    this.Artist = artist;
   }
 }

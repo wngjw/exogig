@@ -1,4 +1,4 @@
-<div style="padding:2vw">
+<div style="background-color:#263238;">
 
 	<!-- Default HTML for setting up nav button -->
 	<div class="fixed-action-btn vertical click-to-toggle" style="bottom: 24px; right: 24px;">
@@ -15,13 +15,32 @@
 	</div>
 	<div style="display: blocks;justify-content: center;">
 		<h1 style="color:#82d4f9;font-weight:bolder;text-align:center;">Tell people about yourself and your music</h1>
-		<div style="justify-content:center;padding-left:20%;">
-			<div>
-				<textarea type="text" [(ngModel)]="bio" cols="40" rows="5" style="text-align:center;color:white;width:75%;height:20%;" placeholder="oldBio">Enter your band info here</textarea>
+		<div style="justify-content:center;padding-left:10%;padding-right:10%">
+			<div style="padding-left:20%"> 
+				<textarea type="text" [(ngModel)]="newBio" cols="40" rows="5" style="text-align:center;color:white;width:75%;height:20%;" placeholder="{{oldBio}}">Enter your band info here</textarea>
 			</div>
-			<div>
-				<input class="underline_accenting" [(ngModel)]="genre" style="text-align:center;font-size:2em;width:100%;" type="text" placeholder="oldGenre" maxlength="30">
+			<div class="input-field col-s3" > 
+				<input class="underline_accenting" [(ngModel)]="newGenre" style="text-align:center;font-size:2em;width:100%;" type="text" placeholder="{{oldGenre}}" maxlength="30">
 			</div>
+			<md-card>
+				<md-card-title>
+					Your Band Members by email
+				</md-card-title>
+				<md-card-content>
+						<div class="scrollmenu" style="overflow: auto; white-space: nowrap;">
+							<button style="margin-top:4px" *ngFor="let name of members;let n = index" md-button class="waves-effect waves-light waves-effect">{{n+1}}. {{name}}</button>
+							
+						</div>
+					<p style="color:#82d4f9;font-weight:bolder;text-align:center;"> add new members</p>
+					<div class="input-field col s3">
+						<input id="t" [(ngModel)]="newEmail" class="underline_accenting" type="text" maxlength="30">
+						<label for="t" class="text">{{memEmail}}</label>
+					</div>	
+					<button md-button class="waves-effect waves-light waves-effect" style="text-align:center;justify-content:center;" (click)="addMem()">Add</button>
+
+				</md-card-content>
+			</md-card>
+
 			<div style="padding-left:25%;justify-content:center;">
 				<button md-button class="waves-effect waves-light waves-effect" style="text-align:center;justify-content:center;" (click)="changeBio()">save</button>
 			</div>

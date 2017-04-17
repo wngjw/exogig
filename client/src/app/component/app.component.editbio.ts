@@ -1,7 +1,7 @@
 import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate  } from '@angular/core';
 import { Headers, Http, URLSearchParams, RequestOptions } from '@angular/http';
 import { MaterializeAction } from 'angular2-materialize';
-import { User, Artist } from '../gig/app.gig.users';
+import { User, Artist, Membership } from '../gig/app.gig.users';
 import { userService } from '../services/app.service.user';
 import { artistService } from '../services/app.service.artist';
 
@@ -34,16 +34,22 @@ export class AppEditBioComponent {
 	user: User;
 	loggedInSymbol: string;
 	topOption: string;
-	artist:Artist;
+	artist:Artist = new Artist;
+	members:string[];
 	artistService: artistService;
+	newMembership:Membership = new Membership();
+	memEmail:string;
 
 	constructor(http: Http, artistService:artistService) {
 		this.http = http;
-
+		this.memEmail="Enter new Band Member's email"
 		this.artist = artistService.getArtist();
+		console.log(this.artist);
 		this.oldBio = this.artist.getBio();
-		this.oldGenre = this.artist.getBio();
+		this.oldGenre = this.artist.getGenre();
 		this.artistService=artistService;
+		this.newMembership.setArtist(this.artist.Name);
+		this.retrieveMems();
 		
 	}
 	private check_login(userService: userService) {
@@ -57,6 +63,37 @@ export class AppEditBioComponent {
 		}
 	}
 
+	private retrieveMems(){
+		var uploadObj = {
+			key: this.artist.Name
+		};
+		// Initialize parameters for URL
+		let params = new URLSearchParams();
+		// Create the headers for the page
+		var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		// Places parameters in query string
+		let options = new RequestOptions({
+			search: params,
+			headers: pageHeaders
+		});
+		// This conversion to a JSON string allows Go to parse the request body
+   		let body = JSON.stringify(this.artist.Name);
+   		console.log("[DEBUG] body:", body);
+		// The post request which takes parameters of address, body, options
+		this.http.post('/findmeminband', body, options)
+		.map((res) => res.json())
+		.subscribe((res) => this.waitForHttp(res));
+	}
+	private waitForHttp(res:any){
+		
+		if (res !== undefined) {
+			this.members = res as string[];
+     		 console.log("there are members");
+    }
+		this.emit_event('editbio');
+  }
+	
 
 	public changeBio(){
 		this.artist.setBio(this.newBio);
@@ -87,6 +124,42 @@ export class AppEditBioComponent {
 		this.artistService.setArtist(this.artist);
 		this.notify.emit('bandpage');
 	}
+	public addMem(){
+		this.members.push(this.newMembership.Email);
+		this.newMembership.Artist=this.artist.Name;
+		this.newMembership.Email=this.memEmail;
+		var uploadObj = {
+			key: this.newMembership
+		};
+		// Initialize parameters for URL
+		let params = new URLSearchParams();
+		// Create the headers for the page
+		var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		// Places parameters in query string
+		let options = new RequestOptions({
+			search: params,
+			headers: pageHeaders
+		});
+		// This conversion to a JSON string allows Go to parse the request body
+   		let body = JSON.stringify(this.newMembership);
+   		console.log("[DEBUG] body:", body);
+		// The post request which takes parameters of address, body, options
+		this.http.post('/addmem', body, options)
+		.map((res) => res.json())
+		.subscribe((res) => this.waitForNewMem(res));
+		
+		this.notify.emit('editbio');
+	}
+	private waitForNewMem(res:any){
+		
+		if (res !== undefined) {
+			this.newMembership = new Membership();
+     		 console.log("new mem added");
+			  this.retrieveMems();
+    }
+		this.emit_event('editbio');
+  }
 
 	//Toggling function for label animations, placed on big white button
 	public animateLabels() {

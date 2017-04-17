@@ -88,7 +88,7 @@ export class AppBandPageComponent {
 		this.editIndex = index;
     	console.log(typeof this.currentArtist);
 		
-		var gigToEdit = this.currentArtist.getGigs();
+		var gigToEdit = this.currentArtist.Gigs;
 		
 		this.newGig.GigName = gigToEdit[index].GigName;
 		this.newGig.GigDate = gigToEdit[index].GigDate;
@@ -121,12 +121,16 @@ export class AppBandPageComponent {
 	public deleteGig() {
 		if(this.editIndex != null){
 			this.currentArtist.Gigs.splice(this.editIndex,1);
+			this.NewGig()
 		}
 		else{
 			this.NewGig()
 		}
 		console.log("Deleting Gig");
-		this.emit_event('bandpage');
+		this.save();
+		this.NewGig();
+
+		this.gigs = this.currentArtist.Gigs;
 	}
 
 	public createGig(){
@@ -158,7 +162,9 @@ export class AppBandPageComponent {
 				.subscribe(data => this.newGig.GigId = data);
 			console.log(this.newGig.GigId);
 		}
-
+		this.save();
+	}
+	public save(){
 		this.artistService.setArtist(this.currentArtist);
 		console.log(this.newGig.GigId);
 		//set parameters for post to push a new membership
