@@ -33,6 +33,7 @@ export class AppGigViewerComponent {
 	artistService: artistService;
   gigService: gigService;
   userService: userService;
+	gigName: string;
 
   currentGig: Gig;
   gigCode: string;
@@ -52,9 +53,11 @@ export class AppGigViewerComponent {
     this.userService = userService;
 
     this.currentGig = gigService.getGig();
+		this.gigName  = this.currentGig.GigName;
     this.gigCode = this.currentGig.GigId;
     this.setList = this.currentGig.GigSetList;
     this.requests = this.currentGig.GigRequestList;
+		
 
     /* notify and showLabels taken care of above. */
 	}

@@ -2,6 +2,7 @@ import { Component, Directive, Injectable, EventEmitter, Output, trigger, state,
 import { Headers, Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
 import { userService } from '../services/app.service.user';
 import { artistService } from '../services/app.service.artist';
+import { gigService } from '../services/app.service.gig';
 import { User, Artist } from '../gig/app.gig.users';
 import { Gig, SetList } from '../gig/app.gig.gig';
 import { Observable } from 'rxjs';
@@ -51,9 +52,11 @@ export class AppBandPageComponent {
 	http:Http;
 	newGig: Gig = new Gig();
 	selectedSetList:string;
+	gigService: gigService;
 
-	constructor(http: Http, userService: userService, artistService: artistService) {
+	constructor(http: Http, userService: userService, artistService: artistService, gigService: gigService) {
 		this.http = http;
+		this.gigService = gigService;
 		this.currentUser = userService.getUser();
     	this.artistService = artistService;
 		this.currentArtist = artistService.getArtist();
@@ -113,9 +116,12 @@ export class AppBandPageComponent {
 	}
 
 	public enterGig() {
-		// TODO!!!!!
-
-		console.log("Entering Gig");
+		if(this.editIndex !== null){
+			console.log("Entering Gig");
+			console.log(this.editIndex);
+			this.gigService.setGig(this.currentArtist.Gigs[this.editIndex]);
+			this.emit_event('gigviewer');
+		}
 	}
 
 	public deleteGig() {
@@ -159,11 +165,19 @@ export class AppBandPageComponent {
 			this.http.get('/generate')
 				.map((res) => res.json())
 				.catch(this.catchError)
-				.subscribe(data => this.newGig.GigId = data);
-			console.log(this.newGig.GigId);
+				.subscribe((data) => this.setGigCode(data));
+			//console.log(this.newGig.GigId);
 		}
 		this.save();
 	}
+
+	public setGigCode(data: any) {
+		console.log('setting gig code');
+		console.log(data);
+		this.newGig.GigId = data;
+		console.log(this.newGig.GigId);
+	}
+
 	public save(){
 		this.artistService.setArtist(this.currentArtist);
 		console.log(this.newGig.GigId);
@@ -207,7 +221,7 @@ export class AppBandPageComponent {
 		this.DateOfGigPlace = "Date of the Gig";
 		this.TimeOfGigPlace = "Time of the Gig";
 		this.LocationOfGigPlace = "Location of the Gig";
-		this.emit_event('bandpage');
+		//this.emit_event('bandpage');
   }
 
 }
