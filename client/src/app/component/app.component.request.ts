@@ -41,12 +41,13 @@ export class AppRequestComponent {
 	currentUser: User = new User();
 	http: Http;
  	receivedSong: Request;
-  requestedSong: Request = new Request();
+  requestedSong: Request = new Request("NA", 1, this.gigId);
   prevRequestedSong: Request;
 	loggedInSymbol: string;
 	topOption: string;
 	gigObject: Gig;
   gigSetList: SetList;
+  gigId: string;
 	showLabels = false;
 
 	constructor(http: Http, userService: userService, gigService: gigService) {
@@ -55,6 +56,7 @@ export class AppRequestComponent {
 		this.check_login(userService);
 		this.gigObject = gigService.getGig();
 		this.gigSetList = this.gigObject.GigSetList;
+    this.gigId = this.gigObject.GigId;
 	}
 
 	private check_login(userService: userService) {
@@ -95,29 +97,34 @@ export class AppRequestComponent {
       headers: pageHeaders
     });
 
-    this.requestedSong.NumTimesRequested = 1;
+    this.requestedSong.TimesRequested = 1;
+    this.requestedSong.GigId = this.gigId;
 
-    let body = JSON.stringify(this.requestedSong);
+    let requestedSongBody = JSON.stringify(this.requestedSong);
+
+    let previousSongBody = JSON.stringify(this.prevRequestedSong);
 
     if (this.prevRequestedSong == null) {
-      this.prevRequestedSong = new Request();
+      this.prevRequestedSong = new Request("NO_PREV_REQUEST", 0, this.gigId);
     }
 
-    if (this.prevRequestedSong.RequestedSongName === this.requestedSong.RequestedSongName) {
+    console.log("prevsongname: ", this.prevRequestedSong.Name, "reqsongname: ", this.requestedSong.Name);
+
+    if (this.prevRequestedSong.Name === this.requestedSong.Name) {
       document.getElementById("requestErrorMessage").style.visibility="visible";
       document.getElementById("requestReceivedMessage").style.visibility="hidden";
       console.log("[TO BE IMPLEMENTED]: <Displaying toast>");
     } else {
-      this.http.post('/request', body, options)
+      this.http.post('/request', requestedSongBody, options)
       .map((res) => res.json())
-      .subscribe(data => this.receivedSong = data);
-      console.log("[DEBUG] Sent song request:", body);
+      .subscribe(data => this.prevRequestedSong = data);
+      console.log("[DEBUG] Sent song request:", requestedSongBody);
       document.getElementById("requestErrorMessage").style.visibility="hidden";
       document.getElementById("requestReceivedMessage").style.visibility="visible";
-      this.prevRequestedSong.RequestedSongName = this.requestedSong.RequestedSongName;
+      //this.prevRequestedSong.RequestedSongName = this.requestedSong.RequestedSongName;
+      console.log("[DEBUG] Previous requested song: ", this.prevRequestedSong);
     }
 
-    //console.log(this.receivedSong);
   }
 
 	public emit_event(location:string) {

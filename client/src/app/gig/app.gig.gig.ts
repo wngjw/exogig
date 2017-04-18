@@ -36,7 +36,7 @@ export class Set {
 export class SetList {
   SetListName: string;
   SetsInSetList: Set[] = [];
-  
+
 
   getSetsInSetList() {
     return this.SetsInSetList;
@@ -50,10 +50,13 @@ export class SetList {
 }
 
 export class Request {
-  RequestedSongName: string;
-  NumTimesRequested: number;
-  getRequestedSong() {
-    return this.RequestedSongName;
+  Name: string;
+  TimesRequested: number;
+  GigId: string;
+  constructor(name: string, amount:number, id: string) {
+    this.Name = name;
+    this.TimesRequested = amount;
+    this.GigId = id;
   }
 }
 
