@@ -16,10 +16,10 @@
 		<h1 style="margin-top:4px" >{{name}}</h1>
 		<h6> Genre: {{genre}}</h6>
 		<h6> Bio: {{bio}}</h6>
-		<p>{{name}}'s upcoming gigs</p>
+		<p> {{name}}'s upcoming gigs</p>
 		<ul>
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-				<li style="margin-top:4px" *ngFor="let gig of gigs;let n=index" >{{gig.GigName}} : {{gig.GigDate}}, {{gig.GigLocation}}</li>
+			<li style="margin-top:4px" *ngFor="let gig of gigs;let n=index" >{{gig.GigName}} : {{gig.GigDate}}, {{gig.GigLocation}}</li>
 		</ul>
 
 
