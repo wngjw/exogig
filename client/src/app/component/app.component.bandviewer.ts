@@ -1,8 +1,10 @@
 import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Headers, Http, URLSearchParams, RequestOptions,Response  } from '@angular/http';
 import { userService } from '../services/app.service.user';
 import { artistService } from '../services/app.service.artist';
 import { User, Artist } from '../gig/app.gig.users';
+import { Gig } from '../gig/app.gig.gig';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -34,11 +36,13 @@ export class AppBandViewerComponent {
 	artistList: string[];
 	http:Http;
 	viewArtist:Artist;
-	
+	bands: Array<{gigs:Gig[],bio:string,name:string,genre:string}> = [];
+	currentBandInView:Array<boolean>;
 
 
 	constructor(userService: userService, http:Http,public artistService: artistService) {
 		this.http = http;
+		this.currentBandInView = [];
 		console.log("constructor");
 		this.user = userService.getUser();
 		console.log("before check artist");
@@ -46,7 +50,6 @@ export class AppBandViewerComponent {
 		this.artistList = [];
 		console.log("before get all artist");
 		this.getAllArtist();
-		
 	}
 
 	checkArtist(){
@@ -115,10 +118,10 @@ export class AppBandViewerComponent {
 		console.log("call post to find artist");
 		this.http.post('/getartist', body, options)
 		  .map((res) => res.json())
-  		.subscribe((data) => this.waitForHttpArt(data));
+  		.subscribe((data) => this.waitForHttpArt(data,index));
 
 	}
-	private waitForHttpArt(data: Artist) {
+	private waitForHttpArt(data: Artist,index: number) {
 		if (data !== undefined) {
 			console.log("There is an artist");
 			this.viewArtist = data as Artist;
@@ -126,17 +129,41 @@ export class AppBandViewerComponent {
       		console.log("After reassignment:" + this.viewArtist.getName());
 			this.artistService.setArtist(this.viewArtist);
    		 }
-		this.emit_event('createevent');//to view the bad selected
+		this.viewArtist = this.artistService.getArtist();
+		console.log("before check artist");
+		this.checkArtist();
+		this.bands[index] = 
+			{	gigs: this.viewArtist.getGigs(),
+				bio: this.viewArtist.getBio(),
+				name: this.viewArtist.getName(),
+				genre: this.viewArtist.getGenre()
+			};
+		this.setUpViewableArray();				//Sets everything to false (hides all other bands)
+		this.currentBandInView[index] = true;	//Displays the currently selected band's data.
+		console.log("heyo");
+		console.log(this.bands);
   }
+  	private setUpViewableArray() {
+		console.log("Fdsa")
+		for (var i in this.artistList) {
+			if (this.currentBandInView.length < this.artistList.length) {
+				this.currentBandInView.push(false);
+			}
+			else {
+				this.currentBandInView[i] = false;
+			}
+		}
+	}
 	private waitForHttp(data: any) {
 		console.log("in wait for http");
 		if (data !== undefined) {
+      		this.setUpViewableArray();
+
 			console.log("There are artist");
 			this.artistList = data as string[];
-      		
       		console.log(this.artistList);
     	}
 		console.log("end of wait for http");
-  	}
 
+  	}
 }

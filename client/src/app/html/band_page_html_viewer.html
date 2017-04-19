@@ -12,16 +12,18 @@
 			</ng-container>
 		</ul>
 	</div>
-	<div>
+	<div style="overflow-y:scroll;max-height:84vh">
 			<!-- The click event here at the top button should either open a sign-in modal, or idk -->
-
-	<md-card *ngFor="let name of artistList;let n=index" (click)="enter_band_view(n)" style="margin-left:4px;margin-right:4px">
+	<md-card *ngFor="let name of artistList;let n=index" (click)="enter_band_view(n)" style="padding:16px 16px 16px 16px;margin-top:2px;margin-left:8px;margin-right:8px">
 		<md-card-title>
 			{{name}}
 		</md-card-title>
+		<md-card-content *ngIf="currentBandInView[n]">
+			Genre: {{bands[n].genre}} <br>
+			Bio: {{bands[n].bio}} <br>
+		</md-card-content>
 	</md-card>
-	
 
 
-
+	</div>
 </div>
