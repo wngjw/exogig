@@ -140,7 +140,6 @@ export class AppBandPageComponent {
 	}
 
 	public createGig(){
-
 		console.log(this.newGig);
 		var gen = true;
 
@@ -152,21 +151,20 @@ export class AppBandPageComponent {
 			this.currentArtist.Gigs[this.editIndex].GigLocation = this.newGig.GigLocation;
 			this.currentArtist.Gigs[this.editIndex].GigDate = this.newGig.GigDate;
 			this.currentArtist.Gigs[this.editIndex].GigTime = this.newGig.GigTime;
-
+			this.currentArtist.Gigs[this.editIndex].GigId = this.newGig.GigId;
+		
 			gen = false;
+			console.log(this.currentArtist.Gigs[this.editIndex].GigId);
 		}
-		else{
-      		console.log(this.currentArtist); ////TODO
-			this.currentArtist.addGig(this.newGig);
-			this.newGig = new Gig();
-		}
+		
+		
 		if(gen === true){
 			console.log('in generate func');
 			this.http.get('/generate')
 				.map((res) => res.json())
 				.catch(this.catchError)
 				.subscribe((data) => this.setGigCode(data));
-			//console.log(this.newGig.GigId);
+			
 		}
 		this.save();
 	}
@@ -176,6 +174,9 @@ export class AppBandPageComponent {
 		console.log(data);
 		this.newGig.GigId = data;
 		console.log(this.newGig.GigId);
+		this.currentArtist.Gigs.push(this.newGig);
+		this.newGig = new Gig();
+		console.log(this.currentArtist.Gigs);
 	}
 
 	public save(){
