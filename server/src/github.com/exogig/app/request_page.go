@@ -31,9 +31,15 @@ func RequestPageHandler(w http.ResponseWriter, r *http.Request) {
 	var requestedSong gig.Request
 	err = decoder.Decode(&requestedSong)
 
-	log.Println("[DEBUG] Requested song: ", requestedSong)
-	log.Println("[DEBUG] Name of requested song: ", requestedSong.RequestedSongName)
+	// Format the response to the POST
+	resultJson, _ := json.Marshal(requestedSong)
 
-/// Below is all old code that needs to be changed ///
-  
+	// Write the response to the client
+	w.Write(resultJson)
+
+	log.Println("[DEBUG] Response: ", resultJson)
+	log.Println("[DEBUG] Requested song: ", requestedSong)
+	log.Println("[DEBUG] Name of requested song: ", requestedSong.Name)
+
+	//err = collection.Update(bson.M{"gigid":requestedSong.Name},bson.M{"$set": bson.M{"bio":artist.Bio,"genre":artist.Genre}})
 }
