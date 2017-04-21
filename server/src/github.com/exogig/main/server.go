@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
 	"time"
-	"fmt"
 
 	"github.com/exogig/app"
 	"github.com/exogig/chat"
@@ -139,6 +139,8 @@ func main() {
 	http.HandleFunc("/getartist", app.RetrieveArtist)
 	http.HandleFunc("/addartist", app.AddArtist)
 	http.HandleFunc("/addgig", app.AddGig)
+	http.HandleFunc("/addgigtoserver", app.AddGigToServer)
+	http.HandleFunc("/removegig", app.RemoveGig)
 	http.HandleFunc("/updatesonglist", app.UpdateSonglist)
 	http.HandleFunc("/getallartists", app.GetAllArtists)
 
@@ -146,7 +148,6 @@ func main() {
 	go chatserver.Listen()
 
 	http.HandleFunc("/addsetlist", app.AddSetList)
-
 
 	fs := http.FileServer(http.Dir("../client/dist/"))
 	http.Handle("/", fs)
