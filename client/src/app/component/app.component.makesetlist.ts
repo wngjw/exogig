@@ -67,12 +67,13 @@ export class AppCreateSetlistComponent {
 		this.numberSets = setToEdit[index].SetsInSetList.length;
 		
   }
-  // this function allows
+  // this function allows new setlists to be created
   public NewSet(){
 	  this.numberSets=null;
 	  this.pushSetList = new SetList();
 	  this.notify.emit('setlist');
   }
+  // this function deletes a setlist from the artists lists of setlists
   public delete(index:number){
 		this.currentArtist.Setlists.splice(this.editIndex,1);
 		this.artistService.setArtist(this.currentArtist);
@@ -103,6 +104,8 @@ export class AppCreateSetlistComponent {
 		.subscribe((res) => this.waitForHttp(res));
 
 	}
+	// this function allows the user to enter a number for how
+	// 		many sets they want in their setlist
 	public enterNum(){
 		var i = 1;
 		this.pushSetList = new SetList();
@@ -115,16 +118,10 @@ export class AppCreateSetlistComponent {
 		}
 		this.notify.emit('setlist');
 	}
-
+	// this function enables the drag and drop functionallity
 	public addToSet(song:any, n:number){
-		console.log("in add to set");
-		console.log(typeof n);
-		console.log("after n before song");
-		console.log(typeof song);
-		//console.log(this.pushSetList.setsInSetList[n] as Set);
 		if(this.pushSetList.SetsInSetList[n].SongsInSet === undefined){
 			this.pushSetList.SetsInSetList[n] = new Set();
-			console.log("inside if statement");
 			console.log(this.pushSetList.SetsInSetList[n]);
 			this.pushSetList.SetsInSetList[n].SongsInSet= [song.dragData as Song];
 		}
