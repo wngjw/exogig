@@ -2,8 +2,10 @@
 //By not including this, you may be breaking the http retrieval?
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule }  from '@angular/forms';
 import { HttpModule }    from '@angular/http';
+import { MdSelectModule, MdOptionModule } from '@angular/material';
 
 /* Component files */
 import { AppLoginComponent } from './component/app.component.login';
@@ -48,9 +50,12 @@ import { WindowRef } from './gig/app.gig.window';
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     MdButtonModule,
+    MdSelectModule,
+    MdOptionModule,
     MdIconModule,
     MdInputModule,
     MdTabsModule,

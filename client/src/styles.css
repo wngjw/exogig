@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/materialize-css/css/ghpages-materialize.css"; /* This must be included to use the included variables and the color function */
-
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 /*
 PRIMARY = #263238
 TEXT/OUTLINE = #eceff1
