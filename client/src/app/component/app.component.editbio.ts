@@ -42,7 +42,7 @@ export class AppEditBioComponent {
 
 	constructor(http: Http, artistService:artistService) {
 		this.http = http;
-		this.memEmail="Enter new Band Member's email"
+		
 		this.artist = artistService.getArtist();
 		console.log(this.artist);
 		this.oldBio = this.artist.Bio;
@@ -125,9 +125,9 @@ export class AppEditBioComponent {
 		this.notify.emit('bandpage');
 	}
 	public addMem(){
+		this.newMembership.Email=this.memEmail;
 		this.members.push(this.newMembership.Email);
 		this.newMembership.Artist=this.artist.Name;
-		this.newMembership.Email=this.memEmail;
 		var uploadObj = {
 			key: this.newMembership
 		};
@@ -149,15 +149,19 @@ export class AppEditBioComponent {
 		.map((res) => res.json())
 		.subscribe((res) => this.waitForNewMem(res));
 		
-		this.notify.emit('editbio');
+		
 	}
 	private waitForNewMem(res:any){
 		
 		if (res !== undefined) {
 			this.newMembership = new Membership();
-     		 console.log("new mem added");
-			  this.retrieveMems();
+     		console.log("new mem added");
+			this.retrieveMems();
+			this.memEmail = null;
     }
+	else{
+		console.log("it's all good");
+	}
 		this.emit_event('editbio');
   }
 
