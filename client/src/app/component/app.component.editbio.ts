@@ -125,9 +125,9 @@ export class AppEditBioComponent {
 		this.notify.emit('bandpage');
 	}
 	public addMem(){
+		this.newMembership.Email=this.memEmail;
 		this.members.push(this.newMembership.Email);
 		this.newMembership.Artist=this.artist.Name;
-		this.newMembership.Email=this.memEmail;
 		var uploadObj = {
 			key: this.newMembership
 		};
@@ -149,7 +149,7 @@ export class AppEditBioComponent {
 		.map((res) => res.json())
 		.subscribe((res) => this.waitForNewMem(res));
 		
-		this.notify.emit('editbio');
+		
 	}
 	private waitForNewMem(res:any){
 		
@@ -158,6 +158,9 @@ export class AppEditBioComponent {
      		 console.log("new mem added");
 			  this.retrieveMems();
     }
+	else{
+		console.log("it's all good");
+	}
 		this.emit_event('editbio');
   }
 
