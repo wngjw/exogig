@@ -1,8 +1,8 @@
 /**
 * request.ts
 * Description: Webpage that handles front end song request functionality
-* Author: Spencer Ballo
-* Date Modified: 3 February 2017
+* Authors: Spencer Ballo, Tony Wang
+* Date Modified: 22 April 2017
 */
 
 import { Component, Directive, Injectable, EventEmitter, Output, trigger, state, style, transition, animate } from '@angular/core';
@@ -46,6 +46,7 @@ export class AppRequestComponent {
 	loggedInSymbol: string;
 	topOption: string;
 	gigObject: Gig;
+  gigService: gigService;
   gigSetList: SetList;
   gigId: string;
 	showLabels = false;
@@ -55,6 +56,7 @@ export class AppRequestComponent {
 		this.currentUser = userService.getUser();
 		this.check_login(userService);
 		this.gigObject = gigService.getGig();
+    this.gigService = gigService;
 		this.gigSetList = this.gigObject.GigSetList;
     this.gigId = this.gigObject.GigId;
 	}
@@ -87,7 +89,10 @@ export class AppRequestComponent {
 		}
 	}
 
-	public submitRequest() {    // Stores value from input element
+  /**
+  * Pushes song request to server
+  */
+	public submitRequest() {
     // Create the headers for the page
     var pageHeaders = new Headers();
     pageHeaders.append('Content-Type', 'application/json');
@@ -97,34 +102,46 @@ export class AppRequestComponent {
       headers: pageHeaders
     });
 
+    // Initialize values for song being requested
     this.requestedSong.TimesRequested = 1;
     this.requestedSong.GigId = this.gigId;
 
-    let requestedSongBody = JSON.stringify(this.requestedSong);
-
-    let previousSongBody = JSON.stringify(this.prevRequestedSong);
-
-    if (this.prevRequestedSong == null) {
-      this.prevRequestedSong = new Request("NO_PREV_REQUEST", 0, this.gigId);
+    if (this.prevRequestedSong == null) {   // Initialize previous requested song
+      this.prevRequestedSong = new Request("NO_PREV_REQUEST", -1, this.gigId);
     }
 
-    console.log("prevsongname: ", this.prevRequestedSong.Name, "reqsongname: ", this.requestedSong.Name);
+    console.log("previousSongName: ", this.prevRequestedSong.Name, "requestedSongName: ", this.requestedSong.Name);
 
-    if (this.prevRequestedSong.Name === this.requestedSong.Name) {
+    if (this.prevRequestedSong.Name === this.requestedSong.Name) {    // Disallow duplicate requests
       document.getElementById("requestErrorMessage").style.visibility="visible";
       document.getElementById("requestReceivedMessage").style.visibility="hidden";
-      console.log("[TO BE IMPLEMENTED]: <Displaying toast>");
     } else {
-      this.http.post('/request', requestedSongBody, options)
-      .map((res) => res.json())
-      .subscribe(data => this.prevRequestedSong = data);
-      console.log("[DEBUG] Sent song request:", requestedSongBody);
-      document.getElementById("requestErrorMessage").style.visibility="hidden";
-      document.getElementById("requestReceivedMessage").style.visibility="visible";
-      //this.prevRequestedSong.RequestedSongName = this.requestedSong.RequestedSongName;
-      console.log("[DEBUG] Previous requested song: ", this.prevRequestedSong);
-    }
+      // Find the index in the request array of the requested song
+      let requestedSongIndex = this.gigObject.GigRequestList.findIndex(x => x.Name == this.requestedSong.Name);
+      if (requestedSongIndex != -1) {   // Update request count if song has been previously requested
+        this.gigObject.GigRequestList[requestedSongIndex].TimesRequested += 1;
+        let prevSongIndex = this.gigObject.GigRequestList.findIndex(x => x.Name == this.prevRequestedSong.Name);
+        if (prevSongIndex != -1) {
+          this.gigObject.GigRequestList[prevSongIndex].TimesRequested -= 1;
+        }
+      } else {  // Generate song request if it has not been previously requested
+        this.gigObject.GigRequestList.push(this.requestedSong);
+      }
 
+      let requestListBody = JSON.stringify(this.gigObject.GigRequestList);
+
+      this.http.post('/request', requestListBody, options)  // Send the updated request list
+      .map((res) => res.json())
+      .subscribe(data => this.gigObject.GigRequestList = data);
+
+      console.log("[DEBUG] Sent song request:", requestListBody);
+
+      document.getElementById("requestErrorMessage").style.visibility="hidden"; // Toggle feedback response
+      document.getElementById("requestReceivedMessage").style.visibility="visible";
+
+      this.prevRequestedSong.Name = this.requestedSong.Name;  // Update the previous requested song
+      this.gigService.setGig(this.gigObject);   // Update the gig service
+    }
   }
 
 	public emit_event(location:string) {

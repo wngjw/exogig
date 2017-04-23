@@ -96,8 +96,6 @@ func fill_database() {
 			SetsInSetList: []gig.Set{kendrick_set_1, kendrick_set_2, kendrick_set_3},
 		}
 
-		temp_requested_song := "Collard Greens"
-
 		kendricks_gig := gig.Gig{
 			GigId:          "KDOT",
 			GigName:        "The Blacker the Berry",
@@ -105,7 +103,7 @@ func fill_database() {
 			GigDate:        "2017-05-14",
 			GigLocation:    "Knitting Factory",
 			GigSetList:     kendrick_set_list,
-			GigRequestList: []gig.Request{{temp_requested_song, 0}},
+			GigRequestList: []gig.Request{},
 		}
 
 		err = collection.Insert(&kendricks_gig)
