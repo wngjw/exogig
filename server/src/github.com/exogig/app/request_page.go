@@ -12,9 +12,9 @@ package app
 import(
 	"net/http"
 	"encoding/json"
-	"log"
   "github.com/exogig/gig"
 	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
 
 func RequestPageHandler(w http.ResponseWriter, r *http.Request) {
@@ -24,22 +24,22 @@ func RequestPageHandler(w http.ResponseWriter, r *http.Request) {
 	check_error(err)
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
-	//collection := session.DB("exogig").C("gigs")
+	collection := session.DB("exogig").C("gigs")
 
 	// Creates the decoder for the http request body
 	decoder := json.NewDecoder(r.Body)
-	var requestedSong gig.Request
-	err = decoder.Decode(&requestedSong)
+	var updatedRequestList []gig.Request
+	err = decoder.Decode(&updatedRequestList)
 
 	// Format the response to the POST
-	resultJson, _ := json.Marshal(requestedSong)
+	resultJson, _ := json.Marshal(updatedRequestList)
 
 	// Write the response to the client
 	w.Write(resultJson)
 
-	log.Println("[DEBUG] Response: ", resultJson)
-	log.Println("[DEBUG] Requested song: ", requestedSong)
-	log.Println("[DEBUG] Name of requested song: ", requestedSong.Name)
-
-	//err = collection.Update(bson.M{"gigid":requestedSong.Name},bson.M{"$set": bson.M{"bio":artist.Bio,"genre":artist.Genre}})
+	if (len(updatedRequestList) > 0) {
+		gigQuery := bson.M{"gigs": updatedRequestList[0].GigId}
+		requestUpdate := bson.M{"$set": bson.M{"gigrequestlist": updatedRequestList}}
+		err = collection.Update(gigQuery, requestUpdate)
+	}
 }

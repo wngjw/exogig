@@ -50,12 +50,16 @@ export class AppBandPageComponent {
 	buttonIcon: string[];
 	pageEmitters: string[];
 	http:Http;
-	newGig: Gig = new Gig();
-	selectedSetList:string;
+	NewGig: Gig;
+	selectedSetList: string;
 	gigService: gigService;
+	selectedIndex: number;
+	status: string;
 
 	constructor(http: Http, userService: userService, artistService: artistService, gigService: gigService) {
 		this.http = http;
+		this.NewGig = new Gig();
+		this.status = 'viewGigs';
 		this.gigService = gigService;
 		this.currentUser = userService.getUser();
     	this.artistService = artistService;
@@ -70,13 +74,30 @@ export class AppBandPageComponent {
 		this.TimeOfGigPlace = "Time of the Gig";
 		this.LocationOfGigPlace = "Location of the Gig";
 		this.editIndex = null;
+		this.selectedIndex = null;
 		this.setlist = this.currentArtist.Setlists;
 		this.selectedSetList = "No set list has been selected";
 		console.log(this.gigs);
 	}
+
+	public viewGig(index:number) {
+		this.status = 'viewingGig';
+		this.selectedIndex = index;
+		console.log("unFDSAFnun");
+		console.log(this.NewGig);
+		
+		this.NewGig.GigSetList = this.setlist[index];
+		this.selectedSetList = this.NewGig.GigSetList.SetListName;
+		console.log(this.selectedSetList);	
+	}
+
 	public addSetToGig(n:number){
 		console.log("in add set to gig");
-		this.newGig.GigSetList = this.setlist[n];
+		console.log(this.NewGig.GigSetList);
+		console.log(this.selectedIndex);
+		console.log(this.setlist);
+
+		this.NewGig.GigSetList = this.setlist[n];
 		this.selectedSetList = this.setlist[n].SetListName;
 	}
 	//Toggling function for label animations, placed on big white button
@@ -87,80 +108,85 @@ export class AppBandPageComponent {
 	public emit_event(location:string) {
 		this.notify.emit(location);
 	}
-	public edit_gig(index:number){
-		this.editIndex = index;
+	
+	public editGig(index:number){
+		this.editIndex = index;				
     	console.log(typeof this.currentArtist);
-		
-		var gigToEdit = this.currentArtist.Gigs;
-		
-		this.newGig.GigName = gigToEdit[index].GigName;
-		this.newGig.GigDate = gigToEdit[index].GigDate;
-		this.newGig.GigTime = gigToEdit[index].GigTime;
-		this.newGig.GigLocation = gigToEdit[index].GigLocation;
-		this.newGig.GigSetList = gigToEdit[index].GigSetList;
-		this.newGig.GigId = gigToEdit[index].GigId;
-		this.selectedSetList = this.newGig.GigSetList.SetListName;
-  }
+						
+		var gigToEdit = this.currentArtist.Gigs;						
+		this.NewGig.GigName = gigToEdit[index].GigName;				
+		this.NewGig.GigDate = gigToEdit[index].GigDate;				
+		this.NewGig.GigTime = gigToEdit[index].GigTime;				
+		this.NewGig.GigLocation = gigToEdit[index].GigLocation;		
+		this.NewGig.GigSetList = gigToEdit[index].GigSetList;		
+		this.NewGig.GigId = gigToEdit[index].GigId;	
+
+		this.NewGig.GigId = gigToEdit[index].GigId;	
+
+		this.selectedSetList = this.NewGig.GigSetList.SetListName;
+	}		  
 
 	private catchError(error: Response) {
-		var errorMes = "This shit is fucked";
+		var errorMes = "This shit is mucked";
 		return Observable.throw(errorMes);
 	}
 
-	public NewGig() {
-		console.log("Adding Gig");
-		this.newGig.GigName = "";
-		this.newGig.GigDate = "";
-		this.newGig.GigTime = "";
-		this.newGig.GigLocation = "";
+	public newGig() {	//Used to be NewGig() but i had a variable named that so I swapped them around	
+		this.status = 'newGig';
+
+		this.NewGig.GigName = "";
+		this.NewGig.GigDate = "";
+		this.NewGig.GigTime = "";
+		this.NewGig.GigLocation = "";
 		this.editIndex = null;
 	}
 
 	public enterGig() {
-		if(this.editIndex !== null){
+		if(this.selectedIndex !== null){
 			console.log("Entering Gig");
-			console.log(this.editIndex);
-			this.gigService.setGig(this.currentArtist.Gigs[this.editIndex]);
+			this.gigService.setGig(this.currentArtist.Gigs[this.selectedIndex]);
+			console.log(this.currentArtist.Gigs[this.selectedIndex]);
 			this.emit_event('gigviewer');
 		}
 	}
-
+	//this.selectedIndex was this.editIndex
 	public deleteGig() {
-		if(this.editIndex != null){
-			this.currentArtist.Gigs.splice(this.editIndex,1);
-			this.NewGig()
+		this.status = 'viewGigs';
+		if(this.selectedIndex != null){
+			this.currentArtist.Gigs.splice(this.selectedIndex,1);
 		}
-		else{
-			this.NewGig()
-		}
-		console.log("Deleting Gig");
 		this.save();
-    this.removeGigFromServer();
-		this.NewGig();
-
+    	this.removeGigFromServer();
 		this.gigs = this.currentArtist.Gigs;
+	}
+
+	public exitGig() {
+		this.status = 'viewGigs';
 	}
 
 	public createGig(){
 		console.log(this.newGig);
 		var gen = true;
+		this.status = 'viewGigs';
 
 		// The post request which takes parameters of address, body, options
 		console.log(gen, "before get call");
 
+		//Will have to change editIndex to selectedIndex or w/e. Then call this function on editting Gig info.
 		if(this.editIndex != null){
-			this.currentArtist.Gigs[this.editIndex].GigName = this.newGig.GigName;
-			this.currentArtist.Gigs[this.editIndex].GigLocation = this.newGig.GigLocation;
-			this.currentArtist.Gigs[this.editIndex].GigDate = this.newGig.GigDate;
-			this.currentArtist.Gigs[this.editIndex].GigTime = this.newGig.GigTime;
-			this.currentArtist.Gigs[this.editIndex].GigId = this.newGig.GigId;
+			this.currentArtist.Gigs[this.editIndex].GigName = this.NewGig.GigName;
+			this.currentArtist.Gigs[this.editIndex].GigLocation = this.NewGig.GigLocation;
+			this.currentArtist.Gigs[this.editIndex].GigDate = this.NewGig.GigDate;
+			this.currentArtist.Gigs[this.editIndex].GigTime = this.NewGig.GigTime;
+			this.currentArtist.Gigs[this.editIndex].GigId = this.NewGig.GigId;
 		
 			gen = false;
 			console.log(this.currentArtist.Gigs[this.editIndex].GigId);
 			this.save();
-      this.removeGigFromServer();
-      this.addGigToServer();
+			this.removeGigFromServer();
+			this.addGigToServer();
 		}
+
 		if(gen === true){
 			console.log('in generate func');
 			this.http.get('/generate')
@@ -168,24 +194,27 @@ export class AppBandPageComponent {
 				.catch(this.catchError)
 				.subscribe((data) => this.setGigCode(data));
 		}
-		
+		this.save();		//May not need.
+
 	}
 
 	private setGigCode(data: any) {
 		console.log('setting gig code');
 		console.log(data);
-		this.newGig.GigId = data;
-		console.log(this.newGig.GigId);
-		this.currentArtist.Gigs.push(this.newGig);
-    this.addGigToServer();
-		this.newGig = new Gig();
+		this.NewGig.GigId = data;
+		console.log(this.NewGig.GigId);
+		this.currentArtist.Gigs.push(this.NewGig);
+    	this.addGigToServer();
+		this.NewGig = new Gig();
 		console.log(this.currentArtist.Gigs);
+		this.gigs = this.currentArtist.Gigs;	//May not need ne more.
+
 		this.save();
 	}
 
 	public save(){
 		this.artistService.setArtist(this.currentArtist);
-		console.log(this.newGig.GigId);
+		console.log(this.NewGig.GigId);
 		var uploadObj = {
 			key: this.currentArtist
 		};
@@ -212,7 +241,7 @@ export class AppBandPageComponent {
     		this.currentArtist = res as Artist;
    	}
 		this.artistService.setArtist(this.currentArtist);
-		this.newGig=new Gig();
+		this.NewGig=new Gig();
 		this.gigNamePlace = "Gig Name";
 		this.DateOfGigPlace = "Date of the Gig";
 		this.TimeOfGigPlace = "Time of the Gig";
@@ -220,12 +249,14 @@ export class AppBandPageComponent {
   }
 
   public addGigToServer(){
+	console.log("This is the gig I'm posting");
+	console.log(this.NewGig);
     var pageHeaders = new Headers();
 		pageHeaders.append('Content-Type', 'application/json');
 		let options = new RequestOptions({
 			headers: pageHeaders
 		});
-    let body = JSON.stringify(this.newGig);
+    let body = JSON.stringify(this.NewGig);
     this.http.post('/addgigtoserver', body, options)
       .map((res) => res.json())
       .subscribe((res) => this.addResponse(res));
@@ -241,7 +272,7 @@ export class AppBandPageComponent {
 		let options = new RequestOptions({
 			headers: pageHeaders
 		});
-    let body = JSON.stringify(this.newGig.GigId);
+    let body = JSON.stringify(this.NewGig.GigId);
     this.http.post('/removegig', body, options)
       .map((res) => res.json())
       .subscribe((res) => this.removeResponse(res));
