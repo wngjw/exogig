@@ -41,7 +41,7 @@ export class AppRequestComponent {
 	currentUser: User = new User();
 	http: Http;
  	receivedSong: Request;
-  requestedSong: Request = new Request("NA", 1, this.gigId);
+  requestedSong: Request;
   prevRequestedSong: Request;
 	loggedInSymbol: string;
 	topOption: string;
@@ -53,6 +53,7 @@ export class AppRequestComponent {
 
 	constructor(http: Http, userService: userService, gigService: gigService) {
 		this.http = http;
+		this.requestedSong = new Request("NA", 1, this.gigId);
 		this.currentUser = userService.getUser();
 		this.check_login(userService);
 		this.gigObject = gigService.getGig();
