@@ -42,7 +42,7 @@ export class AppEditBioComponent {
 
 	constructor(http: Http, artistService:artistService) {
 		this.http = http;
-		this.memEmail="Enter new Band Member's email"
+		
 		this.artist = artistService.getArtist();
 		console.log(this.artist);
 		this.oldBio = this.artist.Bio;
@@ -155,8 +155,9 @@ export class AppEditBioComponent {
 		
 		if (res !== undefined) {
 			this.newMembership = new Membership();
-     		 console.log("new mem added");
-			  this.retrieveMems();
+     		console.log("new mem added");
+			this.retrieveMems();
+			this.memEmail = null;
     }
 	else{
 		console.log("it's all good");

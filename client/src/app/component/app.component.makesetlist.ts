@@ -54,17 +54,20 @@ export class AppCreateSetlistComponent {
 		this.http=http;
 		this.editIndex = null;
 	}
+
+	// this function allows specific setlists to be edited
+	// 		without adding it to the list of setlists again
 	public edit_set_list(index:number){
-		this.editIndex = index;
-    	console.log(typeof this.currentArtist);
-		
+		// set the correct index to edit
+		this.editIndex = index;		
 		var setToEdit = this.currentArtist.Setlists;
-		
+		// update the vatiable on the list being edited
 		this.pushSetList.SetListName = setToEdit[index].SetListName;
 		this.pushSetList.SetsInSetList = setToEdit[index].SetsInSetList;
 		this.numberSets = setToEdit[index].SetsInSetList.length;
 		
   }
+  // this function allows
   public NewSet(){
 	  this.numberSets=null;
 	  this.pushSetList = new SetList();
