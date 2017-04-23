@@ -50,7 +50,7 @@ export class AppCreateSetlistComponent {
 		else{
 			this.welcome = "please add songs to your song list";
 		}
-		this.songlist = this.currentArtist.getSonglist();
+		this.songlist = this.currentArtist.Songlist;
 		this.http=http;
 		this.editIndex = null;
 	}

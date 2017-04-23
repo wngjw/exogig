@@ -36,8 +36,7 @@ export class AppSongListComponent {
 		this.currentArtist = this.artistService.getArtist();
 		console.log("in constructor");
 		console.log(this.currentArtist);
-		console.log(this.currentArtist.getSonglist());
-		console.log(typeof this.currentArtist.Songlist);
+		console.log(this.currentArtist.Songlist);
 		this.songlist = this.currentArtist.Songlist as Song[];
 		if(this.currentArtist.Songlist === undefined)
 		{	
@@ -47,7 +46,7 @@ export class AppSongListComponent {
 		else
 		{	
 			console.log(this.songlist);
-			this.songlist = this.currentArtist.getSonglist() as Song[];
+			this.songlist = this.currentArtist.Songlist as Song[];
 		}
 		this.http = http;
 	}
