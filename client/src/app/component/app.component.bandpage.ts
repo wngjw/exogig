@@ -149,6 +149,12 @@ export class AppBandPageComponent {
 			this.emit_event('gigviewer');
 		}
 	}
+
+	public backoutGig() {
+		this.status = "viewGigs";
+		this.selectedIndex = null;
+	}
+
 	//this.selectedIndex was this.editIndex
 	public deleteGig() {
 		this.status = 'viewGigs';
