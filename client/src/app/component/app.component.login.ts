@@ -8,7 +8,6 @@
 import { Input, Output, Component, Directive, Injectable, EventEmitter, NgZone } from '@angular/core';
 import { Headers, Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
 import { MaterializeAction } from 'angular2-materialize';
-import { FacebookService, FacebookLoginResponse, FacebookInitParams } from 'ng2-facebook-sdk';
 import { Observable } from 'rxjs';
 import { gigService } from '../services/app.service.gig';
 import { Gig } from '../gig/app.gig.gig';
@@ -17,14 +16,12 @@ import { User } from '../gig/app.gig.users';
 import { WindowRef } from '../gig/app.gig.window';
 
 declare var gapi: any;
-declare var FB: any;
 
 
 @Component({
  	selector: 'login-page',
   templateUrl: '../html/login_html.html',
-  outputs: ['notify'],
-  providers: [FacebookService]
+  outputs: ['notify']
 })
 
 export class AppLoginComponent {
@@ -51,18 +48,12 @@ export class AppLoginComponent {
 
 
   //By defining gigService as public, it makes the service accessible within the class (within AppLoginComponent).
-  constructor(private winRef: WindowRef,http: Http, public userService: userService, public gigService: gigService, private _zone: NgZone, private fb: FacebookService) {
+  constructor(private winRef: WindowRef,http: Http, public userService: userService, public gigService: gigService, private _zone: NgZone) {
     console.log("Constructor");
     this.document = winRef.nativeWindow.document;
     this.http = http;
     this.recievedArtist = [];
     userService.setUser(this.user);
-    let fbParams: FacebookInitParams = {
-      appId: '1866232750300614',
-      xfbml: true,
-      version: 'v2.8',
-    };
-    this.fb.init(fbParams);
     console.log("end of constructor");
   }
 
@@ -154,20 +145,6 @@ export class AppLoginComponent {
     console.log(this.user);
   }
 
-  /*public createFBUser(){
-    if (this.fb.getLoginStatus()) {
-      FB.api('/me','GET',{"fields":"name,email"},function(response) {
-        this.user.setName(response.name);
-        this.user.setEmail(response.email);
-        this.user.setId(response.id);
-      });
-      this.user.setLoggedIn(true);
-      this.user.setVip(false);
-      this.user.setType("facebook");
-    }
-    console.log(this.user);
-  }*/
-
   public checkArtist() {
     console.log("in check artist");
     // set up parameters for post to find memberships
@@ -243,16 +220,6 @@ export class AppLoginComponent {
     this.modalActionsMoreNotLoggedIn.emit({action:"modal",params:['close']});
     this.modalActionsMoreLoggedInNotArtist.emit({action:"modal",params:['close']});
     this.modalActionsMoreLoggedInArtist.emit({action:"modal",params:['close']});
-  }
-
-  public facebookLogin() {
-    console.log("facebookLogin");
-    FB.login().then(
-      (response: FacebookLoginResponse) => {
-        console.log(response);
-      },
-      (error: any) => console.error(error),
-    );
   }
 
   public joinEvent(location: string) {

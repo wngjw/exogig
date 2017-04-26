@@ -50,12 +50,15 @@ export class AppSongListComponent {
 		}
 		this.http = http;
 	}
+	// this function deletes a soong form the songlist
 	public delete(index:number){
 		this.songlist.splice(index,1);
 		this.currentArtist.Songlist=this.songlist;
 		this.artistService.setArtist(this.currentArtist);
 
 	}
+	// this function takes the enterd song and adds it to the 
+	// 		songlist and displays the updated list
 	public addSong(){
 		console.log("in add song");
 		this.addedSong.Name=this.newSong;
@@ -75,6 +78,8 @@ export class AppSongListComponent {
 	public animateLabels() {
 		this.showLabels = !this.showLabels;
 	}
+	// this function updates the artists songlist on the server
+	// 		whether there were songs added or deleted
 	public save(){
 		var uploadObj = {
 		key: this.currentArtist
@@ -102,33 +107,9 @@ export class AppSongListComponent {
 		.subscribe(data => this.currentArtist = data);
 		console.log(this.currentArtist.Songlist);
 	}
-
+	// save the songlist before going to a new page
 	public emit_event(location:string) {
-		var uploadObj = {
-		key: this.currentArtist
-		};
-		// Initialize parameters for URL
-		let params: URLSearchParams = new URLSearchParams();
-		// Saves key/value pairs to URL query string
-		for (let key in uploadObj) {
-		params.set(key, uploadObj[key]);
-		}
-		// Create the headers for the page
-		var pageHeaders = new Headers();
-		pageHeaders.append('Content-Type', 'application/json');
-		// Places parameters in query string
-		let options = new RequestOptions({
-		search: params,
-		headers: pageHeaders
-		});
-		// This conversion to a JSON string allows Go to parse the request body
-		let body = JSON.stringify(this.currentArtist);
-		console.log("[DEBUG] body:", body);
-		// The post request which takes parameters of address, body, options
-		this.http.post('/updatesonglist', body, options)
-		.map((res) => res.json())
-		.subscribe(data => this.currentArtist = data);
-		console.log(this.currentArtist.Songlist);
+		this.save();
 		this.notify.emit(location);
 	}
 

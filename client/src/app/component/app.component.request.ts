@@ -119,14 +119,17 @@ export class AppRequestComponent {
     } else {
       // Find the index in the request array of the requested song
       let requestedSongIndex = this.gigObject.GigRequestList.findIndex(x => x.Name == this.requestedSong.Name);
+      let prevSongIndex = this.gigObject.GigRequestList.findIndex(x => x.Name == this.prevRequestedSong.Name);
       if (requestedSongIndex != -1) {   // Update request count if song has been previously requested
         this.gigObject.GigRequestList[requestedSongIndex].TimesRequested += 1;
-        let prevSongIndex = this.gigObject.GigRequestList.findIndex(x => x.Name == this.prevRequestedSong.Name);
         if (prevSongIndex != -1) {
           this.gigObject.GigRequestList[prevSongIndex].TimesRequested -= 1;
         }
       } else {  // Generate song request if it has not been previously requested
         this.gigObject.GigRequestList.push(this.requestedSong);
+        if (prevSongIndex != -1) {
+          this.gigObject.GigRequestList[prevSongIndex].TimesRequested -= 1;
+        }
       }
 
       let requestListBody = JSON.stringify(this.gigObject.GigRequestList);
