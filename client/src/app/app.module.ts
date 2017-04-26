@@ -5,7 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule }  from '@angular/forms';
 import { HttpModule }    from '@angular/http';
-import { MdSelectModule, MdOptionModule } from '@angular/material';
+
+/* Material design */
+import { MdSelectModule, MdOptionModule, MdRadioModule, MdButtonModule, MdIconModule, MdCardModule, MdInputModule, MdTabsModule } from '@angular/material';
 
 /* Component files */
 import { AppLoginComponent } from './component/app.component.login';
@@ -26,17 +28,10 @@ import { AppNotificationsComponent } from './component/app.component.notificatio
 import { AppCreateLoginHomeComponent } from './component/app.component.loginhome';
 import { AppGigViewerComponent } from './component/app.component.gigviewer'
 
-/* Material design */
+/* Old Material design, still required to handle the modal; Ideally we can remove this dependency. */
 import { MaterializeDirective } from "angular2-materialize";
-import { MdButton, MdButtonModule, MdAnchor } from '@angular2-material/button';
-import { MdIcon, MdIconModule, MdIconRegistry } from '@angular2-material/icon';
-import { MdInput, MdInputModule } from '@angular2-material/input';
 import { MdUniqueSelectionDispatcher } from '@angular2-material/core';
-import { MdTab, MdTabsModule, MdTabGroup, MdTabChangeEvent } from '@angular2-material/tabs';
-import { MdCard, MdCardActions, MdCardContent, MdCardHeader, MdCardModule, MdCardTitle, MdCardSubtitle, MdCardTitleGroup } from '@angular2-material/card';
-import { MdGridList, MdGridListModule } from '@angular2-material/grid-list';
-import { MdListModule } from '@angular2-material/list/list';
-import { MdRadioModule } from '@angular2-material/radio';
+
 import { Ng2DragDropModule } from "ng2-drag-drop";
 import { gigService } from './services/app.service.gig';
 import { userService } from './services/app.service.user';
@@ -60,8 +55,6 @@ import { WindowRef } from './gig/app.gig.window';
     MdInputModule,
     MdTabsModule,
     MdCardModule,
-    MdGridListModule,
-    MdListModule,
     MdRadioModule,
     Ng2DragDropModule
   ],
@@ -86,7 +79,7 @@ import { WindowRef } from './gig/app.gig.window';
     AppGigViewerComponent],
 
   bootstrap: [AppControllerComponent],	//From what I understand, bootstrap is basically which component it tries to setup first.
-  providers: [MdIconRegistry, gigService, userService, artistService, ChatService, WebSocketService, WindowRef, MdUniqueSelectionDispatcher]
+  providers: [gigService, userService, artistService, ChatService, WebSocketService, WindowRef, MdUniqueSelectionDispatcher]
 })
 
 export class AppModule { }
