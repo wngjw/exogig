@@ -151,6 +151,9 @@ export class AppGigViewerComponent {
 		if(res != null){
 			this.requests = res as Request[];
 			this.currentGig.GigRequestList = this.requests;
+			this.requests.sort((req1,req2) => {
+				return req2.TimesRequested - req1.TimesRequested;
+			});
 			this.emit_event('gigviewer');
 		}
 		else{
