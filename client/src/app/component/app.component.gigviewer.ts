@@ -86,7 +86,7 @@ export class AppGigViewerComponent {
   		headers: pageHeaders
 		});
 		let body = JSON.stringify(this.gigCode);
-		this.http.post('/gigcode', body, options)
+		this.http.post('/updaterequests', body, options)
 		  .map((res) => res.json())
       .catch(this.catchError)
 		  .subscribe((res) => this.receiveNewGig(res));
@@ -106,5 +106,55 @@ export class AppGigViewerComponent {
     } else {
       console.log("No gig Received")
     }
+  }
+	public addGig(){
+		 var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		let options = new RequestOptions({
+			headers: pageHeaders
+		});
+    let body = JSON.stringify(this.currentGig);
+    this.http.post('/addgigtoserver', body, options)
+      .subscribe((res) => this.addResponse(res));
+		}
+	
+	private addResponse(res: any){
+    console.log("Gig Added")
+  }
+
+	public deleteGig(){
+    var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		let options = new RequestOptions({
+			headers: pageHeaders
+		});
+    let body = JSON.stringify(this.currentGig.GigId);
+    this.http.post('/removegig', body, options)
+      .subscribe((res) => this.removeResponse(res));
+  }
+	private removeResponse(res: any) {
+    console.log("Gig Removed")
+  }
+	public refresh(){
+		var pageHeaders = new Headers();
+		pageHeaders.append('Content-Type', 'application/json');
+		let options = new RequestOptions({
+			headers: pageHeaders
+		});
+    let body = JSON.stringify(this.currentGig.GigId);
+    this.http.post('/updaterequests', body, options)
+      .map((res) => res.json())
+      .subscribe((res) => this.updateRequests(res));
+
+	}
+	private updateRequests(res: any) {
+		if(res != null){
+			this.requests = res as Request[];
+			this.currentGig.GigRequestList = this.requests;
+			this.emit_event('gigviewer');
+		}
+		else{
+			console.log("no new requests");
+		}
   }
 }

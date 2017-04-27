@@ -2,7 +2,7 @@ import { Component, Directive, Injectable, EventEmitter, Output, trigger, state,
 import { Headers, Http, URLSearchParams, RequestOptions } from '@angular/http';
 import { artistService } from '../services/app.service.artist';
 import { Artist } from '../gig/app.gig.users';
-import { Song } from '../gig/app.gig.gig';
+import { Song, Request } from '../gig/app.gig.gig';
 @Component({
  	selector: 'edit-songlist',
 	templateUrl: '../html/edit_song_list_html.html',
@@ -29,6 +29,7 @@ export class AppSongListComponent {
 	artistService:artistService;
 	currentArtist: Artist = new Artist();
 	songlist:Song[];
+	
 	http:Http;
 
 	constructor(artistService:artistService,http:Http) {
@@ -81,6 +82,7 @@ export class AppSongListComponent {
 	// this function updates the artists songlist on the server
 	// 		whether there were songs added or deleted
 	public save(){
+		
 		var uploadObj = {
 		key: this.currentArtist
 		};

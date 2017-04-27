@@ -15,17 +15,21 @@
 	<div style="display: blocks;justify-content: center;">
 		<h1 style="color:#82d4f9;font-weight:bolder;text-align:center;">{{gigName}} : {{gigCode}}</h1>
 	</div>
-
+	<div style="padding-top:3px;padding-bottom:6px;text-align:center;justify-content: center;">
+		<button md-button class="waves-effect waves-light btn light-blue accent-1" style="color:#263238;display:inline-block;margin-right:6px"
+              (click)="addGig()"> Go Live </button>
+		<button md-button class="waves-effect waves-light btn light-blue accent-1" style="color:#263238;display:inline-block;margin-right:6px"
+              (click)="deleteGig()"> Hide </button>
+		<button md-button class="waves-effect waves-light btn light-blue accent-1" style="color:#263238;display:inline-block;margin-right:6px"
+              (click)="refresh()"> Refresh Requests </button>
+	  <button md-button class="waves-effect waves-light btn light-blue accent-1" style="color:#263238;display:inline-block;"
+              (click)="emit_event('bandpage')"> Back </button>
+	</div>
 	<div materialize class="col s12">
 			<div style="margin-left:auto;margin-right:auto;width:75%;height:75%;overflow-y:scroll">
 			  <md-card md-scroll-y>
-			    <div style="text-align:center;padding-bottom:2vh" *ngFor="let set of setList.SetsInSetList">
-			      <md-card-title>
-			        {{set.SetName}}
-			      </md-card-title>
-						<div style="margin-left:3vh;text-align:left" *ngFor="let song of set.SongsInSet">
-							<div>{{song.Name}}</div>
-						</div>
+			    <div style="text-align:center;padding-bottom:2vh" *ngFor="let request of requests">
+							<div>{{request.Name}} : {{request.TimesRequested}}</div>
 			    </div>
 			  </md-card>
 			</div>

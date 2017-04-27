@@ -19,6 +19,14 @@
     </div>
 
     <md-card style="padding:16px">
+      <div *ngIf="status == 'redirect'">
+        <md-card-title>Please add songs to your song list before making a gig</md-card-title>
+        <md-card-content style="text-align:center">
+          <button md-button style="margin-top:3px;color:#263238;font:bolder" class="waves effect waves light btn light-blue accent-1"
+            (click)="emit_event('songlist')">Go To Songs</button>
+        </md-card-content>
+      </div>
+
       <div *ngIf="status == 'viewGigs'">
         <md-card-title style="margin:0px">
           Your Gigs
