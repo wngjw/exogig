@@ -4,7 +4,7 @@ import { userService } from '../services/app.service.user';
 import { artistService } from '../services/app.service.artist';
 import { gigService } from '../services/app.service.gig';
 import { User, Artist } from '../gig/app.gig.users';
-import { Gig, SetList } from '../gig/app.gig.gig';
+import { Gig, SetList, Request, Song } from '../gig/app.gig.gig';
 import { Observable } from 'rxjs';
 import { WindowRef } from '../gig/app.gig.window';
 
@@ -44,6 +44,7 @@ export class AppBandPageComponent {
 	LocationOfGigPlace:string;
 	editIndex:number;
 	setlist:SetList[];
+	songlist: Song[];
 
 	loggedInSymbol: string;
 	topOption: string;		//Shouldn't need.
@@ -65,7 +66,7 @@ export class AppBandPageComponent {
 	constructor(http: Http, userService: userService, artistService: artistService, gigService: gigService, winRef: WindowRef) {
 		this.http = http;
 		this.NewGig = new Gig();
-		this.status = 'viewGigs';
+		
 		this.gigService = gigService;
 		this.currentUser = userService.getUser();
     	this.artistService = artistService;
@@ -82,6 +83,14 @@ export class AppBandPageComponent {
 		this.editIndex = null;
 		this.selectedIndex = null;
 		this.setlist = this.currentArtist.Setlists;
+		if(this.currentArtist.Songlist.length==0){
+			this.status = 'redirect';
+		}
+		else{
+			this.status = 'viewGigs';
+		}
+		this.songlist = this.currentArtist.Songlist;
+		
 		this.selectedSetList = "No set list has been selected";
 
 		this.window = winRef;
@@ -195,6 +204,7 @@ export class AppBandPageComponent {
 		this.NewGig.GigDate = "";
 		this.NewGig.GigTime = "";
 		this.NewGig.GigLocation = "";
+		this.NewGig.GigRequestList = [];
 		this.editIndex = null;
 	}
 
@@ -219,7 +229,6 @@ export class AppBandPageComponent {
 			this.currentArtist.Gigs.splice(this.selectedIndex,1);
 		}
 		this.save();
-    	this.removeGigFromServer();
 		this.gigs = this.currentArtist.Gigs;
 	}
 
@@ -246,8 +255,6 @@ export class AppBandPageComponent {
 			gen = false;
 			console.log(this.currentArtist.Gigs[this.editIndex].GigId);
 			this.save();
-			this.removeGigFromServer();
-			this.addGigToServer();
 		}
 
 		if(gen === true){
@@ -257,7 +264,8 @@ export class AppBandPageComponent {
 				.catch(this.catchError)
 				.subscribe((data) => this.setGigCode(data));
 		}
-		this.save();		//May not need.
+		
+		
 
 	}
 
@@ -266,12 +274,20 @@ export class AppBandPageComponent {
 		console.log(data);
 		this.NewGig.GigId = data;
 		console.log(this.NewGig.GigId);
+		var i = 0;
+		for (i=0;i < this.currentArtist.Songlist.length;i++){
+			var song = this.currentArtist.Songlist[i];
+			Object.setPrototypeOf(song, Song);
+			console.log(song);
+			var request = new Request(song.Name, 0, data);
+			this.NewGig.GigRequestList.push(request);
+		}
 		this.currentArtist.Gigs.push(this.NewGig);
-    	this.addGigToServer();
+  
 		this.NewGig = new Gig();
 		console.log(this.currentArtist.Gigs);
 		this.gigs = this.currentArtist.Gigs;	//May not need ne more.
-
+		
 		this.save();
 	}
 
@@ -347,4 +363,5 @@ export class AppBandPageComponent {
   private removeResponse(res: any) {
     console.log("Gig Removed")
   }
+  
 }

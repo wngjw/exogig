@@ -12,9 +12,10 @@ package app
 import(
 	"net/http"
 	"encoding/json"
-  "github.com/exogig/gig"
+    "github.com/exogig/gig"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"log"
 )
 
 func RequestPageHandler(w http.ResponseWriter, r *http.Request) {
@@ -34,12 +35,13 @@ func RequestPageHandler(w http.ResponseWriter, r *http.Request) {
 	// Format the response to the POST
 	resultJson, _ := json.Marshal(updatedRequestList)
 
-	// Write the response to the client
-	w.Write(resultJson)
-
 	if (len(updatedRequestList) > 0) {
-		gigQuery := bson.M{"gigs": updatedRequestList[0].GigId}
+		gigQuery := bson.M{"gigid": updatedRequestList[0].GigId}
 		requestUpdate := bson.M{"$set": bson.M{"gigrequestlist": updatedRequestList}}
 		err = collection.Update(gigQuery, requestUpdate)
+		check_error(err)
 	}
+	// Write the response to the client
+	w.Write(resultJson)
+	log.Println("[DEBUG]", updatedRequestList)
 }

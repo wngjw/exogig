@@ -47,7 +47,7 @@ export class AppRequestComponent {
 	topOption: string;
 	gigObject: Gig;
   gigService: gigService;
-  gigSetList: SetList;
+  gigRequestList: Request[];
   gigId: string;
 	showLabels = false;
 
@@ -58,7 +58,7 @@ export class AppRequestComponent {
 		this.check_login(userService);
 		this.gigObject = gigService.getGig();
     this.gigService = gigService;
-		this.gigSetList = this.gigObject.GigSetList;
+		this.gigRequestList = this.gigObject.GigRequestList;
     this.gigId = this.gigObject.GigId;
 	}
 
@@ -116,7 +116,7 @@ export class AppRequestComponent {
     if (this.prevRequestedSong.Name === this.requestedSong.Name) {    // Disallow duplicate requests
       document.getElementById("requestErrorMessage").style.visibility="visible";
       document.getElementById("requestReceivedMessage").style.visibility="hidden";
-    } else {
+		} /*else {
       // Find the index in the request array of the requested song
       let requestedSongIndex = this.gigObject.GigRequestList.findIndex(x => x.Name == this.requestedSong.Name);
       let prevSongIndex = this.gigObject.GigRequestList.findIndex(x => x.Name == this.prevRequestedSong.Name);
@@ -130,9 +130,17 @@ export class AppRequestComponent {
         if (prevSongIndex != -1) {
           this.gigObject.GigRequestList[prevSongIndex].TimesRequested -= 1;
         }
-      }
-
-      let requestListBody = JSON.stringify(this.gigObject.GigRequestList);
+			}*/
+			else{
+			var i = 0;
+			while(i < this.gigRequestList.length){
+				if(this.requestedSong.Name === this.gigRequestList[i].Name){
+					this.gigRequestList[i].TimesRequested += 1;
+					console.log(this.gigRequestList);
+				}
+				i++;
+			}}
+      let requestListBody = JSON.stringify(this.gigRequestList);
 
       this.http.post('/request', requestListBody, options)  // Send the updated request list
       .map((res) => res.json())
@@ -146,7 +154,7 @@ export class AppRequestComponent {
       this.prevRequestedSong.Name = this.requestedSong.Name;  // Update the previous requested song
       this.gigService.setGig(this.gigObject);   // Update the gig service
     }
-  }
+  
 
 	public emit_event(location:string) {
 		this.notify.emit(location);
