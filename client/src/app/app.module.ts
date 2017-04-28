@@ -28,7 +28,7 @@ import { AppNotificationsComponent } from './component/app.component.notificatio
 import { AppCreateLoginHomeComponent } from './component/app.component.loginhome';
 import { AppGigViewerComponent } from './component/app.component.gigviewer'
 
-/* Old Material design, still required to handle the modal; Ideally we can remove this dependency. */
+/* Old Material design libraries which seem to be used for the modal popup. Ideally we can remove these dependencies */
 import { MaterializeDirective } from "angular2-materialize";
 import { MdUniqueSelectionDispatcher } from '@angular2-material/core';
 

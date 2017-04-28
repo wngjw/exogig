@@ -6,6 +6,8 @@ import { gigService } from '../services/app.service.gig';
 import { User, Artist } from '../gig/app.gig.users';
 import { Gig, SetList } from '../gig/app.gig.gig';
 import { Observable } from 'rxjs';
+import { WindowRef } from '../gig/app.gig.window';
+
 
 @Component({
  	selector: 'band-page',
@@ -56,7 +58,11 @@ export class AppBandPageComponent {
 	selectedIndex: number;
 	status: string;
 
-	constructor(http: Http, userService: userService, artistService: artistService, gigService: gigService) {
+	blobObject: Blob;
+	blobUrl: string; 
+	window: WindowRef;
+
+	constructor(http: Http, userService: userService, artistService: artistService, gigService: gigService, winRef: WindowRef) {
 		this.http = http;
 		this.NewGig = new Gig();
 		this.status = 'viewGigs';
@@ -77,20 +83,70 @@ export class AppBandPageComponent {
 		this.selectedIndex = null;
 		this.setlist = this.currentArtist.Setlists;
 		this.selectedSetList = "No set list has been selected";
+
+		this.window = winRef;
+
 		console.log(this.gigs);
+	}
+
+	public generatePrintableSetlist() {
+		if (this.window.nativeWindow.File && this.window.nativeWindow.FileReader && this.window.nativeWindow.FileList && this.window.nativeWindow.Blob) {
+			
+			//This stores the generated HTML. - GigID isn't being found right now.
+			var pageString = ["<html><link href=\"https://fonts.googleapis.com/css?family=Roboto+Slab\" rel=\"stylesheet\" type=\"text/css\"><head><br><center><h3 style=\"font-family:Roboto Slab\"><b>" + this.artistName + "</b></h3><h4 style=\"margin-bottom:0px;font-family:Roboto Slab\;text-decoration:underline\">" + this.gigs[this.selectedIndex].GigName +"</h4><h5 style=\"margin:0px;font-family:Roboto Slab\">"+ this.gigs[this.selectedIndex].GigId +"</h5></center></head><body>"];
+
+			var tmpStr = "<span><h4 style=\"font-family:Roboto Slab;text-decoration:underline;margin-bottom:0px\">";
+			console.log("GigSetList",this.NewGig.GigSetList.SetsInSetList);
+			for(var n in this.NewGig.GigSetList.SetsInSetList) {
+				var setName = this.NewGig.GigSetList.SetsInSetList[n].SetName;
+
+				console.log("n: ",n);
+				console.log("Obj: ",this.NewGig.GigSetList)
+				
+				tmpStr = tmpStr + setName + "</h4></span><ul style=\"font-family:Roboto Slab\">";
+				for(var j in this.NewGig.GigSetList.SetsInSetList[n].SongsInSet) {
+					var songName = 	this.NewGig.GigSetList.SetsInSetList[n].SongsInSet[j].Name;
+					tmpStr = tmpStr + "<li>" + songName + "</li>";
+				}
+				tmpStr = tmpStr + "</ul>";
+			}
+
+			pageString[0] = pageString[0] + tmpStr + "</body></html>";
+
+			console.log("HTML: ");
+			console.log(pageString[0]);
+			
+			// Small Timeout to make sure the DOM is loaded.
+    		setTimeout(()=>{
+				this.blobObject = new Blob(pageString,{type: "text/html;charset=UTF-8"});
+				var link = this.window.nativeWindow.document.getElementById('setlistLink');
+				link.href = this.window.nativeWindow.URL.createObjectURL(this.blobObject);	//this item breaks it
+			}, 100);
+			//This will only work in IE.
+			//this.window.nativeWindow.navigator.msSaveOrOpenBlob(this.blobObject, 'msSaveBlobOrOpenBlob_testFile.txt');
+		} 
+		else {
+			alert('The File APIs are not fully supported in this browser.');
+		}
+		/*
+		this.blobObject = new Blob(["NopeLope"], {type:"text/plain"});
+		this.blobUrl = this.window.nativeWindow.URL.createObjectURL(this.blobObject);
+		*/
 	}
 
 	public viewGig(index:number) {
 		this.status = 'viewingGig';
+		console.log("This far");
 		this.selectedIndex = index;
-		console.log("unFDSAFnun");
-		console.log(this.NewGig);
-		
 		this.NewGig.GigSetList = this.setlist[index];
 		this.selectedSetList = this.NewGig.GigSetList.SetListName;
+
+		this.generatePrintableSetlist();
+		
 		console.log(this.selectedSetList);	
 	}
 
+	//Like 99% sure this just displays the "added" set, what saves it?
 	public addSetToGig(n:number){
 		console.log("in add set to gig");
 		console.log(this.NewGig.GigSetList);
@@ -99,6 +155,7 @@ export class AppBandPageComponent {
 
 		this.NewGig.GigSetList = this.setlist[n];
 		this.selectedSetList = this.setlist[n].SetListName;
+		this.generatePrintableSetlist();
 	}
 	//Toggling function for label animations, placed on big white button
 	public animateLabels() {
@@ -255,6 +312,9 @@ export class AppBandPageComponent {
   }
 
   public addGigToServer(){
+	//This will update what the current printable setlist is
+	this.generatePrintableSetlist();
+
 	console.log("This is the gig I'm posting");
 	console.log(this.NewGig);
     var pageHeaders = new Headers();
