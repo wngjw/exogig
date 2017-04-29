@@ -165,6 +165,9 @@ export class AppBandPageComponent {
 		this.NewGig.GigSetList = this.setlist[n];
 		this.selectedSetList = this.setlist[n].SetListName;
 		this.generatePrintableSetlist();
+
+		//We need it to save, but this doesn't work. Going to have to troubleshoot this manually.
+		this.save();
 	}
 	//Toggling function for label animations, placed on big white button
 	public animateLabels() {
@@ -293,7 +296,7 @@ export class AppBandPageComponent {
 
 	public save(){
 		this.artistService.setArtist(this.currentArtist);
-		console.log(this.NewGig.GigId);
+		console.log("We're saving",this.NewGig);
 		var uploadObj = {
 			key: this.currentArtist
 		};
