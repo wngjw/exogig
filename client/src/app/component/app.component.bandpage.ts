@@ -158,12 +158,11 @@ export class AppBandPageComponent {
 	//Like 99% sure this just displays the "added" set, what saves it?
 	public addSetToGig(n:number){
 		console.log("in add set to gig");
-		console.log(this.NewGig.GigSetList);
-		console.log(this.selectedIndex);
-		console.log(this.setlist);
-
-		this.NewGig.GigSetList = this.setlist[n];
+		console.log(this.currentArtist.Gigs[this.selectedIndex].GigName);
+		this.currentArtist.Gigs[this.selectedIndex].GigSetList = this.setlist[n];
 		this.selectedSetList = this.setlist[n].SetListName;
+		console.log(this.NewGig.GigSetList);
+		//console.log(this.selectedIndex);
 		this.generatePrintableSetlist();
 
 		//We need it to save, but this doesn't work. Going to have to troubleshoot this manually.

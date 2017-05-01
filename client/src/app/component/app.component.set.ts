@@ -62,12 +62,14 @@ export class AppSetComponent {
 	constructor(http: Http, public gigService: gigService,userService: userService) {
 		this.http = http;
 		this.gigObject = gigService.getGig();
+		Object.setPrototypeOf(this.gigObject, Gig);
 
 		this.currentSelectedList = 0;
 		this.currentSelectedIndex = 0;
 
 		this.currentUser = userService.getUser();
 		this.check_login(userService);
+		console.log(this.gigObject);
 	}
 
 	private check_login(userService: userService) {
