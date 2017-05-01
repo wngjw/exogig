@@ -65,6 +65,8 @@
             <label for="t" class="text">{{LocationOfGigPlace}}</label>
           </div>
         </md-card-content>
+        <button class="waves-effect waves-light waves-effect btn" style="float:center;background:#82d4f9;color:#263238;font-weight:bolder;padding:2px;height:auto;font-size:0.7em;"
+            (click)="save()">Save</button>
       </div>
       <div *ngIf="status == 'viewingGig'">
         <md-card-title>
