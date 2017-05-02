@@ -105,16 +105,16 @@ export class AppBandPageComponent {
 			var pageString = ["<html><link href=\"https://fonts.googleapis.com/css?family=Roboto+Slab\" rel=\"stylesheet\" type=\"text/css\"><head><br><center><h3 style=\"font-family:Roboto Slab\"><b>" + this.artistName + "</b></h3><h4 style=\"margin-bottom:0px;font-family:Roboto Slab\;text-decoration:underline\">" + this.gigs[this.selectedIndex].GigName +"</h4><h5 style=\"margin:0px;font-family:Roboto Slab\">"+ this.gigs[this.selectedIndex].GigId +"</h5></center></head><body>"];
 
 			var tmpStr = "<span><h4 style=\"font-family:Roboto Slab;text-decoration:underline;margin-bottom:0px\">";
-			console.log("GigSetList",this.NewGig.GigSetList.SetsInSetList);
-			for(var n in this.NewGig.GigSetList.SetsInSetList) {
-				var setName = this.NewGig.GigSetList.SetsInSetList[n].SetName;
+			console.log("GigSetList",this.currentArtist.Gigs[this.selectedIndex].GigSetList.SetsInSetList);
+			for(var n in this.currentArtist.Gigs[this.selectedIndex].GigSetList.SetsInSetList) {
+				var setName = this.currentArtist.Gigs[this.selectedIndex].GigSetList.SetsInSetList[n].SetName;
 
 				console.log("n: ",n);
-				console.log("Obj: ",this.NewGig.GigSetList)
+				console.log("Obj: ",this.currentArtist.Gigs[this.selectedIndex].GigSetList)
 				
 				tmpStr = tmpStr + setName + "</h4></span><ul style=\"font-family:Roboto Slab\">";
-				for(var j in this.NewGig.GigSetList.SetsInSetList[n].SongsInSet) {
-					var songName = 	this.NewGig.GigSetList.SetsInSetList[n].SongsInSet[j].Name;
+				for(var j in this.currentArtist.Gigs[this.selectedIndex].GigSetList.SetsInSetList[n].SongsInSet) {
+					var songName = 	this.currentArtist.Gigs[this.selectedIndex].GigSetList.SetsInSetList[n].SongsInSet[j].Name;
 					tmpStr = tmpStr + "<li>" + songName + "</li>";
 				}
 				tmpStr = tmpStr + "</ul>";
@@ -161,7 +161,6 @@ export class AppBandPageComponent {
 		console.log(this.currentArtist.Gigs[this.selectedIndex].GigName);
 		this.currentArtist.Gigs[this.selectedIndex].GigSetList = this.setlist[n];
 		this.selectedSetList = this.setlist[n].SetListName;
-		console.log(this.NewGig.GigSetList);
 		//console.log(this.selectedIndex);
 		this.generatePrintableSetlist();
 
