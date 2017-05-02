@@ -43,7 +43,7 @@
       <div *ngIf="status == 'newGig'">
         <md-card-title>
           New Gig
-          <button class="waves-effect waves-light waves-effect btn" style="float:right;background:#82d4f9;color:#263238;font-weight:bolder;padding:0px;height:auto;font-size:0.7em;"
+          <button class="waves-effect waves-light waves-effect btn" style="float:right;background:#82d4f9;color:#263238;font-weight:bolder;padding:auto;height:auto;font-size:0.7em;"
             (click)="exitGig()">Cancel</button>
         </md-card-title>
         <md-card-content>
@@ -65,7 +65,7 @@
             <label for="t" class="text">{{LocationOfGigPlace}}</label>
           </div>
         </md-card-content>
-        <button class="waves-effect waves-light waves-effect btn" style="float:center;background:#82d4f9;color:#263238;font-weight:bolder;padding:2px;height:auto;font-size:0.7em;"
+        <button class="waves-effect waves-light waves-effect btn" style="float:center;background:#82d4f9;color:#263238;font-weight:bolder;padding-left:20px;padding-right:20px;height:auto;font-size:0.7em;"
             (click)="createGig()">Save</button>
       </div>
       <div *ngIf="status == 'viewingGig'">
