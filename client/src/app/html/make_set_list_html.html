@@ -24,7 +24,7 @@
 
     <md-card>
       <div *ngIf="status == 'redirect'">
-        <md-card-title>Please add songs to your song list before making set lists</md-card-title>
+        <md-card-title>Please some songs before you make a set list.</md-card-title>
         <md-card-content style="text-align:center">
           <button md-button style="margin-top:3px;color:#263238;font:bolder" class="waves effect waves light btn light-blue accent-1"
             (click)="emit_event('songlist')">Go To Songs</button>
@@ -32,7 +32,7 @@
       </div>
 
       <div *ngIf="status == 'viewsetlists'">
-        <md-card-title>Select one of your setlists to edit or create a new one</md-card-title>
+        <md-card-title>Create or modify set lists.</md-card-title>
         <md-card-content style="text-align:center">
           <button md-button class="btn waves-effect waves-light light-blue accent-1" style="color:#263238;font:bolder" (click)="createNewSetList()">New Set List</button>
           <div class="scrollmenu" style="overflow: auto; white-space: nowrap;">
