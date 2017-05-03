@@ -30,5 +30,5 @@ export class AppMainComponent {
 		this.notify.emit(location);
 	}
 
-	
+
 }

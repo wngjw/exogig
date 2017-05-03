@@ -60,22 +60,22 @@ export class AppBandPageComponent {
 	status: string;
 
 	blobObject: Blob;
-	blobUrl: string; 
+	blobUrl: string;
 	window: WindowRef;
 
 	constructor(http: Http, userService: userService, artistService: artistService, gigService: gigService, winRef: WindowRef) {
 		this.http = http;
 		this.NewGig = new Gig();
-		
+
 		this.gigService = gigService;
 		this.currentUser = userService.getUser();
-    	this.artistService = artistService;
+    this.artistService = artistService;
 		this.currentArtist = artistService.getArtist();
 		this.artistName = this.currentArtist.Name;
 		this.gigs = this.currentArtist.Gigs;
 		this.buttonLabels = ['Home','Options','Info','Songs','Sets'];
-    	this.buttonIcon = ['home','local_play','assignments','info_outline','search',];
-    	this.pageEmitters = ['login','bandoptions','editbio','songlist','setlist'];
+    this.buttonIcon = ['home','local_play','assignment','info_outline','search',];
+    this.pageEmitters = ['login','bandoptions','editbio','songlist','setlist'];
 		this.gigNamePlace = "Gig Name";
 		this.DateOfGigPlace = "Date of the Gig";
 		this.TimeOfGigPlace = "Time of the Gig";
@@ -83,14 +83,14 @@ export class AppBandPageComponent {
 		this.editIndex = null;
 		this.selectedIndex = null;
 		this.setlist = this.currentArtist.Setlists;
-		if(this.currentArtist.Songlist.length==0){
+		if(this.currentArtist.Songlist == undefined || this.currentArtist.Songlist.length == 0){
 			this.status = 'redirect';
 		}
 		else{
 			this.status = 'viewGigs';
 		}
 		this.songlist = this.currentArtist.Songlist;
-		
+
 		this.selectedSetList = "No set list has been selected";
 
 		this.window = winRef;
@@ -100,7 +100,7 @@ export class AppBandPageComponent {
 
 	public generatePrintableSetlist() {
 		if (this.window.nativeWindow.File && this.window.nativeWindow.FileReader && this.window.nativeWindow.FileList && this.window.nativeWindow.Blob) {
-			
+
 			//This stores the generated HTML. - GigID isn't being found right now.
 			var pageString = ["<html><link href=\"https://fonts.googleapis.com/css?family=Roboto+Slab\" rel=\"stylesheet\" type=\"text/css\"><head><br><center><h3 style=\"font-family:Roboto Slab\"><b>" + this.artistName + "</b></h3><h4 style=\"margin-bottom:0px;font-family:Roboto Slab\;text-decoration:underline\">" + this.gigs[this.selectedIndex].GigName +"</h4><h5 style=\"margin:0px;font-family:Roboto Slab\">"+ this.gigs[this.selectedIndex].GigId +"</h5></center></head><body>"];
 
@@ -111,7 +111,7 @@ export class AppBandPageComponent {
 
 				console.log("n: ",n);
 				console.log("Obj: ",this.NewGig.GigSetList)
-				
+
 				tmpStr = tmpStr + setName + "</h4></span><ul style=\"font-family:Roboto Slab\">";
 				for(var j in this.NewGig.GigSetList.SetsInSetList[n].SongsInSet) {
 					var songName = 	this.NewGig.GigSetList.SetsInSetList[n].SongsInSet[j].Name;
@@ -124,7 +124,7 @@ export class AppBandPageComponent {
 
 			console.log("HTML: ");
 			console.log(pageString[0]);
-			
+
 			// Small Timeout to make sure the DOM is loaded.
     		setTimeout(()=>{
 				this.blobObject = new Blob(pageString,{type: "text/html;charset=UTF-8"});
@@ -133,7 +133,7 @@ export class AppBandPageComponent {
 			}, 100);
 			//This will only work in IE.
 			//this.window.nativeWindow.navigator.msSaveOrOpenBlob(this.blobObject, 'msSaveBlobOrOpenBlob_testFile.txt');
-		} 
+		}
 		else {
 			alert('The File APIs are not fully supported in this browser.');
 		}
@@ -151,8 +151,8 @@ export class AppBandPageComponent {
 		this.selectedSetList = this.NewGig.GigSetList.SetListName;
 
 		this.generatePrintableSetlist();
-		
-		console.log(this.selectedSetList);	
+
+		console.log(this.selectedSetList);
 	}
 
 	//Like 99% sure this just displays the "added" set, what saves it?
@@ -175,30 +175,30 @@ export class AppBandPageComponent {
 	public emit_event(location:string) {
 		this.notify.emit(location);
 	}
-	
-	public editGig(index:number){
-		this.editIndex = index;				
-    	console.log(typeof this.currentArtist);
-						
-		var gigToEdit = this.currentArtist.Gigs;						
-		this.NewGig.GigName = gigToEdit[index].GigName;				
-		this.NewGig.GigDate = gigToEdit[index].GigDate;				
-		this.NewGig.GigTime = gigToEdit[index].GigTime;				
-		this.NewGig.GigLocation = gigToEdit[index].GigLocation;		
-		this.NewGig.GigSetList = gigToEdit[index].GigSetList;		
-		this.NewGig.GigId = gigToEdit[index].GigId;	
 
-		this.NewGig.GigId = gigToEdit[index].GigId;	
+	public editGig(index:number){
+		this.editIndex = index;
+    	console.log(typeof this.currentArtist);
+
+		var gigToEdit = this.currentArtist.Gigs;
+		this.NewGig.GigName = gigToEdit[index].GigName;
+		this.NewGig.GigDate = gigToEdit[index].GigDate;
+		this.NewGig.GigTime = gigToEdit[index].GigTime;
+		this.NewGig.GigLocation = gigToEdit[index].GigLocation;
+		this.NewGig.GigSetList = gigToEdit[index].GigSetList;
+		this.NewGig.GigId = gigToEdit[index].GigId;
+
+		this.NewGig.GigId = gigToEdit[index].GigId;
 
 		this.selectedSetList = this.NewGig.GigSetList.SetListName;
-	}		  
+	}
 
 	private catchError(error: Response) {
 		var errorMes = "This shit is mucked";
 		return Observable.throw(errorMes);
 	}
 
-	public newGig() {	//Used to be NewGig() but i had a variable named that so I swapped them around	
+	public newGig() {	//Used to be NewGig() but i had a variable named that so I swapped them around
 		this.status = 'newGig';
 
 		this.NewGig.GigName = "";
@@ -252,7 +252,7 @@ export class AppBandPageComponent {
 			this.currentArtist.Gigs[this.editIndex].GigDate = this.NewGig.GigDate;
 			this.currentArtist.Gigs[this.editIndex].GigTime = this.NewGig.GigTime;
 			this.currentArtist.Gigs[this.editIndex].GigId = this.NewGig.GigId;
-		
+
 			gen = false;
 			console.log(this.currentArtist.Gigs[this.editIndex].GigId);
 			this.save();
@@ -265,8 +265,8 @@ export class AppBandPageComponent {
 				.catch(this.catchError)
 				.subscribe((data) => this.setGigCode(data));
 		}
-		
-		
+
+
 
 	}
 
@@ -284,11 +284,11 @@ export class AppBandPageComponent {
 			this.NewGig.GigRequestList.push(request);
 		}
 		this.currentArtist.Gigs.push(this.NewGig);
-  
+
 		this.NewGig = new Gig();
 		console.log(this.currentArtist.Gigs);
 		this.gigs = this.currentArtist.Gigs;	//May not need ne more.
-		
+
 		this.save();
 	}
 
@@ -364,5 +364,5 @@ export class AppBandPageComponent {
   private removeResponse(res: any) {
     console.log("Gig Removed")
   }
-  
+
 }
