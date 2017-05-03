@@ -83,7 +83,7 @@ export class AppBandPageComponent {
 		this.editIndex = null;
 		this.selectedIndex = null;
 		this.setlist = this.currentArtist.Setlists;
-		if(this.currentArtist.Songlist.length == 0){
+		if(this.currentArtist.Songlist == undefined || this.currentArtist.Songlist.length == 0){
 			this.status = 'redirect';
 		}
 		else{
