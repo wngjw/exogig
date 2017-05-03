@@ -14,13 +14,11 @@
         </ng-container>
       </ul>
     </div>
-    <div style="display: blocks;justify-content: center;">
-      <h3 style="color:#82d4f9;font-weight:bolder;text-align:center;">Welcome {{artistName}}</h3>
-    </div>
 
     <md-card style="padding:16px">
       <div *ngIf="status == 'redirect'">
-        <md-card-title>Please add songs to your song list before making a gig</md-card-title>
+        <md-card-title>Your Band: {{artistName}}</md-card-title>
+        <md-card-subtitle>Please add songs to your song list before making a gig.</md-card-subtitle>
         <md-card-content style="text-align:center">
           <button md-button style="margin-top:3px;color:#263238;font:bolder" class="waves effect waves light btn light-blue accent-1"
             (click)="emit_event('songlist')">Go To Songs</button>
@@ -28,11 +26,9 @@
       </div>
 
       <div *ngIf="status == 'viewGigs'">
-        <md-card-title style="margin:0px">
-          Your Gigs
-          <button class="waves-effect waves-light waves-effect btn" style="float:right;background:#82d4f9;color:#263238;font-weight:bolder;padding-right:4px;padding-left:4px;height:auto;font-size:0.6em;"
-            (click)="newGig()">Add Gig</button>
-        </md-card-title>
+        <button class="waves-effect waves-light waves-effect btn" style="float:right;background:#82d4f9;color:#263238;font-weight:bolder" (click)="newGig()">Add Gig</button>
+        <md-card-title>Your Band: {{artistName}}</md-card-title>
+        <md-card-subtitle>Click on a gig for more options.</md-card-subtitle>
         <md-card-content>
           <div class="scrollmenu" style="overflow: auto; white-space: nowrap;">
             <button style="margin-top:4px" *ngFor="let name of gigs;let n = index" md-button class="waves-effect waves-light waves-effect"
@@ -41,11 +37,9 @@
         </md-card-content>
       </div>
       <div *ngIf="status == 'newGig'">
-        <md-card-title>
-          New Gig
-          <button class="waves-effect waves-light waves-effect btn" style="float:right;background:#82d4f9;color:#263238;font-weight:bolder;padding:auto;height:auto;font-size:0.7em;"
-            (click)="exitGig()">Cancel</button>
-        </md-card-title>
+        <button class="waves-effect waves-light waves-effect btn" style="float:right;background:#82d4f9;color:#263238;font-weight:bolder"
+          (click)="exitGig()">Cancel</button>
+        <md-card-title>New Gig</md-card-title>
         <md-card-content>
 
           <div class="input-field col s6">
@@ -64,13 +58,13 @@
             <input id="t" [(ngModel)]="NewGig.GigLocation" class="underline_accenting" type="text" maxlength="50">
             <label for="t" class="text">{{LocationOfGigPlace}}</label>
           </div>
+          <button class="waves-effect waves-light waves-effect btn" style="float:center;background:#82d4f9;color:#263238;font-weight:bolder"
+              (click)="createGig()">Save</button>
         </md-card-content>
-        <button class="waves-effect waves-light waves-effect btn" style="float:center;background:#82d4f9;color:#263238;font-weight:bolder;padding-left:20px;padding-right:20px;height:auto;font-size:0.7em;"
-            (click)="createGig()">Save</button>
       </div>
       <div *ngIf="status == 'viewingGig'">
         <md-card-title>
-          Current Gig: {{gigs[selectedIndex].GigName}} 
+          Current Gig: {{gigs[selectedIndex].GigName}}
 		  <br>
 		  <h6>GigID: {{gigs[selectedIndex].GigId}} </h6>
           <br>

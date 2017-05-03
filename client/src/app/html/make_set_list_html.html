@@ -32,15 +32,17 @@
       </div>
 
       <div *ngIf="status == 'viewsetlists'">
+        <button md-button class="btn waves-effect waves-light light-blue accent-1" style="color:#263238;font:bolder;float:right" (click)="createNewSetList()">New Set List</button>
         <md-card-title>Create or modify set lists.</md-card-title>
+        <md-card-subtitle>Click on a set list for more options.</md-card-subtitle>
         <md-card-content style="text-align:center">
-          <button md-button class="btn waves-effect waves-light light-blue accent-1" style="color:#263238;font:bolder" (click)="createNewSetList()">New Set List</button>
           <div class="scrollmenu" style="overflow: auto; white-space: nowrap;">
-            <button style="margin-top:4px" *ngFor="let name of currentArtist.Setlists;let n = index" md-button class="waves-effect waves-light waves-effect"
+            <button *ngFor="let name of currentArtist.Setlists;let n = index" md-button class="waves-effect waves-light waves-effect"
               (click)="edit_set_list(n)">
-								<button md-button class="waves-effect waves-light waves-effect" (click)="delete(n)">
+              {{name.SetListName}}
+								<button md-button style="padding-left:0px;padding-right:0px" class="waves-effect waves-light waves-effect" (click)="delete(n)">
 									<i class="material-icons prefix">delete</i>
-								</button> {{name.SetListName}}
+								</button>
             </button>
           </div>
         </md-card-content>
