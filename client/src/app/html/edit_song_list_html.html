@@ -19,7 +19,7 @@
 			<md-card-title>Create and Edit Songs</md-card-title>
 			<div>
 			<div class="input-field col s6">
-				<input [(ngModel)]="newSong" class="underline_accenting" type = "text" placeholder = "Song name" maxlength="50" />
+				<input [(ngModel)]="newSong" class="underline_accenting" type = "text" placeholder = "Enter a song name" maxlength="50" />
 				<button md-button style="background:#82d4f9;color:#263238;float:right" class="waves-effect waves-light waves-effect" (click)="addSong()"> Add Song </button>
 			</div>
 			<md-card-content>
@@ -31,7 +31,7 @@
 					</button>
 				</li>
 			</md-card-content>
-			<button md-button style="display:inline-block;background:#82d4f9;color:#263238;" class="waves-effect waves-light waves-effect" (click)="save()">Save</button>
+			<button md-button style="display:inline-block;background:#82d4f9;color:#263238;" class="waves-effect waves-light waves-effect" (click)="save()">Save Changes</button>
 			</div>
 		</md-card>
 </div>
