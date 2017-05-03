@@ -2,6 +2,7 @@ import { Component, Directive, Injectable, EventEmitter, Output, trigger, state,
 import { Headers, Http } from '@angular/http';
 import { userService } from '../services/app.service.user';
 import { User } from '../gig/app.gig.users';
+import { Observable } from "rxjs/Observable";
 @Component({
  	selector: 'notifications',
 	templateUrl: '../html/notifications_html.html',
@@ -21,6 +22,7 @@ import { User } from '../gig/app.gig.users';
 })
 
 export class AppNotificationsComponent {
+	http: Http;
 	notify: EventEmitter<string> = new EventEmitter<string>();
 	song: string;
 	topOption: string;	//Shouldn't need.
@@ -29,8 +31,10 @@ export class AppNotificationsComponent {
 	buttonLabels: string[];
 	buttonIcon: string[];
 	pageEmitters: string[];
+	notificationText: string;
 
-	constructor(userService:userService) {
+	constructor(http: Http, userService:userService) {
+		this.http = http;
 		this.user = userService.getUser();
 		if(this.user.getLoggedIn() && this.user.isArtist()){
 			this.buttonLabels = ['Home','Notifications','Browse','Options', 'New Band'];
@@ -49,8 +53,27 @@ export class AppNotificationsComponent {
 	    		this.pageEmitters = ['login','notifications','bandviewer'];
 			}
 		}
+		this.loadText();
 	}
 
+	public loadText() {
+		this.http.get('/notifications')
+				.map((res) => res.json())
+				.catch(this.catchError)
+				.subscribe((data) => this.pushData(data));
+
+	}
+
+	public pushData(data: any) {
+		if (data != null) {
+			this.notificationText = data;
+		}
+	}
+
+	private catchError(error: Response) {
+		var errorMes = "This shit is mucked";
+		return Observable.throw(errorMes);
+	}
 	
 	public emit_event(location:string) {
 		this.notify.emit(location);

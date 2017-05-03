@@ -143,6 +143,7 @@ func main() {
 	http.HandleFunc("/findmeminband", app.FindMemInBand)
 	http.HandleFunc("/getallartists", app.GetAllArtists)
 	http.HandleFunc("/updaterequests", app.UpdateRequests)
+	http.HandleFunc("/notifications", app.GetNotifications)
 
 	chatserver := chat.NewServer("/chat", ":8082")
 	go chatserver.Listen()
